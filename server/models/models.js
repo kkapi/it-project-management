@@ -48,7 +48,7 @@ Food.belongsTo(Type)
 Food.hasMany(BasketFood)
 BasketFood.belongsTo(Food)
 
-Food.hasMany(FoodInfo)
+Food.hasMany(FoodInfo, {as: 'info'})
 FoodInfo.belongsTo(Food)
 
 module.exports = {
