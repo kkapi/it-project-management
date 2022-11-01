@@ -4,8 +4,8 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const sequelize = require('./db')
 const models = require('./models/models')
-const router = require('./router/index')
-const errorMiddleware = require('./middlewares/errorMiddleware')
+const router = require('./routes/index')
+const errorMiddleware = require('./middleware/authMiddleware')
 
 const PORT = process.env.PORT || 5000
 
