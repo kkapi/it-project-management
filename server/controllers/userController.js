@@ -90,6 +90,15 @@ class UserController {
             next(e)
         }
     }
+
+    async changePass(req, res, next) {
+        try {
+            const {email, newPass} = req.body;
+            await userService.changePass(email, password)
+        } catch (e) {
+            next(e)
+        }
+    }
 }
 
 module.exports = new UserController();

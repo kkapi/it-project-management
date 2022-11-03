@@ -16,5 +16,9 @@ router.get('/refresh', userController.refresh);
 router.get('/users', authMiddleware, userController.getUsers);
 router.post('/recovery', userController.reqRecover);
 router.get('/setPass/:link', userController.setPass);
+router.post('/changePass',
+    body('password').isLength({min: 3, max: 32}),
+    userController.changePass
+);
 
 module.exports = router
