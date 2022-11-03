@@ -18,4 +18,8 @@ export default class AuthService {
     static async passRecovery(email: string){
         return $api.post('/recovery', {email})
     }
+
+    static async changePass(newPassword: string){
+        return $api.post('/changePass', {newPassword})
+    }
 }

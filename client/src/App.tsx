@@ -8,6 +8,7 @@ import UserService from "./services/UserService";
 const App: FC = () => {
   const {store} = useContext(Context);
   const [users, setUsers] = useState<IUser[]>([]);
+  const [newPassword, setPassword] = useState<string>('')
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -50,6 +51,15 @@ const App: FC = () => {
       {/* {users.map(user =>
                 <div key={user.email}>{user.email}</div>
             )} */}
+      <input className='newPassword'
+                        onChange={e => setPassword(e.target.value)}
+                        value={newPassword}
+                        type="password"
+                        placeholder='Пароль'
+                    />
+      <div>
+        <button onClick={() => store.changePass(newPassword)}>Изменить пароль</button>
+      </div>
     </div>  
     
   );
