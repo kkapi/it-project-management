@@ -15,5 +15,6 @@ router.get('/activate/:link', userController.activate);
 router.get('/refresh', userController.refresh);
 router.get('/users', authMiddleware, userController.getUsers);
 router.post('/recovery', userController.reqRecover);
+router.get('/setPass/:link', userController.setPass);
 
 module.exports = router

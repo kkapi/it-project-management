@@ -48,6 +48,22 @@ class MailService {
                 `            
         })
     }
+
+    async sendPass(to, password) {
+        await this.transporter.sendMail({
+            from: process.env.SMTP_USER,
+            to,
+            subject: 'Восстановление пароля на ' + process.env.API_URL,
+            text:'',
+            html:
+                `
+                <div>
+                    <h1>Ваш пароль был изменен на ${process.env.API_URL}</h1>
+                    <h1>Ваш новый пароль ${password}</h1>           
+                </div>
+                `            
+        })
+    }
 }
 
 module.exports = new MailService();

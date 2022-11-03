@@ -81,11 +81,11 @@ class UserController {
         }
     }
 
-    async passRecover(req, res, next) {
-        try {
+    async setPass(req, res, next) {
+        try {            
             const recoverLink = req.params.link;
-            await userService.recover(recoverLink);
-            return res.redirect(process.env.CLIENT_URL)
+            await userService.setPass(recoverLink);
+            return res.redirect(process.env.CLIENT_URL);
         } catch (e) {
             next(e)
         }

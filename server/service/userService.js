@@ -103,12 +103,24 @@ class UserService {
         }
 
         const recoverLink = user.recoverLink;
+        
+        await mailService.sendRecovery(email, `${process.env.API_URL}/api/setPass/${recoverLink}`)
+    }
 
-        // const password = uuid.v4();        
-        // const hashPassword = await bcrypt.hash(password, 1);
-        // user.password = hashPassword;
-        // await user.save();
-        await mailService.sendRecovery(email, `${process.env.API_URL}/api/activate/${recoverLink}`)
+    async setPass(recoverLink) {
+        console.log(recoverLink)
+        const user = await UserModel.User.findOne({where: {recoverLink}})
+        if (!user) {
+            throw ApiError.BadRequest('Некорректная ссылка восстановления пароля')
+        }
+        const password = uuid.v4();
+        const newRocoverLink = uuid.v4();
+        const email = user.email;   
+        const hashPassword = await bcrypt.hash(password, 1);
+        user.password = hashPassword;
+        user.recoverLink = newRocoverLink;
+        await user.save();
+        await mailService.sendPass(email, password)
     }
 }
 
