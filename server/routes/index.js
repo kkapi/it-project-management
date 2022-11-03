@@ -14,6 +14,6 @@ router.post('/logout', userController.logout);
 router.get('/activate/:link', userController.activate);
 router.get('/refresh', userController.refresh);
 router.get('/users', authMiddleware, userController.getUsers);
-router.post('/recovery', userController.passRecover);
+router.post('/recovery', userController.reqRecover);
 
 module.exports = router

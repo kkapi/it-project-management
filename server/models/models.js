@@ -8,7 +8,7 @@ const User = sequelize.define('user', {
     role: {type: DataTypes.STRING, defaultValue: "USER"},
     isActivated: {type: DataTypes.BOOLEAN, defaultValue: false},
     activationLink: {type: DataTypes.STRING},
-    resetLink: {type: DataTypes.STRING},
+    recoverLink: {type: DataTypes.STRING},
     isBlocked: {type: DataTypes.BOOLEAN, defaultValue: false}
 })
 

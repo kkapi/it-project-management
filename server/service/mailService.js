@@ -32,7 +32,7 @@ class MailService {
         })
     }
 
-    async sendRecovery(to, password) {
+    async sendRecovery(to, recoverLink) {
         await this.transporter.sendMail({
             from: process.env.SMTP_USER,
             to,
@@ -41,9 +41,10 @@ class MailService {
             html:
                 `
                 <div>
-                    <h1>Ваш новый пароль: ${password}</h1>                    
+                    <h1>Было запрошено восстановление пароля на ${process.env.API_URL}</h1>
+                    <h1>Для восстановления пароля пройдите по ссылке, ваш новый пароль будет отправлен в следущем письме. Ссылка: </h1>
+                    <a href="${recoverLink}">${recoverLink}</a>                  
                 </div>
-
                 `            
         })
     }

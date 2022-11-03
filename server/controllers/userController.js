@@ -71,12 +71,22 @@ class UserController {
         }
     }
 
+    async reqRecover(req, res, next) {
+        try {            
+            const {email} = req.body;
+            await userService.reqRecover(email);
+            return res.status(200).json(email);
+        } catch(e) {
+            next(e)
+        }
+    }
+
     async passRecover(req, res, next) {
         try {
-            const {email} = req.body;
-            await userService.recover(email);
-            return res.json(email)
-        } catch(e) {
+            const recoverLink = req.params.link;
+            await userService.recover(recoverLink);
+            return res.redirect(process.env.CLIENT_URL)
+        } catch (e) {
             next(e)
         }
     }
