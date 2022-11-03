@@ -1,4 +1,5 @@
 const userService = require('../service/userService')
+const tokenService = require('../service/tokenService')
 const {validationResult} = require('express-validator');
 const ApiError = require('../error/apiError');
 
@@ -86,6 +87,21 @@ class UserController {
             const recoverLink = req.params.link;
             await userService.setPass(recoverLink);
             return res.redirect(process.env.CLIENT_URL);
+        } catch (e) {
+            next(e)
+        }
+    }
+
+    async changePass(req, res, next) {
+        try {        
+            const accessToken = req.headers.authorization.split(' ')[1];            
+            const userData = tokenService.validateAccessToken(accessToken);
+            const email = userData.email;
+            const {newPassword} = req.body;
+            
+            await userService.changePass(email, newPassword)
+
+            return res.status(200)
         } catch (e) {
             next(e)
         }

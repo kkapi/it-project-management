@@ -90,4 +90,15 @@ export default class Store {
         }
     }
 
+    async changePass(newPassword: string) {
+        try {       
+            alert('Пароль был изменен');    
+            await AuthService.changePass(newPassword);     
+            
+        } catch (e) {
+            console.log(e)
+            alert('Ошибка изменения пароля')
+        }
+    }
+
 }

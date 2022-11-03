@@ -122,6 +122,19 @@ class UserService {
         await user.save();
         await mailService.sendPass(email, password)
     }
+
+    async changePass(email, newPassword) {
+        const user = await UserModel.User.findOne({where: {
+            email: email
+        }})
+        if (!user) {
+            throw ApiError.BadRequest('Пользователь с таким email не найден')
+        }
+        const newHashPassword = await bcrypt.hash(newPassword, 3);
+        
+        user.password = newHashPassword;
+        await user.save();
+    }
 }
 
 module.exports = new UserService();

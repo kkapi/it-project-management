@@ -16,5 +16,6 @@ router.get('/refresh', userController.refresh);
 router.get('/users', authMiddleware, userController.getUsers);
 router.post('/recovery', userController.reqRecover);
 router.get('/setPass/:link', userController.setPass);
+router.post('/changePass', userController.changePass);
 
 module.exports = router
