@@ -83,7 +83,7 @@ export default class Store {
         try {
             const response = await AuthService.passRecovery(email);
             console.log(response)
-            alert(`Новый пароль был отправлен на ${email}`)
+            alert(`Ссылка для восстановления пароля была отправлена на ${email}`)
         } catch (e) {
             console.log(e)
             alert('Ошибка восстановления пароля')

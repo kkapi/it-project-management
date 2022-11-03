@@ -14,7 +14,8 @@ class UserService {
         }
         const hashPassword = await bcrypt.hash(password, 3);
         const activationLink = uuid.v4();
-        const user = await UserModel.User.create({email, password: hashPassword, activationLink})
+        const recoverLink = uuid.v4();       
+        const user = await UserModel.User.create({email, password: hashPassword, activationLink, recoverLink})
        
         await mailService.sendActivationMail(email, `${process.env.API_URL}/api/activate/${activationLink}`);
 
@@ -93,7 +94,7 @@ class UserService {
         return users;
     }
 
-    async recover(email) {
+    async reqRecover(email) {
         const user = await UserModel.User.findOne({where: {
             email: email
         }})
@@ -101,11 +102,25 @@ class UserService {
             throw ApiError.BadRequest('Пользователь с таким email не найден')
         }
 
-        const password = uuid.v4();        
+        const recoverLink = user.recoverLink;
+        
+        await mailService.sendRecovery(email, `${process.env.API_URL}/api/setPass/${recoverLink}`)
+    }
+
+    async setPass(recoverLink) {
+        console.log(recoverLink)
+        const user = await UserModel.User.findOne({where: {recoverLink}})
+        if (!user) {
+            throw ApiError.BadRequest('Некорректная ссылка восстановления пароля')
+        }
+        const password = uuid.v4();
+        const newRocoverLink = uuid.v4();
+        const email = user.email;   
         const hashPassword = await bcrypt.hash(password, 1);
         user.password = hashPassword;
+        user.recoverLink = newRocoverLink;
         await user.save();
-        await mailService.sendRecovery(email, password)
+        await mailService.sendPass(email, password)
     }
 }
 
