@@ -4,22 +4,22 @@ import { AuthResponse } from "../models/response/AuthResponse";
 
 export default class AuthService {
     static async login(email: string, password: string): Promise<AxiosResponse<AuthResponse>>{
-        return $api.post<AuthResponse>('/login', {email, password})
+        return $api.post<AuthResponse>('user/login', {email, password})
     }
 
     static async registration(email: string, password: string): Promise<AxiosResponse<AuthResponse>>{
-        return $api.post<AuthResponse>('/registration', {email, password})
+        return $api.post<AuthResponse>('user/registration', {email, password})
     }
 
     static async logout(): Promise<void>{
-        return $api.post('/logout')
+        return $api.post('user/logout')
     }
 
     static async passRecovery(email: string){
-        return $api.post('/recovery', {email})
+        return $api.post('user/recovery', {email})
     }
 
     static async changePass(newPassword: string){
-        return $api.post('/changePass', {newPassword})
+        return $api.post('user/changePass', {newPassword})
     }
 }
