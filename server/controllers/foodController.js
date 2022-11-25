@@ -25,7 +25,11 @@ class FoodController {
     }
 
     async getOne(req, res) {
+        const {id} = req.params
+
+        const food = await foodService.getOne(id)
         
+        return res.json(food)
     }
 }
 

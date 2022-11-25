@@ -39,6 +39,17 @@ class FoodService {
 
         return foods
     }
+
+    async getOne(id) {
+        
+        const food = await Food.findOne(
+            {
+                where: {id},
+                include: [{model: FoodInfo, as: 'info'}]
+            },
+        )
+        return food
+    }
 }
 
 module.exports = new FoodService()
