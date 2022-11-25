@@ -1,8 +1,9 @@
 const Router = require('express')
 const router = new Router()
+const foodController = require('../controllers/foodController')
 
-router.post('/',)
-router.get('/',)
-router.get('/:id',)
+router.post('/', foodController.create)
+router.get('/', foodController.getAll)
+router.get('/:id', foodController.getOne)
 
 module.exports = router
