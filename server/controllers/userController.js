@@ -41,7 +41,7 @@ class UserController {
 
     async login(req, res, next) {
         const {email, password} = req.body
-        
+
         const user = await User.findOne({
             where: {
                 email
@@ -67,7 +67,8 @@ class UserController {
     }
 
     async check(req, res, next) {
-        
+        const token = tokenService.generateJWT(req.user.id, req.user.email, req.user.role)
+        return res.json({token})
     }
 }
 
