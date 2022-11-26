@@ -1,9 +1,9 @@
-import Auth from "./src/pages/Auth"
-import Basket from "./src/pages/Basket"
-import FoodPage from "./src/pages/FoodPage"
-import Moderator from "./src/pages/Moderator"
-import Shop from "./src/pages/Shop"
-import { BASKET_ROUTE, FOOD_ROUTE, LOGIN_ROUTE, MODERATOR_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "./src/utils/consts"
+import Auth from "./pages/Auth"
+import Basket from "./pages/Basket"
+import FoodPage from "./pages/FoodPage"
+import Moderator from "./pages/Moderator"
+import Shop from './pages/Shop'
+import { BASKET_ROUTE, FOOD_ROUTE, LOGIN_ROUTE, MODERATOR_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/consts"
 
 export const authRoutes = [
     {
