@@ -36,13 +36,15 @@ const CreateFood = observer(({show, onHide}) => {
     }
 
     const addFood = () => {
+        console.log(info)
         const formData = new FormData()
         formData.append('name', name)
         formData.append('price', `${price}`)
-        formData.append('img', file)
+        formData.append('img', file)        
         formData.append('typeId', food.selectedType.id)
         formData.append('info', JSON.stringify(info))
-        createFood().then(data => onHide())
+        createFood(formData).then(data => onHide())
+        food.setSelectedType({})
     }
 
 
@@ -83,7 +85,7 @@ const CreateFood = observer(({show, onHide}) => {
             />
             <Form.Control
                 className="mt-3"
-                type="file"
+                type="file"                 
                 onChange={selectFile}
             />
             <hr/>

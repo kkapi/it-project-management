@@ -7,9 +7,8 @@ module.exports = function(role) {
             next()
         }
         try {
-            const token = req.headers.authorization.split(' ')[1]
-            console.log("ЕБУЧИЙ ТОКЕН НА СЕРВЕРЕ: " + token)
-            
+            const token = req.headers.authorization.split(' ')[1]            
+
             if (token === 'null') {            
                 return res.status(401).json({message: "Не авторизован1"})
             }       

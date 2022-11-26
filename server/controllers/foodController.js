@@ -5,7 +5,7 @@ class FoodController {
     async create(req, res, next) {
         try {
             let {name, price, typeId, info} = req.body
-            const {img} =  req.files        
+            const {img} = req.files        
             
             const food = await foodService.create(name, price, typeId, img, info)
 
