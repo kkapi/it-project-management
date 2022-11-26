@@ -5,9 +5,9 @@ module.exports = function (req, res, next) {
         next()
     }
     try {       
-        const token = req.headers.authoriztion.split(' ')[1]        
+        const token = req.headers.authorization.split(' ')[1]        
         if (token === 'null') {            
-            return res.status(401).json({message: "Не авторизован"})
+            return res.status(401).json({message: "Не авторизован3"})
         }       
       
         const data = jwt.verify(token, process.env.SECRET_KEY)        
@@ -19,6 +19,6 @@ module.exports = function (req, res, next) {
         req.user = decoded
         next()
     } catch (e) {
-        res.status(401).json({message: "Не авторизован"})
+        res.status(401).json({message: "Не авторизован4"})
     }
 };

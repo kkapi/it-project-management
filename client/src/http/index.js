@@ -9,7 +9,10 @@ const $authHost = axios.create({
 })
 
 const authInterceptor = config => {
-    config.headers.authoriztion = `Bearer ${localStorage.getItem('token')}`   
+    config.headers.authorization = `Bearer ${localStorage.getItem('token')}`
+    console.log("Я БЛЯТЬ ИНТЕРЦЕПТОР")   
+    console.log("ПРИВЯЗЫВАЮ ЕБУЧИЙ ТОКЕН: " + config.headers.authorization)
+    console.log("ИЗ ЕБУЧЕГО ЛОКА СТОРАДЖА: " + localStorage.getItem('token'))
     return config
 }
 
