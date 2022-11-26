@@ -1,8 +1,12 @@
 import React from 'react'
+import { Container } from 'react-bootstrap'
+import TypeBar from '../components/TypeBar';
 
 const Shop = () => {
   return (
-    <div>Shop</div>
+    <Container>      
+      <TypeBar/>
+    </Container>
   )
 }
 
