@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
-import { LOGIN_ROUTE, MODERATOR_ROUTE, SHOP_ROUTE } from '../utils/consts';
+import { MODERATOR_ROUTE, SHOP_ROUTE } from '../utils/consts';
 import {Button} from 'react-bootstrap'
 import {observer} from 'mobx-react-lite'
 import { useNavigate } from "react-router-dom"

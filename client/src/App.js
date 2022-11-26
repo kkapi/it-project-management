@@ -6,8 +6,6 @@ import { Context } from ".";
 import AppRouter from "./components/AppRouter";
 import NavBar from "./components/NavBar";
 import { check } from "./http/userAPI";
-import { useNavigate } from "react-router-dom"
-import { SHOP_ROUTE } from "./utils/consts";
 
 const App = observer (() => {
   const {user} = useContext(Context)
@@ -16,7 +14,6 @@ const App = observer (() => {
   useEffect(() => {
     check().then(data => {
       user.setUser(data)
-      console.log(user)
       user.setIsAuth(true)      
     }).finally(() => setLoading(false))
   }, [])
