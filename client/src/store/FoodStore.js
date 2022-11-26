@@ -11,10 +11,18 @@ export default class FoodStore {
         ]
 
         this._foods = [
-            {id: 1, nama: 'Кола', price: 99, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
-            {id: 2, nama: 'Пепси', price: 99, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
-            {id: 3, nama: 'Солянка', price: 199, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
-            {id: 4, nama: 'Сухарики', price: 49, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'}
+            {id: 1, name: 'Кола', price: 99, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
+            {id: 2, name: 'Пепси', price: 99, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
+            {id: 3, name: 'Солянка', price: 199, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
+            {id: 4, name: 'Сухарики', price: 49, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
+            {id: 1, name: 'Кола', price: 99, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
+            {id: 2, name: 'Пепси', price: 99, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
+            {id: 3, name: 'Солянка', price: 199, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
+            {id: 4, name: 'Сухарики', price: 49, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
+            {id: 1, name: 'Кола', price: 99, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
+            {id: 2, name: 'Пепси', price: 99, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
+            {id: 3, name: 'Солянка', price: 199, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
+            {id: 4, name: 'Сухарики', price: 49, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
         ]
 
         this._selectedType = {}
