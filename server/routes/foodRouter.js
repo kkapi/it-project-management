@@ -1,8 +1,9 @@
 const Router = require('express')
 const router = new Router()
 const foodController = require('../controllers/foodController')
+const checkRole = require('../middleware/checkRoleMiddleware')
 
-router.post('/', foodController.create)
+router.post('/', checkRole('MODERATOR'), foodController.create)
 router.get('/', foodController.getAll)
 router.get('/:id', foodController.getOne)
 
