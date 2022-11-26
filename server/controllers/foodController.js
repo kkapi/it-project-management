@@ -1,6 +1,5 @@
 const ApiError = require('../error/ApiError')
 const foodService = require('../service/foodService')
-const {Food, FoodInfo} = require('../models/models')
 
 class FoodController {
     async create(req, res, next) {
@@ -28,7 +27,7 @@ class FoodController {
         const {id} = req.params
 
         const food = await foodService.getOne(id)
-        
+
         return res.json(food)
     }
 }
