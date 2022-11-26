@@ -11,18 +11,18 @@ export default class FoodStore {
         ]
 
         this._foods = [
-            {id: 1, name: 'Кола', price: 99, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
-            {id: 2, name: 'Пепси', price: 99, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
-            {id: 3, name: 'Солянка', price: 199, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
-            {id: 4, name: 'Сухарики', price: 49, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
-            {id: 1, name: 'Кола', price: 99, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
-            {id: 2, name: 'Пепси', price: 99, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
-            {id: 3, name: 'Солянка', price: 199, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
-            {id: 4, name: 'Сухарики', price: 49, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
-            {id: 1, name: 'Кола', price: 99, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
-            {id: 2, name: 'Пепси', price: 99, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
-            {id: 3, name: 'Солянка', price: 199, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
-            {id: 4, name: 'Сухарики', price: 49, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
+            {id: 1, name: 'Кола', price: 99, img: 'https://avatars.dzeninfra.ru/get-zen_doc/1678002/pub_5f8db3bc3f59f84e2cff47af_5f8db40af46e1b4b59c469c1/scale_1200'},
+            {id: 2, name: 'Пепси', price: 99, img: 'https://avatars.dzeninfra.ru/get-zen_doc/1678002/pub_5f8db3bc3f59f84e2cff47af_5f8db40af46e1b4b59c469c1/scale_1200'},
+            {id: 3, name: 'Солянка', price: 199, img: 'https://avatars.dzeninfra.ru/get-zen_doc/1678002/pub_5f8db3bc3f59f84e2cff47af_5f8db40af46e1b4b59c469c1/scale_1200'},
+            {id: 4, name: 'Сухарики', price: 49, img: 'https://avatars.dzeninfra.ru/get-zen_doc/1678002/pub_5f8db3bc3f59f84e2cff47af_5f8db40af46e1b4b59c469c1/scale_1200'},
+            {id: 1, name: 'Кола', price: 99, img: 'https://avatars.dzeninfra.ru/get-zen_doc/1678002/pub_5f8db3bc3f59f84e2cff47af_5f8db40af46e1b4b59c469c1/scale_1200'},
+            {id: 2, name: 'Пепси', price: 99, img: 'https://avatars.dzeninfra.ru/get-zen_doc/1678002/pub_5f8db3bc3f59f84e2cff47af_5f8db40af46e1b4b59c469c1/scale_1200'},
+            {id: 3, name: 'Солянка', price: 199, img: 'https://avatars.dzeninfra.ru/get-zen_doc/1678002/pub_5f8db3bc3f59f84e2cff47af_5f8db40af46e1b4b59c469c1/scale_1200'},
+            {id: 4, name: 'Сухарики', price: 49, img: 'https://avatars.dzeninfra.ru/get-zen_doc/1678002/pub_5f8db3bc3f59f84e2cff47af_5f8db40af46e1b4b59c469c1/scale_1200'},
+            {id: 1, name: 'Кола', price: 99, img: 'https://avatars.dzeninfra.ru/get-zen_doc/1678002/pub_5f8db3bc3f59f84e2cff47af_5f8db40af46e1b4b59c469c1/scale_1200'},
+            {id: 2, name: 'Пепси', price: 99, img: 'https://avatars.dzeninfra.ru/get-zen_doc/1678002/pub_5f8db3bc3f59f84e2cff47af_5f8db40af46e1b4b59c469c1/scale_1200'},
+            {id: 3, name: 'Солянка', price: 199, img: 'https://avatars.dzeninfra.ru/get-zen_doc/1678002/pub_5f8db3bc3f59f84e2cff47af_5f8db40af46e1b4b59c469c1/scale_1200'},
+            {id: 4, name: 'Сухарики', price: 49, img: 'https://avatars.dzeninfra.ru/get-zen_doc/1678002/pub_5f8db3bc3f59f84e2cff47af_5f8db40af46e1b4b59c469c1/scale_1200'},
         ]
 
         this._selectedType = {}

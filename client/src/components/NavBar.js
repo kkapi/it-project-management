@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
-import { LOGIN_ROUTE } from '../utils/consts';
+import { LOGIN_ROUTE, SHOP_ROUTE } from '../utils/consts';
 import {Button} from 'react-bootstrap'
 import {observer} from 'mobx-react-lite'
 
@@ -13,7 +13,7 @@ const NavBar = observer(() => {
   return (
     <Navbar bg="dark" variant="dark">
     <Container>
-      <NavLink style={{color: 'white'}} to={LOGIN_ROUTE} className="text-decoration-none">EtuFood</NavLink>
+      <NavLink style={{color: 'white'}} to={SHOP_ROUTE} className="text-decoration-none">EtuFood</NavLink>
       {user.isAuth ?
             <Nav className="ml-auto">
             <Button variant="outline-light">Админ панель</Button>
