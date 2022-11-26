@@ -1,0 +1,34 @@
+import {makeAutoObservable} from "mobx"
+
+export default class FoodStore {
+    constructor() {
+        this._types = [
+            {id: 1, name: 'Напитки'},
+            {id: 2, name: 'Закуски'},
+            {id: 3, name: 'Суши'},
+        ]
+        this._foods = [
+            {id: 1, nama: 'Кола', price: 99, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
+            {id: 2, nama: 'Пепси', price: 99, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
+            {id: 3, nama: 'Солянка', price: 199, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'},
+            {id: 4, nama: 'Сухарики', price: 49, img: 'https://billionnews.ru/uploads/posts/2021-11/1636534404_2.jpg'}
+        ]
+        makeAutoObservable(this)
+    }
+
+    setTypes(types) {
+        this._types= types
+    }
+
+    setFoods(foods) {
+        this._foods = foods
+    }
+
+    get types() {
+        return this._types
+    }
+
+    get foods() {
+        return this._foods
+    }
+}
