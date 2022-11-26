@@ -24,6 +24,13 @@ class UserService {
         }
         user.isActivated = true;
         await user.save();
+
+        User.destroy({
+            where: {
+                email: user.email,
+                isActivated: false
+            }
+        })
     }
 }
 
