@@ -7,11 +7,17 @@ module.exports = function(role) {
             next()
         }
         try {
-            const token = req.headers.authorization.split(' ')[1] // Bearer asfasnfkajsfnjk
-            if (!token) {
+            const token = req.headers.authoriztion.split(' ')[1]        
+            if (token === 'null') {            
                 return res.status(401).json({message: "Не авторизован"})
+            }       
+          
+            const data = jwt.verify(token, process.env.SECRET_KEY)        
+            decoded = {
+                id: data.id,
+                email: data.email,
+                role: data.role
             }
-            const decoded = jwt.verify(token, process.env.SECRET_KEY)
             if (decoded.role !== 'MODERATOR') {
                 return res.status(403).json({message: "Нет доступа"})
             }
