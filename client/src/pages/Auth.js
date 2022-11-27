@@ -33,7 +33,11 @@ const Auth = observer(() => {
           setError(null)          
           data = await registration(email, password)
           if (data) setNotification('Ссылка для активации аккаунта была отправлена на ' + email)
-          setTimeout(() => { navigate(LOGIN_ROUTE) }, 3000)          
+          
+          setTimeout(() => { 
+            setNull()
+            navigate(LOGIN_ROUTE) 
+          }, 3000)          
       }           
       
     } catch (e) {
