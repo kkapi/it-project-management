@@ -52,52 +52,58 @@ const CreateFood = observer(({show, onHide}) => {
     const addFood = () => {
         const formData = new FormData()
 
-        let infoFlag = false;
-        info.map(item => {
-            if (!item.title || !item.description) {
-                infoFlag = true 
-            }
-        })
+        try {
+            let infoFlag = false;
+            info.map(item => {
+                if (!item.title || !item.description) {
+                    infoFlag = true 
+                }
+            })
 
-        let nameFlag = false;
-        food.foods.map(item => {
-            if (item.name === name) {
-                nameFlag = true
-            }
-        })
+            let nameFlag = false;
+            food.foods.map(item => {
+                if (item.name === name) {
+                    nameFlag = true
+                }
+            })
 
-        const types = []
-  
-        info.map(item =>
-            types.push(item.title)
-        )
+            const types = []
+    
+            info.map(item =>
+                types.push(item.title)
+            )
 
-        if (!food.selectedType.id) {
-            setError("Выберете тип")
-        } else if (!name) {
-            setError("Введите название")
-        } else if (nameFlag) {
-            setError("Еда с таким названием уже существует")
-            setName('')
-        } else if (!price) {
-            setError("Введите стоимость")
-        } else if (!file) {
-            setError("Выберете файл")
-        } else if (file.type !== 'image/jpeg') {
-            setError("Выберете файл c расширением .jpg")
-            setFile(null)
-        } else if (infoFlag) {
-            setError("Заполните информацию о характеристиках")
-        } else if (hasDuplicates(types)) {
-            setError("У еды не может быть несколько характеристик с одинаковыми названиями")
-        } else {
-            formData.append('name', name)
-            formData.append('price', `${price}`)
-            formData.append('img', file)        
-            formData.append('typeId', food.selectedType.id)
-            formData.append('info', JSON.stringify(info))
-            createFood(formData).then(data => hideNull())
-        }        
+            if (!food.selectedType.id) {
+                setError("Выберете тип")
+            } else if (!name) {
+                setError("Введите название")
+            } else if (nameFlag) {
+                setError("Еда с таким названием уже существует")
+                setName('')
+            } else if (!price) {
+                setError("Введите стоимость")
+            } else if (!file) {
+                setError("Выберете файл")
+            } else if (file.type !== 'image/jpeg') {
+                setError("Выберете файл c расширением .jpg")
+                setFile(null)
+            } else if (infoFlag) {
+                setError("Заполните информацию о характеристиках")
+            } else if (hasDuplicates(types)) {
+                setError("У еды не может быть несколько характеристик с одинаковыми названиями")
+            } else {
+                formData.append('name', name)
+                formData.append('price', `${price}`)
+                formData.append('img', file)        
+                formData.append('typeId', food.selectedType.id)
+                formData.append('info', JSON.stringify(info))
+                createFood(formData).then(data => hideNull())
+            }        
+        } catch (e) {
+            setError(e.response.data.message)
+        }
+
+        
     }
 
   return (
