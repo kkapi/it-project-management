@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from 'react'
 import { Col, Container } from 'react-bootstrap'
 import { Context } from '..';
 import FoodList from '../components/FoodList';
+import Pages from '../components/Pages';
 import TypeBar from '../components/TypeBar';
 import { fetchFood, fetchTypes } from '../http/foodAPI';
 
@@ -11,15 +12,26 @@ const Shop = observer(() => {
 
   useEffect(() => {
     fetchTypes().then(data => food.setTypes(data))
-    fetchFood().then(data => food.setFoods(data.rows))
+    fetchFood(null, 1, 7).then(data => {
+      food.setFoods(data.rows)
+      food.setTotalCount(data.count)    
+    })
     
   },[])
+
+  useEffect(() => {
+    fetchFood(food.selectedType.id, food.page, 12).then(data => {
+      food.setFoods(data.rows)
+      food.setTotalCount(data.count)    
+    })
+  }, [food.page, food.selectedType])
 
   return (
     <Container>
       <Col md={12}>
         <TypeBar/>
         <FoodList/>
+        <Pages/>
       </Col>
     </Container>
   )

@@ -15,8 +15,10 @@ export const createFood = async (food) => {
     return data
 }
 
-export const fetchFood = async () => {
-    const {data} = await $host.get('api/food')
+export const fetchFood = async (typeId, page, limit = 12) => {
+    const {data} = await $host.get('api/food', {params: {
+        typeId, page, limit
+    }})
     return data
 }
 
