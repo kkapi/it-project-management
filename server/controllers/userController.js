@@ -8,9 +8,19 @@ const tokenService = require('../service/tokenService')
 class UserController {
     async registration(req, res, next) {
         const {email, password, role} = req.body
-        if (!email || !password) {
-            return next(ApiError.badRequest('Некорректный email или пароль'))
+
+        if (!email && !password) {
+            return next(ApiError.badRequest('Введите eamil и пароль'))
         }
+
+        if (!email) {
+            return next(ApiError.badRequest('Введите eamil'))
+        }
+
+        if (!password) {
+            return next(ApiError.badRequest('Введите пароль'))
+        }
+        
         const candidate = await User.findOne({
             where: {
                 email,
@@ -41,8 +51,16 @@ class UserController {
         try {
             const {email, password} = req.body
 
-            if (!email || !password) {
-                return next(ApiError.badRequest('Некорректный email или пароль'))
+            if (!email && !password) {
+                return next(ApiError.badRequest('Введите eamil и пароль'))
+            }
+
+            if (!email) {
+                return next(ApiError.badRequest('Введите eamil'))
+            }
+
+            if (!password) {
+                return next(ApiError.badRequest('Введите пароль'))
             }
 
             const user = await User.findOne({

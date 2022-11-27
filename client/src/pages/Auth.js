@@ -17,6 +17,7 @@ const Auth = observer(() => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
+  const [notification, setNotification] = useState(null)
 
   const click = async () => {
     try {
@@ -28,7 +29,9 @@ const Auth = observer(() => {
           user.setRole(data.role)
           navigate(SHOP_ROUTE)
       } else {
-          data = await registration(email, password)
+          setError(null)
+          setNotification('Сылка для активации аккаунта была отправлена на ' + email)
+          data = await registration(email, password)   
       }           
       
     } catch (e) {
@@ -46,6 +49,7 @@ const Auth = observer(() => {
         <h2 className="m-auto">{isLogin ? 'Авторизация' : 'Регистрация'}</h2>
         <Form className="d-flex flex-column">
           { error && <div class="alert alert-danger m-0 mt-3 text-center py-2" role="alert">{error}</div>}
+          { notification && <div class="alert alert-info m-0 mt-3 text-center py-2" role="alert">{notification}</div>}
           <Form.Control
             className="mt-3"
             placeholder="Введите ваш email..."
