@@ -10,6 +10,18 @@ class TypeService {
         const types = await Type.findAll()
         return types
     }
+
+    async delete(name) {
+        
+        const data = Type.destroy({
+            where: {
+                name
+            }
+        })
+
+        return data
+    }
+
 }
 
 module.exports = new TypeService()

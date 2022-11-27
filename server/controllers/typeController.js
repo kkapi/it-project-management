@@ -11,6 +11,13 @@ class TypeController {
         const types = await typeService.getAll()
         return res.json(types)
     }
+
+    async delete(req, res) {
+        const {name} = req.body
+        console.log(name)
+        const type = await typeService.delete(name)
+        res.json(type)
+    }
 }
 
 module.exports = new TypeController()
