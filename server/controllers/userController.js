@@ -33,7 +33,11 @@ class UserController {
             return next(ApiError.badRequest('Пользователь с таким email уже существует'))
         }
 
-        const user = await userService.createUser(email, password, role)
+        try {
+            const user = await userService.createUser(email, password, role)
+        } catch (e) {
+            return next(e)
+        }
         
         return res.json({email})
     }
@@ -141,7 +145,7 @@ class UserController {
 
             if (!user) {
                 console.log('Устаревшая ссылка')
-                return next(ApiError.internal('Устаревшая ссылка'))
+                return next(ApiError.internal('Ошибочная ссылка'))
             }
 
             console.log('-')
@@ -154,7 +158,7 @@ class UserController {
 
             await user.save()
 
-            return res.json({email: user.email})
+            return res.status(200).json({message: 'successReset'})
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }

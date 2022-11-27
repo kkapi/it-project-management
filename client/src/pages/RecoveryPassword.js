@@ -32,8 +32,11 @@ const RecoveryPassword = observer(() => {
             } else if (password === confirmPassword) {
                 setError(null)               
                 const data = resetPassword(link, password)
-                console.log(data)                
-                setNotification('Пароль был успешно изменен')  
+                if (data.message === 'successReset') {
+                  setNotification('Пароль был успешно изменен') 
+                } else {
+                  setError('Некорректная ссылка воостановления')
+                }                 
                 setTimeout(() => {navigate(LOGIN_ROUTE)}, 3000);              
             }                
         } catch (e) {
