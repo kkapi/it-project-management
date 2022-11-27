@@ -6,6 +6,7 @@ const userService = require('../service/userService')
 const tokenService = require('../service/tokenService')
 const mailService = require('../service/mailService')
 const uuid = require('uuid')
+const validationService = require('../service/validationService')
 
 class UserController {
     async registration(req, res, next) {
@@ -21,7 +22,7 @@ class UserController {
 
         if (!password) {
             return next(ApiError.badRequest('Введите пароль'))
-        }
+        }        
 
         const candidate = await User.findOne({
             where: {
@@ -29,8 +30,19 @@ class UserController {
                 isActivated: true
             }
         })
+
         if (candidate) {
             return next(ApiError.badRequest('Пользователь с таким email уже существует'))
+        }
+
+        const validEmail = validationService.validateEmail(email)
+        if(!validEmail) {
+            return next(ApiError.badRequest('Некорректный email'))
+        }
+
+        const validPassword = validationService.validatePassword(password)
+        if(!validPassword) {
+            return next(ApiError.badRequest('Пароль должен содержать от 5 до 20 символов, иметь хотя бы одну цифру, иметь хотя бы один специальный символ [#$&*_-]'))
         }
 
         try {
@@ -67,6 +79,11 @@ class UserController {
 
             if (!password) {
                 return next(ApiError.badRequest('Введите пароль'))
+            }
+
+            const validEmail = validationService.validateEmail(email)
+            if(!validEmail) {
+                return next(ApiError.badRequest('Некорректный email'))
             }
 
             const user = await User.findOne({
@@ -110,6 +127,11 @@ class UserController {
                 return next(ApiError.badRequest('Введите email'))
             }
 
+            const validEmail = validationService.validateEmail(email)
+            if(!validEmail) {
+                return next(ApiError.badRequest('Некорректный email'))
+            }
+
             const user = await User.findOne({
                 where: {
                     email: email,
@@ -145,9 +167,7 @@ class UserController {
 
             if (!user) {
                 return next(ApiError.internal('Некорректная ссылка воостановления'))
-            }
-
-            console.log('-')
+            }            
 
             const newRecoverLink = uuid.v4();
             const hashPassword = await bcrypt.hash(password, 3)

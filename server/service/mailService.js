@@ -57,10 +57,8 @@ class MailService {
             return 'sucess'
         } catch (e) {
             throw(ApiError.internal("Ошибка отправки email"))
-        }        
-      
-    }
-    
+        }       
+    }  
 }
 
 module.exports = new MailService();
