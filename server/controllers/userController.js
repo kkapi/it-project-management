@@ -13,11 +13,11 @@ class UserController {
         const {email, password, role} = req.body
 
         if (!email && !password) {
-            return next(ApiError.badRequest('Введите eamil и пароль'))
+            return next(ApiError.badRequest('Введите email и пароль'))
         }
 
         if (!email) {
-            return next(ApiError.badRequest('Введите eamil'))
+            return next(ApiError.badRequest('Введите email'))
         }
 
         if (!password) {
@@ -70,11 +70,11 @@ class UserController {
             const {email, password} = req.body
 
             if (!email && !password) {
-                return next(ApiError.badRequest('Введите eamil и пароль'))
+                return next(ApiError.badRequest('Введите email и пароль'))
             }
 
             if (!email) {
-                return next(ApiError.badRequest('Введите eamil'))
+                return next(ApiError.badRequest('Введите email'))
             }
 
             if (!password) {
@@ -166,7 +166,7 @@ class UserController {
             })
 
             if (!user) {
-                return next(ApiError.internal('Некорректная ссылка воостановления'))
+                return next(ApiError.internal('Некорректная ссылка воcстановления'))
             }            
 
             const newRecoverLink = uuid.v4();
