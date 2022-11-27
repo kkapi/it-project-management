@@ -16,6 +16,7 @@ const Auth = observer(() => {
   const isLogin = location.pathname === LOGIN_ROUTE
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState(null)
 
   const click = async () => {
     try {
@@ -31,12 +32,12 @@ const Auth = observer(() => {
       }           
       
     } catch (e) {
-      alert(e.response.data.message)
-    }
-      
-  }
+      setError(e.response.data.message)
+    }      
+  }  
 
-  return (
+  return (   
+
     <Container 
       className="d-flex justify-content-center align-items-center"
       style={{height: window.innerHeight - 54}}
@@ -44,6 +45,7 @@ const Auth = observer(() => {
       <Card style={{width: 600}} className="p-5">
         <h2 className="m-auto">{isLogin ? 'Авторизация' : 'Регистрация'}</h2>
         <Form className="d-flex flex-column">
+          { error && <div class="alert alert-danger m-0 mt-3 text-center py-2" role="alert">{error}</div>}
           <Form.Control
             className="mt-3"
             placeholder="Введите ваш email..."
@@ -60,11 +62,11 @@ const Auth = observer(() => {
           <Form className="d-flex justify-content-between mt-3">
             {isLogin ? 
               <div>
-                  Нет аккаунта? <NavLink to={REGISTRATION_ROUTE}>Зарегистрируйтесь!</NavLink>
+                  Нет аккаунта? <NavLink to={REGISTRATION_ROUTE} onClick={() => setError(null)}>Зарегистрируйтесь!</NavLink>
               </div>
               :
               <div>
-                  Есть аккаунт? <NavLink to={LOGIN_ROUTE}>Войдите!</NavLink>
+                  Есть аккаунт? <NavLink to={LOGIN_ROUTE} onClick={() => setError(null)}>Войдите!</NavLink>
               </div>
               }
             <Button

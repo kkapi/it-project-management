@@ -18,7 +18,7 @@ class UserController {
             }
         })
         if (candidate) {
-            return next(ApiError.badRequest('Пользователь с таким email уже сущесвтует'))
+            return next(ApiError.badRequest('Пользователь с таким email уже существует'))
         }
 
         const user = await userService.createUser(email, password, role)
@@ -40,6 +40,10 @@ class UserController {
     async login(req, res, next) {
         try {
             const {email, password} = req.body
+
+            if (!email || !password) {
+                return next(ApiError.badRequest('Некорректный email или пароль'))
+            }
 
             const user = await User.findOne({
                 where: {
