@@ -1,20 +1,48 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { Context } from '../..';
 import { createType } from '../../http/foodAPI';
 
 const CreateType = ({show, onHide}) => {
+  const {food} = useContext(Context) 
+  
+  const types = []
+  
+  food.types.map(type => {
+    types.push(type.name)
+  })
+
   const [value, setValue] = useState('')
+  const [error, setError] = useState(null)
+
   const addType = () => {
-    createType({name: value}).then(data => setValue(''))
+    try {
+        if (!value) {
+          setError("Введите тип")
+        } else if (types.indexOf(value) !== -1) {
+          setError(`Тип '${value}' уже существует`)
+          setValue('')
+        } else {
+          createType({name: value}).then(data => setValue(''))
+          setError(null)
+          onHide()
+        }
+    } catch (e) {
+      setError(e.response.data.message)
+    }    
+  }
+
+  const hideNull = () => {
     onHide()
+    setError(null)
   }
 
   return (
     <Modal   
         show={show}
-        onHide={onHide} 
+        onHide={hideNull} 
       size="lg"
       centered
     >
@@ -25,6 +53,7 @@ const CreateType = ({show, onHide}) => {
       </Modal.Header>
       <Modal.Body>
         <Form>
+            { error && <div className="alert alert-danger m-0 mb-3 text-center py-2" role="alert">{error}</div>}
             <Form.Control
                 value={value}
                 onChange={e => setValue(e.target.value)}
@@ -33,7 +62,7 @@ const CreateType = ({show, onHide}) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>
+        <Button variant="outline-danger" onClick={hideNull}>Закрыть</Button>
         <Button variant="outline-success" onClick={addType}>Добавить</Button>
       </Modal.Footer>
     </Modal>

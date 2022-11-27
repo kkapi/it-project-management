@@ -37,7 +37,7 @@ const CreateFood = observer(({show, onHide}) => {
 
     const addFood = () => {
         console.log(info)
-        const formData = new FormData()
+        const formData = new FormData()        
         formData.append('name', name)
         formData.append('price', `${price}`)
         formData.append('img', file)        
