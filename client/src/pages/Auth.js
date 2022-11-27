@@ -33,6 +33,7 @@ const Auth = observer(() => {
           setError(null)          
           data = await registration(email, password)
           if (data) setNotification('Ссылка для активации аккаунта была отправлена на ' + email)
+          setTimeout(() => { navigate(LOGIN_ROUTE) }, 3000)          
       }           
       
     } catch (e) {
@@ -40,6 +41,11 @@ const Auth = observer(() => {
       setError(e.response.data.message)
     }      
   }  
+
+  const setNull = () => {
+    setNotification(null)
+    setError(null)
+  }
 
   return (   
 
@@ -82,15 +88,15 @@ const Auth = observer(() => {
             {isLogin ? 
               <div>
                 <div>
-                    Нет аккаунта? <NavLink to={REGISTRATION_ROUTE} onClick={() => setError(null)}>Зарегистрируйтесь!</NavLink>
+                    Нет аккаунта? <NavLink to={REGISTRATION_ROUTE} onClick={() => setNull()}>Зарегистрируйтесь!</NavLink>
                 </div>
                 <div className='mt-2'>
-                    Забыли пароль? <NavLink to={FORGOT_PASS_ROUT} onClick={() => setError(null)}>Воосстановить пароль</NavLink>
+                    Забыли пароль? <NavLink to={FORGOT_PASS_ROUT} onClick={() => setNull()}>Воосстановить пароль</NavLink>
                 </div>
               </div>
-              :
+              :  
               <div>
-                  Есть аккаунт? <NavLink to={LOGIN_ROUTE} onClick={() => setError(null)}>Войдите!</NavLink>
+                  Есть аккаунт? <NavLink to={LOGIN_ROUTE} onClick={() => setNull()}>Войдите!</NavLink>
               </div>
               }
             <Button
