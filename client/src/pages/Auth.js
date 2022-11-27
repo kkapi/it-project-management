@@ -4,7 +4,7 @@ import { Button, Card, Container, Form } from 'react-bootstrap'
 import { NavLink, useLocation } from 'react-router-dom'
 import { Context } from '..'
 import { login, registration } from '../http/userAPI'
-import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from '../utils/consts'
+import { FORGOT_PASS_ROUT, LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from '../utils/consts'
 import { useNavigate } from "react-router-dom"
 
 
@@ -21,20 +21,22 @@ const Auth = observer(() => {
 
   const click = async () => {
     try {
-      let data
-      if (isLogin) {
+      let data = null
+      if (isLogin) {          
           data = await login(email, password)
           user.setUser(user)
           user.setIsAuth(true)
           user.setRole(data.role)
           navigate(SHOP_ROUTE)
       } else {
-          setError(null)
-          setNotification('Сылка для активации аккаунта была отправлена на ' + email)
-          data = await registration(email, password)   
+          setNotification(null)
+          setError(null)          
+          data = await registration(email, password)
+          if (data) setNotification('Ссылка для активации аккаунта была отправлена на ' + email)
       }           
       
     } catch (e) {
+      setNotification(null)
       setError(e.response.data.message)
     }      
   }  
@@ -48,8 +50,8 @@ const Auth = observer(() => {
       <Card style={{width: 600}} className="p-5">
         <h2 className="m-auto">{isLogin ? 'Авторизация' : 'Регистрация'}</h2>
         <Form className="d-flex flex-column">
-          { error && <div class="alert alert-danger m-0 mt-3 text-center py-2" role="alert">{error}</div>}
-          { notification && <div class="alert alert-info m-0 mt-3 text-center py-2" role="alert">{notification}</div>}
+          { error && <div className="alert alert-danger m-0 mt-3 text-center py-2" role="alert">{error}</div>}
+          { notification && <div className="alert alert-info m-0 mt-3 text-center py-2" role="alert">{notification}</div>}
           <Form.Control
             className="mt-3"
             placeholder="Введите ваш email..."
@@ -66,7 +68,12 @@ const Auth = observer(() => {
           <Form className="d-flex justify-content-between mt-3">
             {isLogin ? 
               <div>
-                  Нет аккаунта? <NavLink to={REGISTRATION_ROUTE} onClick={() => setError(null)}>Зарегистрируйтесь!</NavLink>
+                <div>
+                    Нет аккаунта? <NavLink to={REGISTRATION_ROUTE} onClick={() => setError(null)}>Зарегистрируйтесь!</NavLink>
+                </div>
+                <div className='mt-2'>
+                    Забыли пароль? <NavLink to={FORGOT_PASS_ROUT} onClick={() => setError(null)}>Воосстановить пароль</NavLink>
+                </div>
               </div>
               :
               <div>

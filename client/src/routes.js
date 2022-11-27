@@ -1,9 +1,11 @@
 import Auth from "./pages/Auth"
 import Basket from "./pages/Basket"
 import FoodPage from "./pages/FoodPage"
+import ForgotPassword from "./pages/ForgotPassword"
 import Moderator from "./pages/Moderator"
+import RecoveryPassword from "./pages/RecoveryPassword"
 import Shop from './pages/Shop'
-import { BASKET_ROUTE, FOOD_ROUTE, LOGIN_ROUTE, MODERATOR_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/consts"
+import { BASKET_ROUTE, FOOD_ROUTE, FORGOT_PASS_ROUT, LOGIN_ROUTE, MODERATOR_ROUTE, RECOVERY_PASS_ROUT, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/consts"
 
 export const authRoutes = [
     {
@@ -32,5 +34,13 @@ export const publicRoutes = [
     {
         path: REGISTRATION_ROUTE,
         Component: Auth
-    },    
+    },
+    {
+        path: FORGOT_PASS_ROUT,
+        Component: ForgotPassword
+    },
+    {
+        path: RECOVERY_PASS_ROUT + '/:link',
+        Component: RecoveryPassword
+    }
 ]

@@ -23,12 +23,32 @@ class MailService {
             html:
                 `
                 <div>
-                    <h1>Для активации пройдите по ссылке</h1>
-                    <a href="${link}">${link}</a>
+                    <h1>Для активации аккаунта перейдите по ссылке</h1>
+                    <h2>Ссылка: <a href="${link}">${link}</a></h2>
+                    <h2>Если вы не регистрировали аккаунт на ${process.env.API_URL}, проигнорируйте данное письмо</h2>
                 </div>
                 `            
-
         })
+    }
+
+    async sendRecoveryMail(to, link) {
+        console.log('to: ' + to)
+        console.log('link: ' + link)
+        await this.transporter.sendMail({
+            from: process.env.SMTP_USER,
+            to,
+            subject: 'Восстановление пароля на ' + process.env.API_URL,
+            text:'',
+            html:
+                `
+                <div>
+                    <h1>Для восстановления пароля перейдите по ссылке</h1>
+                    <h2>Ссылка: <a href="${link}">${link}</a></h2>
+                    <h2>Если вы не запрашивали воостановление пароля на ${process.env.API_URL}, проигнорируйте данное письмо</h2>
+                </div>
+                `           
+        })
+        return 'sucess'
     }
 }
 

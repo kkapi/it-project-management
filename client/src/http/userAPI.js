@@ -18,3 +18,12 @@ export const check = async () => {
     return jwt_decode(data.token)
 }
 
+export const sendRecovery = async (email) => {
+    const {data} = await $host.post('api/user/sendrecovery', {email})
+    return data
+}
+
+export const resetPassword = async (link, password) => {
+    const {data} = await $host.post('api/user/reset/' + link, {password})
+    return data
+}

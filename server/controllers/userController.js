@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken')
 const {User, Basket} = require('../models/models')
 const userService = require('../service/userService')
 const tokenService = require('../service/tokenService')
+const mailService = require('../service/mailService')
+const uuid = require('uuid')
 
 class UserController {
     async registration(req, res, next) {
@@ -20,7 +22,7 @@ class UserController {
         if (!password) {
             return next(ApiError.badRequest('Введите пароль'))
         }
-        
+
         const candidate = await User.findOne({
             where: {
                 email,
@@ -94,6 +96,68 @@ class UserController {
     async check(req, res, next) {        
         const token = tokenService.generateJWT(req.user.id, req.user.email, req.user.role)
         return res.json({token})
+    }
+
+    async sendRecovery(req, res, next) {
+        try {
+            const {email} = req.body            
+            console.log(email)
+            if (!email) {
+                return next(ApiError.badRequest('Введите email'))
+            }
+
+            const user = await User.findOne({
+                where: {
+                    email: email,
+                    isActivated: true
+                }
+            })
+
+            if (!user) {
+                return next(ApiError.internal('Подтвержденный пользователь с таким email не найден'))
+            }
+
+            const recoveryLink = `${process.env.CLIENT_URL}/recoverypass/${user.recoverLink}`
+
+            const data = await mailService.sendRecoveryMail(user.email, recoveryLink)           
+           
+            return res.json({data})
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
+    }
+
+    async resetPassword(req, res, next) {
+        try {
+            const {password} = req.body
+            const recoverLink = req.params.link;
+            console.log(recoverLink)
+
+            const user = await User.findOne({
+                where: {
+                    recoverLink
+                }
+            })
+
+            if (!user) {
+                console.log('Устаревшая ссылка')
+                return next(ApiError.internal('Устаревшая ссылка'))
+            }
+
+            console.log('-')
+
+            const newRecoverLink = uuid.v4();
+            const hashPassword = await bcrypt.hash(password, 3)
+
+            user.password = hashPassword
+            user.recoverLink = newRecoverLink
+
+            await user.save()
+
+            return res.json({email: user.email})
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
     }
 }
 

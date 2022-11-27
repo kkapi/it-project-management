@@ -25,7 +25,7 @@ const NavBar = observer(() => {
       if (user.isAuth) {
         if (user.role === 'MODERATOR') {
           return (
-            <Navbar bg="dark" variant="dark">
+            <Navbar bg="dark" variant="dark" className='py-3 fs-5'>
               <Container>
                 <NavLink style={{color: 'white'}} to={SHOP_ROUTE} className="text-decoration-none">EtuFood</NavLink>
                     <Nav className="ml-auto">
@@ -37,7 +37,7 @@ const NavBar = observer(() => {
           )
         } else if (user.role === 'ADMIN') {
           return (
-            <Navbar bg="dark" variant="dark">
+            <Navbar bg="dark" variant="dark" className='py-3 fs-5'>
               <Container>
                 <NavLink style={{color: 'white'}} to={SHOP_ROUTE} className="text-decoration-none">EtuFood</NavLink>
                     <Nav className="ml-auto">
@@ -49,7 +49,7 @@ const NavBar = observer(() => {
           )
         } else {
           return (
-            <Navbar bg="dark" variant="dark">
+            <Navbar bg="dark" variant="dark" className='py-3 fs-5'>
               <Container>
                 <NavLink style={{color: 'white'}} to={SHOP_ROUTE} className="text-decoration-none">EtuFood</NavLink>
                     <Nav className="ml-auto">                      
@@ -61,7 +61,7 @@ const NavBar = observer(() => {
         }        
       } else {
         return (
-          <Navbar bg="dark" variant="dark">
+          <Navbar bg="dark" variant="dark" className='py-3 fs-5'>
             <Container>
               <NavLink style={{color: 'white'}} to={SHOP_ROUTE} className="text-decoration-none">EtuFood</NavLink>                  
             </Container>
