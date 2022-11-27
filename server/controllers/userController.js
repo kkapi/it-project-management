@@ -144,8 +144,7 @@ class UserController {
             })
 
             if (!user) {
-                console.log('Устаревшая ссылка')
-                return next(ApiError.internal('Ошибочная ссылка'))
+                return next(ApiError.internal('Некорректная ссылка воостановления'))
             }
 
             console.log('-')

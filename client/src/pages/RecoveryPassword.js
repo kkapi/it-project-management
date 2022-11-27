@@ -31,12 +31,9 @@ const RecoveryPassword = observer(() => {
                 setError("Пароли не совпадают")
             } else if (password === confirmPassword) {
                 setError(null)               
-                const data = resetPassword(link, password)
-                if (data.message === 'successReset') {
-                  setNotification('Пароль был успешно изменен') 
-                } else {
-                  setError('Некорректная ссылка воостановления')
-                }                 
+                const {message} = await resetPassword(link, password)
+                console.log(message)                
+                setNotification('Пароль был успешно изменен')                            
                 setTimeout(() => {navigate(LOGIN_ROUTE)}, 3000);              
             }                
         } catch (e) {
