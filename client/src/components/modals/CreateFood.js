@@ -82,7 +82,9 @@ const CreateFood = observer(({show, onHide}) => {
                 setError("Еда с таким названием уже существует")
                 setName('')
             } else if (!price) {
-                setError("Введите стоимость")
+                setError("Введите цену")
+            } else if (price[0] === '0' || Number(price) < 0) {
+                setError("Цена должна быть больше одного рубля")
             } else if (!file) {
                 setError("Выберете файл")
             } else if (file.type !== 'image/jpeg') {
@@ -94,7 +96,7 @@ const CreateFood = observer(({show, onHide}) => {
                 setError("У еды не может быть несколько характеристик с одинаковыми названиями")
             } else {
                 formData.append('name', name)
-                formData.append('price', `${price}`)
+                formData.append('price', `${Number(price)}`)
                 formData.append('img', file)        
                 formData.append('typeId', food.selectedType.id)
                 formData.append('info', JSON.stringify(info))
@@ -138,9 +140,9 @@ const CreateFood = observer(({show, onHide}) => {
             />
             <Form.Control
                 value={price}
-                onChange={e => setPrice(Number(e.target.value))}
+                onChange={e => setPrice(e.target.value)}
                 className="mt-3"
-                placeholder="Введите стоимость еды"
+                placeholder="Введите цену"
                 type="number"             
             />
             <Form.Control
