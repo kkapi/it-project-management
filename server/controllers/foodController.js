@@ -15,6 +15,14 @@ class FoodController {
         }
     }
 
+    async delete(req, res, next) {
+        const {name} = req.body
+        console.log(name)
+        const data = foodService.delete(name)
+        
+        return res.json({data})
+    }
+
     async getAll(req, res) {
         let {typeId, limit, page} = req.query    
         

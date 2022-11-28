@@ -17,7 +17,7 @@ const DeleteType = observer(({show, onHide}) => {
     food.setSelectedType({})
   }
 
-  const  delType = (type) => {
+  const  delType = () => {
     try {
         if (!food.selectedType.name) {
             setError("Выберете тип для удаления")

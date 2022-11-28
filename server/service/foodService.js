@@ -1,6 +1,7 @@
 const {Food, FoodInfo} = require('../models/models')
 const uuid = require('uuid')
 const path = require('path')
+const fs = require('fs')
 
 class FoodService {
     async create(name, price, typeId, img, info) {
@@ -24,6 +25,38 @@ class FoodService {
             } catch (e) {
                 console.log(e)
             }            
+    }
+
+    async delete(name) {
+        try {
+            const food = await Food.findOne({
+                where: {
+                    name
+                }
+            })
+
+            console.log(path.resolve(__dirname, '..', 'static', food.img))
+
+            try {
+                fs.unlink(path.resolve(__dirname, '..', 'static', food.img), (err) => {
+                    if (err) throw err;
+                  
+                    console.log('Deleted');
+                });  
+            } catch(e) {
+                console.log(e)
+            }                     
+
+            const data = Food.destroy({
+                where: {
+                    name
+                }
+            })            
+    
+            return data
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     async getAll(typeId, limit, page) {

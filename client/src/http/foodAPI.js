@@ -12,11 +12,17 @@ export const fetchTypes = async () => {
 
 export const deleteType = async (type) => {
     const {data} = await $authHost.post('api/type/delete', type)
+    
     return data
 }
 
 export const createFood = async (food) => {
     const {data} = await $authHost.post('api/food', food)
+    return data
+}
+
+export const deleteFood = async (food) => {
+    const {data} = await $authHost.post('api/food/delete', food)
     return data
 }
 

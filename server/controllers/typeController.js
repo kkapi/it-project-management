@@ -16,7 +16,7 @@ class TypeController {
         const {name} = req.body
         console.log(name)
         const type = await typeService.delete(name)
-        res.json(type)
+        res.json(name)
     }
 }
 
