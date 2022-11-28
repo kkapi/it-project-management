@@ -25,19 +25,16 @@ const FoodPage = () => {
       </Col>
       <Col md={4}>
         <h2>{food.name}</h2>
-      </Col>
-      {user.role === "USER" &&
+      </Col>      
         <Col md={4}>
           <Card
             className="d-flex flex-column align-items-center justify-content-around"
             style={{width: 300, height: 100, fontSize: 32}}
           >
-            <h3>{food.price} руб</h3>
-            <Button variant={"outline-dark"}>Добавить в корзину</Button>
+            <h3>Цена: {food.price} руб</h3>
+            {user.role === "USER" &&<Button variant={"outline-dark"}>Добавить в корзину</Button>}
           </Card>
-        </Col> 
-      }
-           
+        </Col>     
       <h3 className='mt-3'>Информация</h3>
       <Row className="d-flex flex-column m-3">
         {food.info.map(info =>
