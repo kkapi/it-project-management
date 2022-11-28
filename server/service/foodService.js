@@ -56,7 +56,12 @@ class FoodService {
         }
     }
 
-    async getAll(typeId, limit, page) {
+    async getAll() {
+        const foods = await Food.findAll()
+        return foods
+    }
+
+    async getFoodPage(typeId, limit, page) {
         page = page || 1
         limit = limit || 9
 

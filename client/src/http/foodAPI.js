@@ -22,13 +22,17 @@ export const createFood = async (food) => {
 }
 
 export const deleteFood = async (food) => {
-    console.log(food)
     const {data} = await $authHost.post('api/food/delete', food)
     return data
 }
 
+export const getAllFood = async () => {
+    const {data} = await $host.get('api/food')
+    return data
+}
+
 export const fetchFood = async (typeId, page, limit = 12) => {
-    const {data} = await $host.get('api/food', {params: {
+    const {data} = await $host.get('api/food/page', {params: {
         typeId, page, limit
     }})
     return data

@@ -1,14 +1,19 @@
 import { observer } from "mobx-react-lite"
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Button, Dropdown, Modal } from "react-bootstrap"
 import { Context } from "../.."
-import { deleteFood } from "../../http/foodAPI"
+import { deleteFood, fetchFood, fetchTypes, getAllFood } from "../../http/foodAPI"
 
 const DeleteFood = observer(({ show, onHide }) => {
   const { food } = useContext(Context)
 
   const [error, setError] = useState(null)
   const [selectedFood, setSelectedFood] = useState(null)
+
+  useEffect(() => {    
+    fetchTypes().then(data => food.setTypes(data))
+    getAllFood().then(data => food.setAllFood(data))
+  },[show])
 
   const hideNull = () => {
     onHide()
@@ -46,7 +51,7 @@ const DeleteFood = observer(({ show, onHide }) => {
         <Dropdown>
             <Dropdown.Toggle>{selectedFood || "Выберете еду"}</Dropdown.Toggle>
             <Dropdown.Menu>
-                {food.foods.map(item =>
+                {food.allFood.map(item =>
                     <Dropdown.Item onClick={() => setSelectedFood(item.name)} key={item.id}>{item.name}</Dropdown.Item>
                 )}
             </Dropdown.Menu>

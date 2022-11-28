@@ -31,7 +31,7 @@ const ConfirmDeleteFood = ({show, onHide, name}) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Удаление карточки с едой
+          Удаление карточки с едой ааааааааааааааа
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>

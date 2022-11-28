@@ -11,7 +11,9 @@ const Shop = observer(() => {
   const {food} = useContext(Context)
 
   useEffect(() => {
-    fetchTypes().then(data => food.setTypes(data))
+    fetchTypes().then(data => {
+      food.setTypes(data)
+    })
     fetchFood(null, 1, 7).then(data => {
       food.setFoods(data.rows)
       food.setTotalCount(data.count)    

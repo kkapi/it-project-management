@@ -1,12 +1,18 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Context } from '../..';
-import { createType } from '../../http/foodAPI';
+import { createType, fetchTypes } from '../../http/foodAPI';
 
 const CreateType = ({show, onHide}) => {
-  const {food} = useContext(Context) 
+  const {food} = useContext(Context)
+
+  useEffect(() => {
+    fetchTypes().then(data => {
+      food.setTypes(data)           
+    })      
+  },[show])
   
   const types = []
   
@@ -28,6 +34,7 @@ const CreateType = ({show, onHide}) => {
           createType({name: value}).then(data => setValue(''))
           setError(null)
           onHide()
+          food.setSelectedType({})          
         }
     } catch (e) {
       setError(e.response.data.message)

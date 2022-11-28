@@ -1,3 +1,4 @@
+const { json } = require('sequelize')
 const ApiError = require('../error/ApiError')
 const foodService = require('../service/foodService')
 
@@ -24,9 +25,15 @@ class FoodController {
     }
 
     async getAll(req, res) {
+        const foods = await foodService.getAll()
+
+        return res.json(foods)
+    }
+
+    async getFoodPage(req, res) {
         let {typeId, limit, page} = req.query    
         
-        const foods = await foodService.getAll(typeId, limit, page)
+        const foods = await foodService.getFoodPage(typeId, limit, page)
        
         return res.json(foods)
     }

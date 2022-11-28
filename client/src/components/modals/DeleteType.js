@@ -1,22 +1,24 @@
 import { observer } from 'mobx-react-lite';
 import React, { useContext, useEffect, useState } from 'react'
-import { Col, Dropdown, Form, Row } from 'react-bootstrap';
+import { Form, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Context } from '../..';
-import { deleteType } from '../../http/foodAPI';
+import { deleteType, fetchTypes } from '../../http/foodAPI';
 import './DeleteType.css'
 
-const DeleteType = observer(({ show, onHide}) => { 
+const DeleteType = observer(({show, onHide}) => { 
 
   const {food} = useContext(Context)
 
   const [info, setInfo] = useState([])  
 
   useEffect(() => {
-    console.log('effect')
-    setInfo(food.types)    
-  },[])
+    fetchTypes().then(data => {
+      food.setTypes(data)
+      setInfo(food.types)       
+    })      
+  },[show])
 
   const removeInfo = (name) => {
     setInfo(info.filter(i => i.name !== name))

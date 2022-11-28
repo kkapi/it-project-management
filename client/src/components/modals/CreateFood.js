@@ -13,14 +13,13 @@ const CreateFood = observer(({show, onHide}) => {
     const [price, setPrice] = useState('')
     const [file, setFile] = useState(null)    
     const [info, setInfo] = useState([])
-    const [error, setError] = useState(null)
-    
+    const [error, setError] = useState(null)    
 
     useEffect(() => {
         food.setSelectedType({})
         fetchTypes().then(data => food.setTypes(data))
-        fetchFood().then(data => food.setFoods(data.rows))        
-    },[])
+        fetchFood().then(data => food.setFoods(data.rows))
+    },[show])
 
     const hideNull = () => {        
         setError(null)
