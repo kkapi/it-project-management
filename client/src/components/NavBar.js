@@ -25,14 +25,18 @@ const NavBar = observer(() => {
       <Navbar bg="dark" variant="dark" className='py-3'>
         <Container>
           <NavLink style={{color: 'white'}} to={SHOP_ROUTE} className="text-decoration-none fs-5">EtuFood</NavLink>
-          {user.isAuth &&
-            <Nav className="me-auto fs-6">
-              <Nav.Link className='ms-5' onClick={() => navigate(PROFILE_ROUTE)}>Профиль</Nav.Link> 
+          <Nav className="fs-6 me-auto">
+          {user.isAuth &&            
+            <Nav.Link className='ms-5' onClick={() => navigate(PROFILE_ROUTE)}>Профиль</Nav.Link>                   
+          }
+          {user.role === 'USER' &&
+            <Nav className="fs-6">              
               <Nav.Link className='ms-5' onClick={() => navigate(BASKET_ROUTE)}>Корзина</Nav.Link>  
               <Nav.Link className='ms-5' onClick={() => navigate(ORDERS_ROUTE)}>Заказы</Nav.Link>             
             </Nav>
           }
-          
+          </Nav>
+               
           <Nav className="ml-auto">            
             {user.role === 'MODERATOR' && <Button variant="outline-light" onClick={() => navigate(MODERATOR_ROUTE)}>Панель модератора</Button>}
             {user.role === 'ADMIN' && <Button variant="outline-light" onClick={() => navigate(ADMIN_ROUTE)}>Админ панель</Button>}

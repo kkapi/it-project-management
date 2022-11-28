@@ -5,25 +5,25 @@ const fs = require('fs')
 
 class FoodService {
     async create(name, price, typeId, img, info) {
-            try {
-                let fileName = uuid.v4() + ".jpg"
-                img.mv(path.resolve(__dirname, '..', 'static', fileName))
-                const food = await Food.create({name, price, typeId, img: fileName})
+        try {
+            let fileName = uuid.v4() + ".jpg"
+            img.mv(path.resolve(__dirname, '..', 'static', fileName))
+            const food = await Food.create({name, price, typeId, img: fileName})
 
-                if (info) {
-                    info = JSON.parse(info)
-                    info.forEach(i =>
-                        FoodInfo.create({
-                            title: i.title,
-                            description: i.description,
-                            foodId: food.id
-                        })
-                    )
-                }    
-                
-                return food
-            } catch (e) {
-                console.log(e)
+            if (info) {
+                info = JSON.parse(info)
+                info.forEach(i =>
+                    FoodInfo.create({
+                        title: i.title,
+                        description: i.description,
+                        foodId: food.id
+                    })
+                )
+            }    
+            
+            return food
+        } catch (e) {
+            console.log(e)
             }            
     }
 
