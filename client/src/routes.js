@@ -10,18 +10,10 @@ import RecoveryPassword from "./pages/RecoveryPassword"
 import Shop from './pages/Shop'
 import { ADMIN_ROUTE, BASKET_ROUTE, FOOD_ROUTE, FORGOT_PASS_ROUT, LOGIN_ROUTE, MODERATOR_ROUTE, ORDERS_ROUTE, PROFILE_ROUTE, RECOVERY_PASS_ROUT, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/consts"
 
-export const authRoutes = [    
-    {
-        path: BASKET_ROUTE,
-        Component: Basket
-    },
+export const authRoutes = [ 
     {
         path: PROFILE_ROUTE,
         Component: Profile
-    },
-    {
-        path: ORDERS_ROUTE,
-        Component: Orders
     },
     {
         path: SHOP_ROUTE,
@@ -64,4 +56,15 @@ export const adminRoutes = [
         path: ADMIN_ROUTE,
         Component: Admin
     }
+]
+
+export const userRoutes = [
+    {
+        path: BASKET_ROUTE,
+        Component: Basket
+    },
+    {
+        path: ORDERS_ROUTE,
+        Component: Orders
+    },
 ]
