@@ -19,58 +19,20 @@ const NavBar = observer(() => {
         user.setIsAuth(false)
         user.setRole({})
         localStorage.removeItem("token");
-    }
+    }  
 
-    function drawNavbar(user) {
-      if (user.isAuth) {
-        if (user.role === 'MODERATOR') {
-          return (
-            <Navbar bg="dark" variant="dark" className='py-3 fs-5'>
-              <Container>
-                <NavLink style={{color: 'white'}} to={SHOP_ROUTE} className="text-decoration-none">EtuFood</NavLink>
-                    <Nav className="ml-auto">
-                      <Button variant="outline-light" onClick={() => navigate(MODERATOR_ROUTE)}>Панель модератора</Button>
-                      <Button variant="outline-light" className="ms-2" onClick={() => logOut()}>Выйти</Button>            
-                    </Nav>
-              </Container>
-            </Navbar>
-          )
-        } else if (user.role === 'ADMIN') {
-          return (
-            <Navbar bg="dark" variant="dark" className='py-3 fs-5'>
-              <Container>
-                <NavLink style={{color: 'white'}} to={SHOP_ROUTE} className="text-decoration-none">EtuFood</NavLink>
-                    <Nav className="ml-auto">
-                      <Button variant="outline-light" onClick={() => navigate(MODERATOR_ROUTE)}>Панель модератора</Button>
-                      <Button variant="outline-light" className="ms-2" onClick={() => logOut()}>Выйти</Button>            
-                    </Nav>
-              </Container>
-            </Navbar>
-          )
-        } else {
-          return (
-            <Navbar bg="dark" variant="dark" className='py-3 fs-5'>
-              <Container>
-                <NavLink style={{color: 'white'}} to={SHOP_ROUTE} className="text-decoration-none">EtuFood</NavLink>
-                    <Nav className="ml-auto">                      
-                      <Button variant="outline-light" className="ms-2" onClick={() => logOut()}>Выйти</Button>            
-                    </Nav>
-              </Container>
-            </Navbar>
-          )
-        }        
-      } else {
-        return (
-          <Navbar bg="dark" variant="dark" className='py-3 fs-5'>
-            <Container>
-              <NavLink style={{color: 'white'}} to={SHOP_ROUTE} className="text-decoration-none">EtuFood</NavLink>                  
-            </Container>
-          </Navbar>
-        )
-      }
-    }
-
-    return drawNavbar(user)
+    return (      
+      <Navbar bg="dark" variant="dark" className='py-3 fs-5'>
+        <Container>
+          <NavLink style={{color: 'white'}} to={SHOP_ROUTE} className="text-decoration-none">EtuFood</NavLink>
+          <Nav className="ml-auto">
+            {user.role === 'MODERATOR' && <Button variant="outline-light" onClick={() => navigate(MODERATOR_ROUTE)}>Панель модератора</Button>}
+            {user.role === 'ADMIN' && <Button variant="outline-light" onClick={() => navigate(MODERATOR_ROUTE)}>Панель модератора</Button>}
+            {user.isAuth && <Button variant="outline-light" className="ms-2" onClick={() => logOut()}>Выйти</Button>}         
+          </Nav>
+        </Container>
+      </Navbar>  
+    )
 })
 
 export default NavBar
