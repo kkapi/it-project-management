@@ -4,10 +4,10 @@ const foodService = require('../service/foodService')
 class FoodController {
     async create(req, res, next) {
         try {
-            let {name, price, typeId, info} = req.body
+            let {name, description, price, typeId, info} = req.body
             const {img} = req.files        
             
-            const food = await foodService.create(name, price, typeId, img, info)
+            const food = await foodService.create(name, description, price, typeId, img, info)
 
             return res.json(food)
         } catch (e) {

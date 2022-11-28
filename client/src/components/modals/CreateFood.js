@@ -9,10 +9,12 @@ import { createFood, fetchFood, fetchTypes } from '../../http/foodAPI';
 const CreateFood = observer(({show, onHide}) => {
     const {food} = useContext(Context)
     const [name, setName] = useState('')
+    const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
     const [file, setFile] = useState(null)    
     const [info, setInfo] = useState([])
     const [error, setError] = useState(null)
+    
 
     useEffect(() => {
         food.setSelectedType({})
@@ -81,7 +83,9 @@ const CreateFood = observer(({show, onHide}) => {
             } else if (nameFlag) {
                 setError("Еда с таким названием уже существует")
                 setName('')
-            } else if (!price) {
+            } else if (!description) {
+                setError("Добавьте описание")
+            }else if (!price) {
                 setError("Введите цену")
             } else if (price[0] === '0' || Number(price) < 0) {
                 setError("Цена должна быть больше одного рубля")
@@ -96,6 +100,7 @@ const CreateFood = observer(({show, onHide}) => {
                 setError("У еды не может быть несколько характеристик с одинаковыми названиями")
             } else {
                 formData.append('name', name)
+                formData.append('description', description)
                 formData.append('price', `${Number(price)}`)
                 formData.append('img', file)        
                 formData.append('typeId', food.selectedType.id)
@@ -137,6 +142,12 @@ const CreateFood = observer(({show, onHide}) => {
                 onChange={e => setName(e.target.value)}
                 className="mt-3"
                 placeholder="Введите название еды"            
+            />
+            <Form.Control
+                value={description}
+                onChange={e => setDescription(e.target.value)}
+                className="mt-3"
+                placeholder="Введите описание еды"            
             />
             <Form.Control
                 value={price}

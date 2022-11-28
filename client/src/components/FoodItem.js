@@ -5,7 +5,7 @@ import { FOOD_ROUTE } from '../utils/consts'
 
 const FoodItem = ({food}) => {
     const navigate = useNavigate()
-  return (
+  return (    
     <Col md={2} className="mt-3" onClick={() => navigate(FOOD_ROUTE + '/' + food.id)}>
         <Card style={{width: 180, cursor: 'pointer'}} border={"light"}>
             <div className='p-2 d-flex flex-column align-items-center'>

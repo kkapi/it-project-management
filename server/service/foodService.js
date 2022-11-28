@@ -4,11 +4,11 @@ const path = require('path')
 const fs = require('fs')
 
 class FoodService {
-    async create(name, price, typeId, img, info) {
+    async create(name, description, price, typeId, img, info) {
         try {
             let fileName = uuid.v4() + ".jpg"
             img.mv(path.resolve(__dirname, '..', 'static', fileName))
-            const food = await Food.create({name, price, typeId, img: fileName})
+            const food = await Food.create({name, description, price, typeId, img: fileName})
 
             if (info) {
                 info = JSON.parse(info)
