@@ -10,7 +10,7 @@ module.exports = function(role) {
             const token = req.headers.authorization.split(' ')[1]            
 
             if (token === 'null') {            
-                return res.status(401).json({message: "Не авторизован1"})
+                return res.status(401).json({message: "Не авторизован"})
             }       
             
           
@@ -20,7 +20,7 @@ module.exports = function(role) {
                 email: data.email,
                 role: data.role
             }
-            if (decoded.role !== 'MODERATOR') {
+            if (decoded.role !== role) {
                 return res.status(403).json({message: "Нет доступа"})
             }
             req.user = decoded
@@ -29,7 +29,7 @@ module.exports = function(role) {
 
             next()
         } catch (e) {
-            res.status(401).json({message: "Не авторизован2"})
+            res.status(401).json({message: "Не авторизован"})
         }
     };
 }
