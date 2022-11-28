@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Container } from 'react-bootstrap'
+import { Context } from '..'
 import CreateFood from '../components/modals/CreateFood'
 import CreateType from '../components/modals/CreateType'
 import DeleteFood from '../components/modals/DeleteFood'
@@ -10,6 +11,12 @@ const Moderator = () => {
   const [foodVisible, setFoodVisible] = useState(false)
   const [typeDeleteVisible, setTypeDeleteVisible] = useState(false)
   const [foodDeleteVisible, setFoodDeleteVisible] = useState(false)
+
+  const {food} = useContext(Context)
+
+  useEffect(() => {
+    console.log('effect')
+  },[])
 
   return (
     <Container className="d-flex flex-column">
