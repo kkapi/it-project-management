@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
-import { ADMIN_ROUTE, LOGIN_ROUTE, MODERATOR_ROUTE, SHOP_ROUTE } from '../utils/consts';
+import { ADMIN_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, MODERATOR_ROUTE, ORDERS_ROUTE, PROFILE_ROUTE, SHOP_ROUTE } from '../utils/consts';
 import {Button} from 'react-bootstrap'
 import {observer} from 'mobx-react-lite'
 import { useNavigate } from "react-router-dom"
@@ -22,13 +22,21 @@ const NavBar = observer(() => {
     }  
 
     return (      
-      <Navbar bg="dark" variant="dark" className='py-3 fs-5'>
+      <Navbar bg="dark" variant="dark" className='py-3'>
         <Container>
-          <NavLink style={{color: 'white'}} to={SHOP_ROUTE} className="text-decoration-none">EtuFood</NavLink>
-          <Nav className="ml-auto">
+          <NavLink style={{color: 'white'}} to={SHOP_ROUTE} className="text-decoration-none fs-5">EtuFood</NavLink>
+          {user.isAuth &&
+            <Nav className="me-auto fs-6">
+              <Nav.Link className='ms-5' onClick={() => navigate(PROFILE_ROUTE)}>Профиль</Nav.Link> 
+              <Nav.Link className='ms-5' onClick={() => navigate(BASKET_ROUTE)}>Корзина</Nav.Link>  
+              <Nav.Link className='ms-5' onClick={() => navigate(ORDERS_ROUTE)}>Заказы</Nav.Link>             
+            </Nav>
+          }
+          
+          <Nav className="ml-auto">            
             {user.role === 'MODERATOR' && <Button variant="outline-light" onClick={() => navigate(MODERATOR_ROUTE)}>Панель модератора</Button>}
             {user.role === 'ADMIN' && <Button variant="outline-light" onClick={() => navigate(ADMIN_ROUTE)}>Админ панель</Button>}
-            {user.isAuth && <Button variant="outline-light" className="ms-2" onClick={() => logOut()}>Выйти</Button>}         
+            {user.isAuth && <Button variant="outline-light" className="ms-3" onClick={() => logOut()}>Выйти</Button>}         
           </Nav>
         </Container>
       </Navbar>  
