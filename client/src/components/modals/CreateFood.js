@@ -15,6 +15,7 @@ const CreateFood = observer(({show, onHide}) => {
     const [error, setError] = useState(null)
 
     useEffect(() => {
+        food.setSelectedType({})
         fetchTypes().then(data => food.setTypes(data))
         fetchFood().then(data => food.setFoods(data.rows))        
     },[])

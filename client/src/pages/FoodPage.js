@@ -1,10 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Card, Col, Container, Image, Row } from 'react-bootstrap'
 import {useParams} from 'react-router-dom'
+import { Context } from '..'
+import ConfirmDeleteFood from '../components/modals/ConfirmDeleteFood'
+import CreateType from '../components/modals/CreateType'
 import { fetchOneFood } from '../http/foodAPI'
 
 const FoodPage = () => {
+  const {user} = useContext(Context)
+  
   const [food, setFood] = useState({info: []})
+  const [foodDeleteVisible, setFoodDeleteVisible] = useState(false)
+  
   const {id} = useParams()
 
   useEffect(() => {
@@ -27,7 +34,7 @@ const FoodPage = () => {
             <h3>{food.price} руб</h3>
             <Button variant={"outline-dark"}>Добавить в корзину</Button>
           </Card>
-      </Col>
+      </Col>      
       <h3 className='mt-3'>Информация</h3>
       <Row className="d-flex flex-column m-3">
         {food.info.map(info =>
@@ -36,7 +43,17 @@ const FoodPage = () => {
           </Row>
         )}
       </Row>
-    </Container>
+      
+      {user.role === 'MODERATOR' && 
+        <div>
+          <Button variant="outline-danger" onClick={() => setFoodDeleteVisible(true)}>
+            Удалить
+          </Button>
+          <ConfirmDeleteFood name = {food.name} show={foodDeleteVisible} onHide={() => setFoodDeleteVisible(false)}/>        
+        </div>        
+      }
+         
+    </Container>    
   )
 }
 

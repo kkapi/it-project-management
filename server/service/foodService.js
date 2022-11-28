@@ -33,14 +33,11 @@ class FoodService {
                 where: {
                     name
                 }
-            })
-
-            console.log(path.resolve(__dirname, '..', 'static', food.img))
+            })            
 
             try {
                 fs.unlink(path.resolve(__dirname, '..', 'static', food.img), (err) => {
-                    if (err) throw err;
-                  
+                    if (err) throw err;                  
                     console.log('Deleted');
                 });  
             } catch(e) {

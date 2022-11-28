@@ -14,7 +14,7 @@ const TypeBar = observer(() => {
                 onClick={type.id === food.selectedType.id ? () => food.setSelectedType({}) : () => food.setSelectedType(type)}
                 border={type.id === food.selectedType.id ? 'primary' : 'light'}
                 text={type.id === food.selectedType.id ? 'primary' : 'dark'}
-                style={{cursor:'pointer'}}
+                style={{cursor:'pointer'}}                
             >
                 <Card.Text>
                     {type.name}

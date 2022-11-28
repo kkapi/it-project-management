@@ -22,6 +22,7 @@ export const createFood = async (food) => {
 }
 
 export const deleteFood = async (food) => {
+    console.log(food)
     const {data} = await $authHost.post('api/food/delete', food)
     return data
 }
