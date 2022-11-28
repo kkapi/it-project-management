@@ -3,7 +3,6 @@ import { Button, Card, Col, Container, Image, Row } from 'react-bootstrap'
 import {useParams} from 'react-router-dom'
 import { Context } from '..'
 import ConfirmDeleteFood from '../components/modals/ConfirmDeleteFood'
-import CreateType from '../components/modals/CreateType'
 import { fetchOneFood } from '../http/foodAPI'
 
 const FoodPage = () => {
@@ -15,7 +14,11 @@ const FoodPage = () => {
   const {id} = useParams()
 
   useEffect(() => {
-    fetchOneFood(id).then(data => setFood(data))
+    fetchOneFood(id).then(data => {
+      setFood(data)
+      console.log(data.description)
+    })
+    
   }, [])
 
   return (
@@ -36,6 +39,7 @@ const FoodPage = () => {
           </Card>
         </Col>     
       <h3 className='mt-3'>Информация</h3>
+      <h2>{food.description}</h2>
       <Row className="d-flex flex-column m-3">
         {food.info.map(info =>
           <Row key={info.id}>

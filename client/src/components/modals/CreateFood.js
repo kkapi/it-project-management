@@ -123,7 +123,7 @@ const CreateFood = observer(({show, onHide}) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Добавить еду
+          Добавление карточки с едой
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>

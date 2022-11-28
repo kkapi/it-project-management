@@ -22,7 +22,6 @@ const Shop = observer(() => {
   useEffect(() => {
     fetchFood(food.selectedType.id, food.page, 12).then(data => {
       food.setFoods(data.rows)
-      food.foods.map(i => console.log(i.id))
       food.setTotalCount(data.count)    
     })
   }, [food.page, food.selectedType])

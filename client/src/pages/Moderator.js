@@ -25,21 +25,21 @@ const Moderator = () => {
         className="mt-3 p-2"
         onClick={() => setTypeDeleteVisible(true)}
       >
-        Удалить тип
+        Удалить типы
       </Button>
       <Button 
         variant="outline-dark" 
         className="mt-3 p-2"
         onClick={() => setFoodVisible(true)}
       >
-        Добавить еду
+        Добавить карточку с едой
       </Button>
       <Button 
         variant="outline-dark" 
         className="mt-3 p-2"
         onClick={() => setFoodDeleteVisible(true)}
       >
-        Удалить еду
+        Удалить карточки с едой
       </Button>
       
       <CreateType show={typeVisible} onHide={() => setTypeVisible(false)}/>
