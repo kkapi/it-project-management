@@ -17,8 +17,18 @@ const Profile = observer(() => {
   const [address, setAddress] = useState('')
 
   useEffect(() => {
-    getOneUser().then(data => user.setInfo(data))
-    check().then(data => user.setUser(data))    
+    getOneUser().then(data => {
+      user.setInfo(data)      
+    })
+    check().then(data => {
+      user.setUser(data)      
+    })
+    setTimeout(() => {
+      placeholderName = user.name || "Добавьте ФИО"
+      placeholderPhone = user.phone || "Добавьте телефон"
+      placeholderAddress = user.address || "Добавьте адрес"
+    }, 500);
+    
   },[name, phone, address])
 
   const validatePassword = (password) => {
@@ -72,8 +82,7 @@ const Profile = observer(() => {
     if (!address) {
       alert('Введите адрес')
     } else {      
-      changeInfo('', '', address)
-      setAddress('')
+      changeInfo('', '', address).then(setAddress(''))      
       alert("Адрес изменен")
     }
   }
@@ -82,8 +91,7 @@ const Profile = observer(() => {
     if (!name) {
       alert('Введите имя')
     } else {      
-      changeInfo(name, '', '')
-      setName('')
+      changeInfo(name, '', '').then(setName(''))      
       alert("Имя изменено")
     }
   }
@@ -92,8 +100,7 @@ const Profile = observer(() => {
     if (!phone) {
       alert('Введите телефон')
     } else {      
-      changeInfo('', phone, '')
-      setPhone('')
+      changeInfo('', phone, '').then(setPhone(''))      
       alert("Телефон изменен")
     }
   }
