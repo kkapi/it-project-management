@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { Button, Card, Container, Form } from 'react-bootstrap'
 import { Context } from '..'
-import { check, getOneUser, changePassword } from '../http/userAPI'
+import { check, getOneUser, changePassword, changeInfo } from '../http/userAPI'
 
 const Profile = observer(() => {
 
@@ -11,12 +11,15 @@ const Profile = observer(() => {
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
   const [notification, setNotification] = useState(null)
-  const [confirmPassword, setConfirmPassword] = useState('') 
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [address, setAddress] = useState('')
 
   useEffect(() => {
-    check().then(data => user.setUser(data)) 
     getOneUser().then(data => user.setInfo(data))
-  },[])
+    check().then(data => user.setUser(data))    
+  },[name, phone, address])
 
   const validatePassword = (password) => {
     return String(password)
@@ -25,9 +28,9 @@ const Profile = observer(() => {
     )
   }
 
-  let name = user.name || "Добавьте ФИО"
-  let phone = user.phone || "Добавьте телефон"
-  let address = user.address || "Добавьте адрес"
+  let placeholderName = user.name || "Добавьте ФИО"
+  let placeholderPhone = user.phone || "Добавьте телефон"
+  let placeholderAddress = user.address || "Добавьте адрес"
 
   const changePass = async () => {
     try {            
@@ -65,6 +68,35 @@ const Profile = observer(() => {
         console.log(e.response.data.message)
     }
 }
+  const changeAdress = async () => {
+    if (!address) {
+      alert('Введите адрес')
+    } else {      
+      changeInfo('', '', address)
+      setAddress('')
+      alert("Адрес изменен")
+    }
+  }
+
+  const changeName = async () => {
+    if (!name) {
+      alert('Введите имя')
+    } else {      
+      changeInfo(name, '', '')
+      setName('')
+      alert("Имя изменено")
+    }
+  }
+
+  const changePhone = async () => {
+    if (!phone) {
+      alert('Введите телефон')
+    } else {      
+      changeInfo('', phone, '')
+      setPhone('')
+      alert("Телефон изменен")
+    }
+  }
 
   return (
     <Container 
@@ -93,25 +125,52 @@ const Profile = observer(() => {
             <span style={{width: 300}}>ФИО</span>            
               <Form.Control
                 className="mx-3"
-                placeholder={name}              
+                placeholder={placeholderName}
+                value={name}
+                onChange={(e) => setName(e.target.value)}            
               />
-              <Button variant="outline-dark" style={{height: 38}} className="ms-2">Изменить</Button>    
+              <Button 
+                variant="outline-dark" 
+                style={{height: 38}} 
+                className="ms-2"
+                onClick={() => changeName()}
+              >
+                Изменить
+              </Button>    
           </Form>
           <Form style={{width: 550, height: 38}} className='d-flex align-items-center mt-4'>
             <span style={{width: 300}}>Номер телефона</span>            
               <Form.Control
                 className="mx-3"
-                placeholder={phone}             
+                placeholder={placeholderPhone}
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}            
               />
-              <Button variant="outline-dark" style={{height: 38}} className="ms-2">Изменить</Button>    
+              <Button
+                variant="outline-dark" 
+                style={{height: 38}} 
+                className="ms-2"
+                onClick={() => changePhone()}
+              >
+                Изменить
+              </Button>    
           </Form>
           <Form style={{width: 550, height: 38}} className=' d-flex align-items-center mt-4'>
             <span style={{width: 300}}>Адрес</span>            
               <Form.Control
                 className="mx-3"
-                placeholder={address}             
+                placeholder={placeholderAddress}
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}             
               />
-              <Button variant="outline-dark" style={{height: 38}} className="ms-2">Изменить</Button>    
+              <Button 
+                variant="outline-dark"
+                style={{height: 38}} 
+                className="ms-2"
+                onClick={() => changeAdress()}
+              >
+                Изменить
+              </Button>    
           </Form>        
         </Form>
         </div>        

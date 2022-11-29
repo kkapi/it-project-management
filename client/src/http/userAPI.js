@@ -37,3 +37,9 @@ export const changePassword = async (password) => {
     const {data} = await $authHost.post('api/user/changepass', {password})
     return data
 }
+
+export const changeInfo = async (name, phone, address) => {
+    console.log(name, phone, address)
+    const {data} = await $authHost.post('api/user/changeinfo', {name, phone, address})
+    return data
+}

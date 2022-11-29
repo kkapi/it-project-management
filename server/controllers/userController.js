@@ -230,6 +230,34 @@ class UserController {
 
         return res.status(200).json({message: 'successChange'})
     }
+
+    async changeInfo(req, res, next) {
+        console.log("hi---------------")
+        const {name, phone, address} = req.body
+        const {id} = req.user
+
+        console.log(address)
+
+        const userInfo = await UserInfo.findOne({
+            where: {userId: id}
+        })
+
+        if (name) {
+            userInfo.name = name
+        }
+
+        if (phone) {
+            userInfo.phone = phone
+        }
+
+        if (address) {
+            userInfo.address = address
+        }
+
+        userInfo.save()
+
+        return res.status(200).json({message: 'successInfoChange'})
+    }
 }
 
 module.exports = new UserController()
