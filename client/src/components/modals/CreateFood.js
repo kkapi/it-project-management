@@ -26,6 +26,7 @@ const CreateFood = observer(({show, onHide}) => {
         food.setSelectedType({})  
         onHide()
         setName('')
+        setDescription('')
         setPrice('')
         setFile(null)
         setInfo([])               

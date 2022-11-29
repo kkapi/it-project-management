@@ -63,7 +63,7 @@ class FoodService {
 
     async getFoodPage(typeId, limit, page) {
         page = page || 1
-        limit = limit || 9
+        limit = limit || 12
 
         let offset = page * limit - limit
         let foods

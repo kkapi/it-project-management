@@ -1,67 +1,62 @@
 import { observer } from "mobx-react-lite"
 import React, { useContext, useEffect, useState } from "react"
-import { Button, Dropdown, Modal } from "react-bootstrap"
+import { Button, Dropdown, Form, Modal } from "react-bootstrap"
 import { Context } from "../.."
 import { deleteFood, fetchFood, fetchTypes, getAllFood } from "../../http/foodAPI"
 
 const DeleteFood = observer(({ show, onHide }) => {
   const { food } = useContext(Context)
-
-  const [error, setError] = useState(null)
-  const [selectedFood, setSelectedFood] = useState(null)
+  
+  const [info, setInfo] = useState([])
 
   useEffect(() => {    
     fetchTypes().then(data => food.setTypes(data))
-    getAllFood().then(data => food.setAllFood(data))
+    getAllFood().then(data => {
+      food.setAllFood(data)
+      setInfo(food.allFood)
+    })    
   },[show])
 
-  const hideNull = () => {
-    onHide()
-    setError(null)
-    setSelectedFood(null)
-  }
-
-  const  delFood = () => {
-    try {
-        if (!selectedFood) {
-            setError("Выберете еду для удаления")
-        } else {        
-            deleteFood({name: selectedFood})
-            hideNull()
-        }
-    } catch (e) {
-      setError(e.response.data.message)
-    }    
+  const removeInfo = (name) => {
+    setInfo(info.filter(i => i.name !== name))
+    deleteFood({name: name})
+    if (info.length === 1) {
+      onHide()
+    }
   }
 
   return (
     <Modal   
         show={show}
-        onHide={hideNull} 
-      size="lg"
-      centered
+        onHide={onHide} 
+        size="lg"
+        centered
+        dialogClassName="delete-type-modal"
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           Удаление карточек с едой
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        { error && <div className="alert alert-danger m-0 mb-3 text-center py-2" role="alert">{error}</div>}
-        <Dropdown>
-            <Dropdown.Toggle>{selectedFood || "Выберете еду"}</Dropdown.Toggle>
-            <Dropdown.Menu>
-                {food.allFood.map(item =>
-                    <Dropdown.Item onClick={() => setSelectedFood(item.name)} key={item.id}>{item.name}</Dropdown.Item>
-                )}
-            </Dropdown.Menu>
-        </Dropdown>
+      <Modal.Body className='ps-10'>
+        {
+          info.map((i, index) =>
+            <>
+            <Form className="d-flex align-items-center justify-content-center" key={index}>
+                  <Form style={{width: 350}} className="mt-1 mx-3 d-flex align-items-center justify-content-between">
+                    <h6 className='superbiba'>{i.name}</h6>                
+                    <Button variant={"outline-danger"} className="ps-auto" onClick={() => removeInfo(i.name)}>Удалить</Button>
+                  </Form>  
+            </Form>
+            <hr/>
+            </>
+          )
+        }
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="outline-danger" onClick={hideNull}>Закрыть</Button>
-        <Button variant="outline-danger" onClick={delFood}>Удалить</Button>
+        <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>       
       </Modal.Footer>
-    </Modal>  
+    </Modal>
   )
 })
 

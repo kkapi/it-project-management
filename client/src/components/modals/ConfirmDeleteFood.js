@@ -31,12 +31,12 @@ const ConfirmDeleteFood = ({show, onHide, name}) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Удаление карточки с едой ааааааааааааааа
+          Удаление карточки с едой
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
-            Вы действительно хотие удалить данную карточку с едой?  
+            Вы действительно хотие удалить карточку "{name}"?  
         </Form>
       </Modal.Body>
       <Modal.Footer>
