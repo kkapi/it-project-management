@@ -1,7 +1,7 @@
 const ApiError = require('../error/ApiError')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const {User, Basket} = require('../models/models')
+const {User, Basket, UserInfo} = require('../models/models')
 const userService = require('../service/userService')
 const tokenService = require('../service/tokenService')
 const mailService = require('../service/mailService')
@@ -115,10 +115,39 @@ class UserController {
         
     }
 
+    async getOneUser(req, res, next) {
+        try {
+            const {id, email} = req.user
+
+            const user = await User.findOne(
+                {
+                    where: id,               
+                },
+            )
+
+            const info = await UserInfo.findOne(
+                {
+                    where: {userId: id},                    
+                },
+            )
+            
+            const data = {
+                email: user.email,
+                role: user.role,
+                isBlocked: user.isBlocked,
+                name: info.name,
+                phone: info.phone,
+                address: info.address
+            }
+            
+            return res.json(data)
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
     async check(req, res, next) {  
-        console.log(req)      
         const token = tokenService.generateJWT(req.user.id, req.user.email, req.user.role, req.user.isBlocked)
-        console.log(token)
         return res.json({token})
     }
 

@@ -14,9 +14,8 @@ const FoodPage = () => {
   useEffect(() => {
     fetchOneFood(id).then(data => {
       setFood(data)
-    })
-    
-  }, [])
+    })    
+  },[])
 
   return (
     <Container className='d-flex justify-content-center align-items-start mt-5 pt-5' style={{height: window.innerHeight - 150}}>

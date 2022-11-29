@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Context } from ".";
 import AppRouter from "./components/AppRouter";
 import NavBar from "./components/NavBar";
-import { check } from "./http/userAPI";
+import { check, getOneUser } from "./http/userAPI";
 
 
 const App = observer (() => {
@@ -13,7 +13,8 @@ const App = observer (() => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    check().then(data => {      
+    check().then(data => {
+      getOneUser().then(info => console.log(info))      
       user.setUser(data)      
       user.setIsAuth(true)
       user.setIsBlocked(data.isBlocked)

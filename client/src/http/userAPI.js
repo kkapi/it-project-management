@@ -27,3 +27,8 @@ export const resetPassword = async (link, password) => {
     const {data} = await $host.post('api/user/reset/' + link, {password})
     return data
 }
+
+export const getOneUser = async () => {
+    const {data} = await $authHost.get('api/user')
+    return data
+}

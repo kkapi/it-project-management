@@ -1,4 +1,4 @@
-const {User, Basket} = require('../models/models')
+const {User, Basket, UserInfo} = require('../models/models')
 const bcrypt = require('bcrypt')
 const uuid = require('uuid')
 const mailService = require('../service/mailService')
@@ -11,6 +11,7 @@ class UserService {
 
         const user = await User.create({email, role, password: hashPassword, activationLink, recoverLink})
         const basket = await Basket.create({userId: user.id})
+        const userInfo = await UserInfo.create({userId: user.id})          
         
         await mailService.sendActivationMail(email, `${process.env.API_URL}/api/user/activate/${activationLink}`)
 
