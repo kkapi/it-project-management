@@ -16,7 +16,7 @@ const DeleteFood = observer(({ show, onHide }) => {
       food.setAllFood(data)
       setInfo(food.allFood)
     })    
-  },[show])
+  },[show, onHide])
 
   const removeInfo = (name) => {
     setInfo(info.filter(i => i.name !== name))

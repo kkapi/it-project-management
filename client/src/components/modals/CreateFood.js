@@ -19,7 +19,7 @@ const CreateFood = observer(({show, onHide}) => {
         food.setSelectedType({})
         fetchTypes().then(data => food.setTypes(data))
         fetchFood().then(data => food.setFoods(data.rows))
-    },[show])
+    },[show, onHide])
 
     const hideNull = () => {        
         setError(null)

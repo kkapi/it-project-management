@@ -13,7 +13,7 @@ const App = observer (() => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    check().then(data => {
+    check().then(data => {      
       user.setUser(data)      
       user.setIsAuth(true)
       user.setIsBlocked(data.isBlocked)

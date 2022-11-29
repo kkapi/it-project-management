@@ -8,16 +8,12 @@ export const registration = async (email, password) => {
 
 export const login = async (email, password) => {
     const {data} = await $host.post('api/user/login', {email, password})
-    console.log(data.token)
     localStorage.setItem('token', data.token)
-    console.log("LOCAL after login = " + data.token)
     return jwt_decode(data.token)
 }
 
 export const check = async () => {
-    console.log('BEFORE CHECK' + localStorage.getItem('token'))
     const {data} = await $authHost.get('api/user/auth')
-    console.log(data.token)
     localStorage.setItem('token', data.token)
     return jwt_decode(data.token)
 }

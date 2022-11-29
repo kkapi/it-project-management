@@ -12,7 +12,7 @@ const CreateType = ({show, onHide}) => {
     fetchTypes().then(data => {
       food.setTypes(data)           
     })      
-  },[show])
+  },[show, onHide])
   
   const types = []
   
@@ -33,7 +33,9 @@ const CreateType = ({show, onHide}) => {
         } else {
           createType({name: value}).then(data => setValue(''))
           setError(null)
-          onHide()
+          onHide() 
+          types.push(value)
+          food.setTypes(types)
           food.setSelectedType({})          
         }
     } catch (e) {
@@ -42,6 +44,7 @@ const CreateType = ({show, onHide}) => {
   }
 
   const hideNull = () => {
+    setValue('')
     onHide()
     setError(null)
   }
