@@ -35,7 +35,7 @@ const Food = sequelize.define('food', {
     name: {type: DataTypes.STRING, required: true},
     price: {type: DataTypes.STRING},
     img: {type: DataTypes.STRING},
-    description: {type: DataTypes.STRING},
+    description: {type: DataTypes.TEXT},
 })
 
 const Type = sequelize.define('type', {

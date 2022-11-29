@@ -10,26 +10,21 @@ import { fetchFood, fetchTypes } from '../http/foodAPI';
 const Shop = observer(() => {
   const {food} = useContext(Context)
 
-  fetchFood(null, 1, 12).then(data => {
-    food.setFoods(data.rows)
-    food.setTotalCount(data.count)
-  })
-
   useEffect(() => {
     fetchTypes().then(data => {
       food.setTypes(data)
     })
+
     fetchFood(null, 1, 12).then(data => {
       food.setFoods(data.rows)
-      food.setTotalCount(data.count)    
-    })
-    
+      food.setTotalCount(data.count)      
+    }) 
   },[])
 
   useEffect(() => {
     fetchFood(food.selectedType.id, food.page, 12).then(data => {
       food.setFoods(data.rows)
-      food.setTotalCount(data.count)    
+      food.setTotalCount(data.count)     
     })
   }, [food.page, food.selectedType])
 

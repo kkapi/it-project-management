@@ -1,8 +1,9 @@
 import { observer } from "mobx-react-lite"
 import React, { useContext, useEffect, useState } from "react"
-import { Button, Dropdown, Form, Modal } from "react-bootstrap"
+import { Button, Form, Image, Modal } from "react-bootstrap"
 import { Context } from "../.."
-import { deleteFood, fetchFood, fetchTypes, getAllFood } from "../../http/foodAPI"
+import { deleteFood, fetchTypes, getAllFood } from "../../http/foodAPI"
+import './DeleteFood.css'
 
 const DeleteFood = observer(({ show, onHide }) => {
   const { food } = useContext(Context)
@@ -31,7 +32,7 @@ const DeleteFood = observer(({ show, onHide }) => {
         onHide={onHide} 
         size="lg"
         centered
-        dialogClassName="delete-type-modal"
+        dialogClassName="delete-food-modal"
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
@@ -41,13 +42,13 @@ const DeleteFood = observer(({ show, onHide }) => {
       <Modal.Body className='ps-10'>
         {
           info.map((i, index) =>
-            <>
-            <Form className="d-flex align-items-center justify-content-center" key={index}>
-                  <Form style={{width: 350}} className="mt-1 mx-3 d-flex align-items-center justify-content-between">
-                    <h6 className='superbiba'>{i.name}</h6>                
-                    <Button variant={"outline-danger"} className="ps-auto" onClick={() => removeInfo(i.name)}>Удалить</Button>
-                  </Form>  
-            </Form>
+            <>            
+              <Form  className="mx-5 m-0 d-flex align-items-center justify-content-between" key={index}>
+                <Image width={50} height={50} src={process.env.REACT_APP_API_URL + i.img} className="rounded"/>
+                <h6>{i.name}</h6>
+                <h6>{i.price} руб</h6>                
+                <Button variant={"outline-danger"} className="ps-auto" onClick={() => removeInfo(i.name)}>Удалить</Button>
+              </Form>            
             <hr/>
             </>
           )

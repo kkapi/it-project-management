@@ -101,14 +101,14 @@ const CreateFood = observer(({show, onHide}) => {
             } else {
                 formData.append('name', name)
                 formData.append('description', description)
-                formData.append('price', `${Number(price)}`)
+                formData.append('price', `${(price)}`)
                 formData.append('img', file)        
                 formData.append('typeId', food.selectedType.id)
                 formData.append('info', JSON.stringify(info))
                 createFood(formData).then(data => hideNull())
             }        
         } catch (e) {
-            setError(e.response.data.message)
+            console.log(e.response.data.message)
         }
 
         

@@ -46,7 +46,7 @@ const DeleteType = observer(({show, onHide}) => {
           info.map((i, index) =>
             <>
             <Form className="d-flex align-items-center justify-content-center" key={index}>
-                  <Form style={{width: 350}} className="mt-1 mx-3 d-flex align-items-center justify-content-between">
+                  <Form style={{width: 290}} className="mt-1 d-flex align-items-center justify-content-between">
                     <h6 className='superbiba'>{i.name}</h6>                
                     <Button variant={"outline-danger"} className="ps-auto" onClick={() => removeInfo(i.name)}>Удалить</Button>
                   </Form>  
