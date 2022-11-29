@@ -5,7 +5,12 @@ export default class UserStore {
         this._isAuth = false
         this._user = {}
         this._role = {}
+        this._isBlocked = false
         makeAutoObservable(this)
+    }
+
+    setIsBlocked(bool) {
+        this._isBlocked = bool
     }
 
     setIsAuth(bool) {

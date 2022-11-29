@@ -14,7 +14,8 @@ module.exports = function (req, res, next) {
         decoded = {
             id: data.id,
             email: data.email,
-            role: data.role
+            role: data.role,
+            isBlocked: data.isBlocked
         }
         req.user = decoded
         next()

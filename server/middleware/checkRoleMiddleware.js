@@ -19,7 +19,8 @@ module.exports = function(role) {
             decoded = {
                 id: data.id,
                 email: data.email,
-                role: data.role
+                role: data.role,
+                isBlocked: data.isBlocked
             }
             
             if (decoded.role !== role) {

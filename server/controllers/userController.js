@@ -106,7 +106,8 @@ class UserController {
                 return next(ApiError.internal('Указан неверный пароль'))
             }
 
-            const token = tokenService.generateJWT(user.id, user.email, user.role)
+            const token = tokenService.generateJWT(user.id, user.email, user.role, user.isBlocked)
+            console.log(token)
             return res.json({token})
         } catch (e) {
             console.log(e)
@@ -114,8 +115,10 @@ class UserController {
         
     }
 
-    async check(req, res, next) {        
-        const token = tokenService.generateJWT(req.user.id, req.user.email, req.user.role)
+    async check(req, res, next) {  
+        console.log(req)      
+        const token = tokenService.generateJWT(req.user.id, req.user.email, req.user.role, req.user.isBlocked)
+        console.log(token)
         return res.json({token})
     }
 
