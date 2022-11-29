@@ -21,6 +21,8 @@ const Profile = observer(() => {
           </Form>
           <Form>
             Роль: {user.user.role === 'USER' && <span>Пользователь</span>}
+                  {user.user.role === 'ADMIN' && <span>Администратор</span>}
+                  {user.user.role === 'MODERATOR' && <span>Модератор</span>}
           </Form>
           <Form>
             Статус: {!user.isBlocked ? <span className='text-success'>Активен</span> : <span className='text-danger'>Заблокирован</span>}
