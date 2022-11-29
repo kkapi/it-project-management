@@ -22,12 +22,7 @@ const Profile = observer(() => {
     })
     check().then(data => {
       user.setUser(data)      
-    })
-    setTimeout(() => {
-      placeholderName = user.name || "Добавьте ФИО"
-      placeholderPhone = user.phone || "Добавьте телефон"
-      placeholderAddress = user.address || "Добавьте адрес"
-    }, 500);
+    })   
     
   },[name, phone, address])
 
@@ -82,7 +77,10 @@ const Profile = observer(() => {
     if (!address) {
       alert('Введите адрес')
     } else {      
-      changeInfo('', '', address).then(setAddress(''))      
+      changeInfo('', '', address).then(data => { 
+        placeholderAddress = user.address || "Добавьте адрес"
+        setAddress('')
+      })      
       alert("Адрес изменен")
     }
   }
@@ -91,7 +89,10 @@ const Profile = observer(() => {
     if (!name) {
       alert('Введите имя')
     } else {      
-      changeInfo(name, '', '').then(setName(''))      
+      changeInfo(name, '', '').then(data => {
+        placeholderName = user.name || "Добавьте ФИО"
+        setName('')}
+        )      
       alert("Имя изменено")
     }
   }
@@ -100,7 +101,10 @@ const Profile = observer(() => {
     if (!phone) {
       alert('Введите телефон')
     } else {      
-      changeInfo('', phone, '').then(setPhone(''))      
+      changeInfo('', phone, '').then(data => {
+        placeholderPhone = user.phone || "Добавьте телефон"
+        setPhone('')
+      })      
       alert("Телефон изменен")
     }
   }
