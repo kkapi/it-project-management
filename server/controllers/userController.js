@@ -117,7 +117,7 @@ class UserController {
 
     async getOneUser(req, res, next) {
         try {
-            const {id, email} = req.user
+            const {id} = req.user
 
             const user = await User.findOne(
                 {
@@ -213,6 +213,22 @@ class UserController {
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }
+    }
+
+    async changePassword(req, res, next) {
+        const {password} = req.body
+        const {id} = req.user
+
+        const user = await User.findOne({
+            where: {id}
+        })
+
+        const hashPassword = await bcrypt.hash(password, 3)
+
+        user.password = hashPassword
+        await user.save()
+
+        return res.status(200).json({message: 'successChange'})
     }
 }
 

@@ -32,3 +32,8 @@ export const getOneUser = async () => {
     const {data} = await $authHost.get('api/user')
     return data
 }
+
+export const changePassword = async (password) => {
+    const {data} = await $authHost.post('api/user/changepass', {password})
+    return data
+}

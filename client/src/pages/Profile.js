@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { Button, Card, Container, Form } from 'react-bootstrap'
 import { Context } from '..'
-import { check, getOneUser } from '../http/userAPI'
+import { check, getOneUser, changePassword } from '../http/userAPI'
 
 const Profile = observer(() => {
 
@@ -32,27 +32,37 @@ const Profile = observer(() => {
   const changePass = async () => {
     try {            
         if (!password && !confirmPassword) {
-          setNotification(null)
-          setError("Введите и подтвердите пароль")
+          // setNotification(null)
+          // setError("Введите и подтвердите пароль")
+          alert("Введите и подтвердите пароль")
         } else if (!password) {
-          setNotification(null)
-          setError("Введите пароль")
+          // setNotification(null)
+          // setError("Введите пароль")
+          alert("Введите пароль")
         } else if (!validatePassword(password)) {
-          setNotification(null)
-          setError('Пароль должен содержать от 5 до 20 символов, иметь хотя бы одну цифру, иметь хотя бы один специальный символ [#$&*_-]')
+          // setNotification(null)
+          // setError('Пароль должен содержать от 5 до 20 символов, иметь хотя бы одну цифру, иметь хотя бы один специальный символ [#$&*_-]')
+          alert("Пароль должен содержать от 5 до 20 символов, иметь хотя бы одну цифру, иметь хотя бы один специальный символ [#$&*_-]")
         } else if (!confirmPassword) {
-          setNotification(null)
-          setError("Подтвердите пароль")
+          // setNotification(null)
+          // setError("Подтвердите пароль")
+          alert("Подтвердите пароль")
         } else if (password !== confirmPassword) {
-          setNotification(null)
-          setError("Пароли не совпадают")
+          // setNotification(null)
+          // setError("Пароли не совпадают")
+          alert("Пароли не совпадают")
         } else if (password === confirmPassword) {
-          setError(null)               
-          setNotification('Пароль был успешно изменен')             
+          // setError(null)               
+          // setNotification('Пароль был успешно изменен')
+          const data = changePassword(password)
+          alert(data)
+          setPassword('')
+          setConfirmPassword('')              
         }                
     } catch (e) {
-        setNotification(null)
-        setError(e.response.data.message)
+        // setNotification(null)
+        // setError(e.response.data.message)
+        console.log(e.response.data.message)
     }
 }
 
