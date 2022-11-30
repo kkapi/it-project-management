@@ -1,23 +1,30 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "..";
-import { getAllUser } from "../http/userAPI";
+import { changeUserStatus, getAllUser } from "../http/userAPI";
 import Table from "react-bootstrap/Table";
-import { Button, Container } from "react-bootstrap";
+import { Button, Container, Dropdown } from "react-bootstrap";
+import { observer } from "mobx-react-lite";
 
-const Admin = () => {
-  const { user } = useContext(Context);
+const Admin = observer(() => {
+  const { user } = useContext(Context)
 
-  const [info2, setInfo2] = useState([]);
+  const [info2, setInfo2] = useState([])
+  const [update, setUpdate] = useState(false)
+
+  const changeStatus = (id, isBlocked) => {
+    changeUserStatus(id, isBlocked).then(data => setUpdate(!update))    
+  }
 
   useEffect(() => {
     getAllUser().then((data) => {
       user.setUsers(data);
       setInfo2(user.users);
     });
-  }, []);
+  }, [update]);
 
   return (
-    <Container className="mt-5" style={{width: 1500}}>
+    <Container className="mt-4" style={{width: 1500}}>
+      <h1 className="mb-4 mt-0">Пользователи</h1>
     <Table striped bordered hover>
       <thead>
         <tr>
@@ -40,15 +47,38 @@ const Admin = () => {
               <td>{tr.email}</td>
               <td>{tr.user_info.phone || "Не заполнено"}</td>
               <td>{tr.user_info.address || "Не заполнено"}</td>
-              {tr.role === 'USER' && <td>Пользователь</td>}
-              {tr.role === 'ADMIN' && <td>Администратор</td>}
-              {tr.role === 'MODERATOR' && <td>Модератор</td>}
+              <td>
+                { tr.role !== 'ADMIN' ?
+                <>
+                  <Dropdown>
+                    <Dropdown.Toggle variant="secondary">
+                      {tr.role === 'USER' && <>Пользователь</>}
+                      {tr.role === 'ADMIN' && <>Администратор</>}
+                      {tr.role === 'MODERATOR' && <>Модератор</>}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu onChange={console.log("Hello")}>
+                      <Dropdown.Item>Администратор</Dropdown.Item>
+                      {tr.role === 'USER' ?                       
+                        <Dropdown.Item>Модератор</Dropdown.Item>
+                          :
+                        <Dropdown.Item>Пользователь</Dropdown.Item>            
+                      }                   
+                                     
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </>
+                  :
+                  <>Администратор</>
+                }              
+                
+              </td>
+              
               <td>{!tr.isBlocked ? <span className='text-success fw-bold'>Активен</span> : <span className='text-danger fw-bold'>Заблокирован</span>}</td>
               <td className="d-flex justify-content-center align-items-center" style={{height: 55}}>
                 { tr.role !== 'ADMIN' &&
                 <>
-                  {!tr.isBlocked && <Button variant="danger">Заблокировать</Button>}
-                  {tr.isBlocked && <Button variant="danger">Разблокировать</Button>}
+                  {!tr.isBlocked && <Button variant="danger" onClick={() => changeStatus(tr.id, true)}>Заблокировать</Button>}
+                  {tr.isBlocked && <Button variant="success" onClick={() => changeStatus(tr.id, false)}>Разблокировать</Button>}
                 </>
                 }                   
               </td>
@@ -59,6 +89,6 @@ const Admin = () => {
     </Table>
     </Container>
   );
-};
+});
 
 export default Admin;

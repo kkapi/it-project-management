@@ -47,3 +47,8 @@ export const getAllUser = async () => {
     const {data} = await $authHost.get('api/user/all')
     return data
 }
+
+export const changeUserStatus = async (id, isBlocked) => {
+    const {data} = await $authHost.post('api/user/changestatus', {id, isBlocked})
+    return data
+} 

@@ -26,6 +26,11 @@ module.exports = function(role) {
             if (decoded.role !== role) {
                 return res.status(403).json({message: "Нет доступа"})
             }
+
+            if (decoded.isBlocked) {
+                return res.status(403).json({message: "Заблокирован"})
+            }
+
             req.user = decoded
 
             next()

@@ -17,6 +17,11 @@ module.exports = function (req, res, next) {
             role: data.role,
             isBlocked: data.isBlocked
         }
+
+        if (decoded.isBlocked) {
+            return res.status(403).json({message: "Заблокирован"})
+        }
+        
         req.user = decoded
         next()
     } catch (e) {

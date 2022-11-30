@@ -101,6 +101,10 @@ class UserController {
                 return next(ApiError.internal('Подтвердите аккаунт по почте'))
             }
 
+            if (user.isBlocked) {
+                return next(ApiError.internal('Пользователь заблокирован'))
+            }
+
             let comparePassword = bcrypt.compareSync(password, user.password)
 
             if (!comparePassword) {
@@ -114,6 +118,16 @@ class UserController {
             console.log(e)
         }
         
+    }
+
+    async changeStatus(req, res, next) {
+        const {id, isBlocked} = req.body
+        console.log(id)
+        const user = await User.findOne({where: {id}})
+        user.isBlocked = isBlocked
+        user.save()
+        return res.status(200).json("success")
+
     }
 
     async getAll(req, res, nex) {
@@ -180,6 +194,10 @@ class UserController {
 
             if (!user) {
                 return next(ApiError.internal('Подтвержденный пользователь с таким email не найден'))
+            }
+
+            if (user.isBlocked) {
+                return next(ApiError.internal('Пользователь заблокирован'))
             }
 
             const recoveryLink = `${process.env.CLIENT_URL}/recoverypass/${user.recoverLink}`
