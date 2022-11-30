@@ -6,7 +6,7 @@ export const createType = async (type) => {
 }
 
 export const fetchTypes = async () => {
-    const {data} = await $host.get('api/type')
+    const {data} = await $authHost.get('api/type')
     return data
 }
 
@@ -27,18 +27,18 @@ export const deleteFood = async (food) => {
 }
 
 export const getAllFood = async () => {
-    const {data} = await $host.get('api/food')
+    const {data} = await $authHost.get('api/food')
     return data
 }
 
 export const fetchFood = async (typeId, page, limit = 12) => {
-    const {data} = await $host.get('api/food/page', {params: {
+    const {data} = await $authHost.get('api/food/page', {params: {
         typeId, page, limit
     }})
     return data
 }
 
 export const fetchOneFood = async (id) => {
-    const {data} = await $host.get('api/food/' + id)
+    const {data} = await $authHost.get('api/food/' + id)
     return data
 }

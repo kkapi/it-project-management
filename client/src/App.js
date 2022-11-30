@@ -14,7 +14,6 @@ const App = observer (() => {
 
   useEffect(() => {
     check().then(data => {
-      getOneUser().then(info => console.log(info))      
       user.setUser(data)      
       user.setIsAuth(true)
       user.setIsBlocked(data.isBlocked)

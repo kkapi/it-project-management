@@ -155,7 +155,8 @@ const Profile = observer(() => {
                 className="mx-3"
                 placeholder={placeholderPhone}
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}            
+                onChange={(e) => setPhone(e.target.value)}
+                type="tel"            
               />
               <Button
                 variant="outline-dark" 
