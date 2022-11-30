@@ -9,7 +9,14 @@ export default class UserStore {
         this._address = {}
         this._phone = {}
         this._isBlocked = false
+
+        this._users = []
+
         makeAutoObservable(this)
+    }
+
+    setUsers(users) {
+        this._users = users
     }
 
     setInfo(data) {
@@ -32,6 +39,10 @@ export default class UserStore {
 
     setRole(role) {
         this._role = role
+    }
+
+    get users() {
+        return this._users
     }
 
     get isAuth() {

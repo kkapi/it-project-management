@@ -7,6 +7,7 @@ const tokenService = require('../service/tokenService')
 const mailService = require('../service/mailService')
 const uuid = require('uuid')
 const validationService = require('../service/validationService')
+const { json } = require('sequelize')
 
 class UserController {
     async registration(req, res, next) {
@@ -113,6 +114,12 @@ class UserController {
             console.log(e)
         }
         
+    }
+
+    async getAll(req, res, nex) {
+        const users = await User.findAll({include: UserInfo})
+        
+        return res.json(users)
     }
 
     async getOneUser(req, res, next) {
