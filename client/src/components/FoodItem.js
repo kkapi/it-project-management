@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { Button, Card, Col, Image } from 'react-bootstrap'
 import { useNavigate } from "react-router-dom"
 import { Context } from '..'
+import { addBasketFood } from '../http/foodAPI'
 import { FOOD_ROUTE } from '../utils/consts'
 
 const FoodItem = ({food}) => {
@@ -25,7 +26,12 @@ const FoodItem = ({food}) => {
                     <div>{food.name}</div>
                     <div>{food.price} руб</div>
                   </div>
-                  {user.role === 'USER' && <Button style={{height: 30, width: 30}} className="d-flex justify-content-center align-items-center" title="Добавить в корзину">+</Button>}
+                  {user.role === 'USER' && 
+                  <Button style={{height: 30, width: 30}} 
+                    className="d-flex justify-content-center align-items-center" 
+                    title="Добавить в корзину"
+                    onClick={() => addBasketFood(food.id)}
+                  >+</Button>}
                 </div>
             </div>         
         </Card>

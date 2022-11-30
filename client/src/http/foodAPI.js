@@ -42,3 +42,14 @@ export const fetchOneFood = async (id) => {
     const {data} = await $authHost.get('api/food/' + id)
     return data
 }
+
+export const addBasketFood = async (food_id) => {
+    console.log(food_id)
+    const {data} = await $authHost.post('api/food/basket/food', {food_id})
+    return data
+}
+
+export const getBasket = async () => {
+    const {data} = await $authHost.post('api/food/basket')
+    return data
+}
