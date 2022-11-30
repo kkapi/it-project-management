@@ -52,3 +52,7 @@ export const changeUserStatus = async (id, isBlocked) => {
     const {data} = await $authHost.post('api/user/changestatus', {id, isBlocked})
     return data
 } 
+
+export const changeUserRole = async (id, role) => {
+    const {data} = await $authHost.post('api/user/changerole', {id, role})
+}

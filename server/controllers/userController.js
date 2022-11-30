@@ -112,7 +112,6 @@ class UserController {
             }
 
             const token = tokenService.generateJWT(user.id, user.email, user.role, user.isBlocked)
-            console.log(token)
             return res.json({token})
         } catch (e) {
             console.log(e)
@@ -122,12 +121,18 @@ class UserController {
 
     async changeStatus(req, res, next) {
         const {id, isBlocked} = req.body
-        console.log(id)
         const user = await User.findOne({where: {id}})
         user.isBlocked = isBlocked
         user.save()
         return res.status(200).json("success")
+    }
 
+    async changeRole(req, res, next) {
+        const {id, role} = req.body
+        const user = await User.findOne({where: {id}})
+        user.role = role
+        user.save()
+        return res.status(200).json("success")
     }
 
     async getAll(req, res, nex) {

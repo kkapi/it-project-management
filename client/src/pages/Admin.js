@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "..";
-import { changeUserStatus, getAllUser } from "../http/userAPI";
+import { changeUserRole, changeUserStatus, getAllUser } from "../http/userAPI";
 import Table from "react-bootstrap/Table";
-import { Button, Container, Dropdown } from "react-bootstrap";
+import { Button, Card, Container, Dropdown } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
 
 const Admin = observer(() => {
@@ -13,6 +13,12 @@ const Admin = observer(() => {
 
   const changeStatus = (id, isBlocked) => {
     changeUserStatus(id, isBlocked).then(data => setUpdate(!update))    
+  }
+
+  const changeRole = (id, role, newRole) => { 
+    if (role !== newRole) {
+      changeUserRole(id, newRole).then(data => setUpdate(!update))
+    }    
   }
 
   useEffect(() => {
@@ -47,26 +53,31 @@ const Admin = observer(() => {
               <td>{tr.email}</td>
               <td>{tr.user_info.phone || "Не заполнено"}</td>
               <td>{tr.user_info.address || "Не заполнено"}</td>
-              <td>
+              <td clas>
                 { tr.role !== 'ADMIN' ?
-                <>
-                  <Dropdown>
-                    <Dropdown.Toggle variant="secondary">
-                      {tr.role === 'USER' && <>Пользователь</>}
-                      {tr.role === 'ADMIN' && <>Администратор</>}
-                      {tr.role === 'MODERATOR' && <>Модератор</>}
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu onChange={console.log("Hello")}>
-                      <Dropdown.Item>Администратор</Dropdown.Item>
-                      {tr.role === 'USER' ?                       
-                        <Dropdown.Item>Модератор</Dropdown.Item>
-                          :
-                        <Dropdown.Item>Пользователь</Dropdown.Item>            
-                      }                   
-                                     
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </>
+                <div className="d-flex justify-content-between px-2">
+                  <Card 
+                    className="px-3"
+                    border={tr.role === "USER" ? 'primary' : 'dark'}
+                    text={tr.role === "USER" ? 'primary' : 'dark'}
+                    style={{cursor:'pointer'}}
+                    onClick={() => changeRole(tr.id, tr.role, 'USER')}
+                  >П</Card>
+                  <Card 
+                    className="px-3"
+                    border={tr.role === "MODERATOR" ? 'primary' : 'dark'}
+                    text={tr.role === "MODERATOR" ? 'primary' : 'dark'}
+                    style={{cursor:'pointer'}}
+                    onClick={() => changeRole(tr.id, tr.role, 'MODERATOR')}
+                  >М</Card>
+                  <Card
+                    className="px-3"
+                    border={tr.role === "ADMIN" ? 'primary' : 'dark'}
+                    text={tr.role === "ADMIN" ? 'primary' : 'dark'}
+                    style={{cursor:'pointer'}} 
+                    onClick={() => changeRole(tr.id, tr.role, 'ADMIN')}
+                  >А</Card>
+                </div>
                   :
                   <>Администратор</>
                 }              
