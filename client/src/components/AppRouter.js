@@ -13,9 +13,6 @@ const AppRouter = observer (() => {
         {user.isAuth && authRoutes.map(({path, Component}) => 
           <Route key={path} path={path} element={<Component/>}/>
         )}
-        {user.isAuth && user.role === 'USER' && userRoutes.map(({path, Component}) =>
-          <Route key={path} path={path} element={<Component/>}/>
-        )}
         {user.isAuth && user.role === 'MODERATOR' && moderatorRoutes.map(({path, Component}) =>
           <Route key={path} path={path} element={<Component/>}/>
         )}

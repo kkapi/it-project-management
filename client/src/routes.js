@@ -16,6 +16,14 @@ export const authRoutes = [
         Component: Profile
     },
     {
+        path: BASKET_ROUTE,
+        Component: Basket
+    },
+    {
+        path: ORDERS_ROUTE,
+        Component: Orders
+    },
+    {
         path: SHOP_ROUTE,
         Component: Shop
     },
@@ -56,15 +64,4 @@ export const adminRoutes = [
         path: ADMIN_ROUTE,
         Component: Admin
     }
-]
-
-export const userRoutes = [
-    {
-        path: BASKET_ROUTE,
-        Component: Basket
-    },
-    {
-        path: ORDERS_ROUTE,
-        Component: Orders
-    },
 ]
