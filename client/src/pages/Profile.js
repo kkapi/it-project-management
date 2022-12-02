@@ -133,7 +133,7 @@ const Profile = observer(() => {
       <hr/>
       <div className='d-flex justify-content-center' style={{width: 800}}>
       <Form className='d-flex flex-column align-items-start pb-4'>
-        { error && <div className="alert alert-danger m-0 text-center py-2 mb-4" role="alert" style={{width: 270}}>{dataError}</div>}
+        { dataError && <div className="alert alert-danger m-0 text-center py-2 mb-4" role="alert" style={{width: 270}}>{dataError}</div>}
         <Form style={{width: 550, height: 38}} className=' d-flex align-items-center mt-4'>
           <span style={{width: 300}}>ФИО</span>            
             <Form.Control
