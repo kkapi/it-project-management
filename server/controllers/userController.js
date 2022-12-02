@@ -1,13 +1,11 @@
 const ApiError = require('../error/ApiError')
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
 const {User, Basket, UserInfo} = require('../models/models')
 const userService = require('../service/userService')
 const tokenService = require('../service/tokenService')
 const mailService = require('../service/mailService')
 const uuid = require('uuid')
 const validationService = require('../service/validationService')
-const { json } = require('sequelize')
 
 class UserController {
     async registration(req, res, next) {
@@ -136,7 +134,7 @@ class UserController {
     }
 
     async getAll(req, res, nex) {
-        const users = await User.findAll({include: UserInfo})
+        const users = await User.findAll({order: [['id', 'ASC']], include: UserInfo})
         
         return res.json(users)
     }
@@ -268,13 +266,15 @@ class UserController {
 
     async changeInfo(req, res, next) {
         console.log("hi---------------")
-        const {name, phone, address} = req.body
-        const {id} = req.user
+        const {name, phone, address, user_id} = req.body
+        const {id, role} = req.user
 
-        console.log(address)
+        if (!(role === 'ADMIN' || user_id === id)) {
+            return next(ApiError.badRequest("Нет доступа"))
+        }
 
         const userInfo = await UserInfo.findOne({
-            where: {userId: id}
+            where: {userId: user_id}
         })
 
         if (name) {

@@ -4,12 +4,15 @@ import { changeUserRole, changeUserStatus, getAllUser } from "../http/userAPI";
 import Table from "react-bootstrap/Table";
 import { Button, Card, Container, Dropdown } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
+import { useNavigate } from "react-router-dom";
+import { PROFILE_ROUTE } from "../utils/consts";
 
 const Admin = observer(() => {
   const { user } = useContext(Context)
 
   const [info2, setInfo2] = useState([])
   const [update, setUpdate] = useState(false)
+  const navigate = useNavigate()
 
   const changeStatus = (id, isBlocked) => {
     changeUserStatus(id, isBlocked).then(data => setUpdate(!update))    
@@ -48,11 +51,11 @@ const Admin = observer(() => {
         {
           info2.map(tr => 
             <tr key={tr.id}>
-              <td >{tr.id}</td>
-              <td>{tr.user_info.name || "Не заполнено"}</td>
-              <td>{tr.email}</td>
-              <td>{tr.user_info.phone || "Не заполнено"}</td>
-              <td>{tr.user_info.address || "Не заполнено"}</td>
+              <td style={{cursor:'pointer'}} onClick={() => navigate(PROFILE_ROUTE + '/' + tr.id)}>{tr.id}</td>
+              <td style={{cursor:'pointer'}} onClick={() => navigate(PROFILE_ROUTE + '/' + tr.id)}>{tr.user_info.name || "Не заполнено"}</td>
+              <td style={{cursor:'pointer'}} onClick={() => navigate(PROFILE_ROUTE + '/' + tr.id)}>{tr.email}</td>
+              <td style={{cursor:'pointer'}} onClick={() => navigate(PROFILE_ROUTE + '/' + tr.id)}>{tr.user_info.phone || "Не заполнено"}</td>
+              <td style={{cursor:'pointer'}} onClick={() => navigate(PROFILE_ROUTE + '/' + tr.id)}>{tr.user_info.address || "Не заполнено"}</td>
               <td clas>
                 { tr.role !== 'ADMIN' ?
                 <div className="d-flex justify-content-between px-2">

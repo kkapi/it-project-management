@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 
-module.exports = function(roles) {
+module.exports = function(role) {
     return function (req, res, next) {
 
         if (req.method === "OPTIONS") {
@@ -23,15 +23,7 @@ module.exports = function(roles) {
                 isBlocked: data.isBlocked
             }
 
-            let validRole = false
-            
-            roles.map(role => {
-                if (role === decoded.role) {
-                    validRole = true
-                }
-            })
-
-            if (!validRole) {
+            if (role !== decoded.role) {
                 return res.status(403).json({message: "Нет доступа"})
             }
 

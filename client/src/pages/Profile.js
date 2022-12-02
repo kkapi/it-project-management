@@ -22,17 +22,18 @@ const Profile = observer(() => {
   const [isBlocked, setIsBlocked] = useState('')
   const [currentId, setCurrentId] = useState('')
   const [dataError, setDataError] = useState(null)
-
-  let placeholderName = name || "Добавьте ФИО"
-  let placeholderPhone = phone || "Добавьте телефон"
-  let placeholderAddress = address || "Добавьте адрес"
+  const [placeholderName, setPlaceholderName] = useState('')
+  const [placeholderPhone, setPlaceholderPhone] = useState('')
+  const [placeholderAddress, setPlaceholderAddress] = useState('')
 
   useEffect(() => {
       getOneUser(id).then(data => {
         setEmail(data.email)
         setRole(data.role)  
         setIsBlocked(data.isBlocked)
-        
+        setPlaceholderName(data.name || 'name')
+        setPlaceholderAddress(data.address || 'address')
+        setPlaceholderPhone(data.phone || 'phone')
         setCurrentId(data.id)
       })
        
@@ -81,19 +82,19 @@ const Profile = observer(() => {
     }
 }
   const changeAdress = async () => {
-    console.log(address)
-    if (address) {      
-      changeInfo('', '', address).then(data => { 
-        placeholderAddress = user.address || "Добавьте адрес"
+    if (address) {  
+      console.log('changing address')    
+      changeInfo('', '', address, id).then(data => { 
+        setPlaceholderAddress(address)
         setAddress('')
-      })      
+      })
     }
   }
 
   const changeName = async () => {
     if (name) {      
-      changeInfo(name, '', '').then(data => {
-        placeholderName = user.name || "Добавьте ФИО"
+      changeInfo(name, '', '', id).then(data => {
+        setPlaceholderName(name)
         setName('')}
         )      
    
@@ -102,8 +103,8 @@ const Profile = observer(() => {
 
   const changePhone = async () => {
     if (phone) {      
-      changeInfo('', phone, '').then(data => {
-        placeholderPhone = user.phone || "Добавьте телефон"
+      changeInfo('', phone, '', id).then(data => {
+        setPlaceholderPhone(phone)
         setPhone('')
       })      
     }

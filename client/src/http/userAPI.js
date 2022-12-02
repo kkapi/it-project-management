@@ -38,8 +38,8 @@ export const changePassword = async (password) => {
     return data
 }
 
-export const changeInfo = async (name, phone, address) => {
-    const {data} = await $authHost.post('api/user/changeinfo', {name, phone, address})
+export const changeInfo = async (name, phone, address, user_id) => {
+    const {data} = await $authHost.post('api/user/changeinfo', {name, phone, address, user_id})
     return data
 }
 
