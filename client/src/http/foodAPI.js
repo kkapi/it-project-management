@@ -27,7 +27,7 @@ export const deleteFood = async (food) => {
 }
 
 export const getAllFood = async () => {
-    const {data} = await $authHost.get('api/food')
+    const {data} = await $authHost.get('api/food/list/all')
     return data
 }
 
