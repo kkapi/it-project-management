@@ -25,13 +25,16 @@ const FoodItem = ({food}) => {
                   <div>
                     <div>{food.name}</div>
                     <div>{food.price} руб</div>
-                  </div>
-                  {user.role === 'USER' && 
-                  <Button style={{height: 30, width: 30}} 
+                  </div>                  
+                  <Button
+                    style={{widht: 30, height: 30}}
                     className="d-flex justify-content-center align-items-center" 
                     title="Добавить в корзину"
                     onClick={() => addBasketFood(food.id)}
-                  >+</Button>}
+                    variant={"outline-dark"}
+                  >+</Button>
+
+                  
                 </div>
             </div>         
         </Card>

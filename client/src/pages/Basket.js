@@ -31,7 +31,8 @@ const Basket = observer(() => {
   },[])
 
   return (
-    <Container className='pt-5'>
+    <Container className='mt-4'>
+      <h1 className='mb-2 mt-0'>Корзина</h1>
       {info.map(item =>
         <div key={item}> food id: {item}</div>
       )}

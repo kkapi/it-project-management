@@ -143,6 +143,7 @@ const Profile = observer(() => {
               value={name}
               onChange={(e) => setName(e.target.value)}            
             />
+            { (user.id === currentId || role !== 'ADMIN' || user.id === 1) &&
             <Button 
               variant="outline-dark" 
               style={{height: 38}} 
@@ -150,7 +151,8 @@ const Profile = observer(() => {
               onClick={() => changeName()}
             >
               Изменить
-            </Button>    
+            </Button>
+            }   
         </Form>
         <Form style={{width: 550, height: 38}} className='d-flex align-items-center mt-4'>
           <span style={{width: 300}}>Номер телефона</span>            
@@ -161,6 +163,7 @@ const Profile = observer(() => {
               onChange={(e) => setPhone(e.target.value)}
               type="tel"            
             />
+            { (user.id === currentId || role !== 'ADMIN' || user.id === 1) &&
             <Button
               variant="outline-dark" 
               style={{height: 38}} 
@@ -168,7 +171,8 @@ const Profile = observer(() => {
               onClick={() => changePhone()}
             >
               Изменить
-            </Button>    
+            </Button>
+            }   
         </Form>
         <Form style={{width: 550, height: 38}} className=' d-flex align-items-center mt-4'>
           <span style={{width: 300}}>Адрес</span>            
@@ -178,6 +182,7 @@ const Profile = observer(() => {
               value={address}
               onChange={(e) => setAddress(e.target.value)}             
             />
+            { (user.id === currentId || role !== 'ADMIN' || user.id === 1) &&
             <Button 
               variant="outline-dark"
               style={{height: 38}} 
@@ -185,7 +190,8 @@ const Profile = observer(() => {
               onClick={() => changeAdress()}
             >
               Изменить
-            </Button>    
+            </Button>
+            }  
         </Form>        
       </Form>
       </div>
@@ -194,7 +200,7 @@ const Profile = observer(() => {
         <hr/>
         <Form style={{width: 300}} className="align-self-center pt-3 pe-4 mb-3">
             { error && <div className="alert alert-danger m-0 text-center py-2 mb-4" role="alert" style={{width: 270}}>{error}</div>}
-            { notification && <div className="alert alert-success m-0 text-center py-2" role="alert" style={{width: 270}}>{notification}</div>}
+            { notification && <div className="alert alert-success m-0 text-center py-2 mb-4" role="alert" style={{width: 270}}>{notification}</div>}
           <Form.Control
               style={{width: 270}}              
               placeholder="Введите новый пароль"

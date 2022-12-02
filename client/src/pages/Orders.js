@@ -1,8 +1,11 @@
 import React from 'react'
+import { Container } from 'react-bootstrap'
 
 const Orders = () => {
   return (
-    <div>Orders</div>
+    <Container className='mt-4'>
+      <h1 className='mb-2 mt-0'>Заказы</h1>
+    </Container>
   )
 }
 
