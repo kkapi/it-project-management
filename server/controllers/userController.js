@@ -143,7 +143,9 @@ class UserController {
 
     async getOneUser(req, res, next) {
         try {
-            const {id} = req.user
+            let {id} = req.params
+
+            id = Number(id)
 
             const user = await User.findOne(
                 {
@@ -163,8 +165,11 @@ class UserController {
                 isBlocked: user.isBlocked,
                 name: info.name,
                 phone: info.phone,
-                address: info.address
+                address: info.address,
+                id
             }
+
+            console.log(data)
             
             return res.json(data)
         } catch(e) {

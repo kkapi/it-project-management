@@ -18,6 +18,8 @@ const App = observer (() => {
       user.setIsAuth(true)
       user.setIsBlocked(data.isBlocked)
       user.setRole(data.role)
+      user.setId(data.id)
+      console.log(data.id)
     }).finally(() => setLoading(false))
   },[])
 

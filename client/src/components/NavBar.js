@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
-import { ADMIN_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, MODERATOR_ROUTE, ORDERS_ROUTE, PROFILE_ROUTE, SHOP_ROUTE } from '../utils/consts';
+import { ADMIN_ROUTE, BASKET_ROUTE, MODERATOR_ROUTE, ORDERS_ROUTE, PROFILE_ROUTE, SHOP_ROUTE } from '../utils/consts';
 import {Button} from 'react-bootstrap'
 import {observer} from 'mobx-react-lite'
 import { useNavigate } from "react-router-dom"
@@ -19,7 +19,7 @@ const NavBar = observer(() => {
         user.setIsAuth(false)
         user.setRole({})
         localStorage.removeItem("token");
-    }  
+    }
 
     return (      
       <Navbar bg="dark" variant="dark" className='py-3'>
@@ -27,7 +27,7 @@ const NavBar = observer(() => {
           <NavLink style={{color: 'white'}} to={SHOP_ROUTE} className="text-decoration-none fs-5">EtuFood</NavLink>
           <Nav className="fs-6 me-auto">
           {user.isAuth &&            
-            <Nav.Link className='ms-5' onClick={() => navigate(PROFILE_ROUTE)}>Профиль</Nav.Link>                   
+            <Nav.Link className='ms-5' onClick={() => navigate(PROFILE_ROUTE + '/' + user.id)}>Профиль</Nav.Link>                   
           }
           {user.role === 'USER' &&
             <Nav className="fs-6">              
