@@ -56,9 +56,9 @@ const Admin = observer(() => {
               <td style={{cursor:'pointer'}} onClick={() => navigate(PROFILE_ROUTE + '/' + tr.id)}>{tr.email}</td>
               <td style={{cursor:'pointer'}} onClick={() => navigate(PROFILE_ROUTE + '/' + tr.id)}>{tr.user_info.phone || "Не заполнено"}</td>
               <td style={{cursor:'pointer'}} onClick={() => navigate(PROFILE_ROUTE + '/' + tr.id)}>{tr.user_info.address || "Не заполнено"}</td>
-              <td clas>
-                { tr.role !== 'ADMIN' ?
-                <div className="d-flex justify-content-between px-2">
+              <td>
+                { (tr.role !== 'ADMIN' || user.id === 1) && tr.id !== user.id ?
+                <div className="d-flex justify-content-center px-2">
                   <Card 
                     className="px-3"
                     border={tr.role === "USER" ? 'primary' : 'dark'}
@@ -67,19 +67,21 @@ const Admin = observer(() => {
                     onClick={() => changeRole(tr.id, tr.role, 'USER')}
                   >П</Card>
                   <Card 
-                    className="px-3"
+                    className="px-3 ms-3"
                     border={tr.role === "MODERATOR" ? 'primary' : 'dark'}
                     text={tr.role === "MODERATOR" ? 'primary' : 'dark'}
                     style={{cursor:'pointer'}}
                     onClick={() => changeRole(tr.id, tr.role, 'MODERATOR')}
                   >М</Card>
+                  { user.id === 1 &&
                   <Card
-                    className="px-3"
+                    className="px-3 ms-3"
                     border={tr.role === "ADMIN" ? 'primary' : 'dark'}
                     text={tr.role === "ADMIN" ? 'primary' : 'dark'}
                     style={{cursor:'pointer'}} 
                     onClick={() => changeRole(tr.id, tr.role, 'ADMIN')}
                   >А</Card>
+                  }
                 </div>
                   :
                   <>Администратор</>
@@ -89,7 +91,7 @@ const Admin = observer(() => {
               
               <td>{!tr.isBlocked ? <span className='text-success fw-bold'>Активен</span> : <span className='text-danger fw-bold'>Заблокирован</span>}</td>
               <td className="d-flex justify-content-center align-items-center" style={{height: 55}}>
-                { tr.role !== 'ADMIN' &&
+                { (tr.role !== 'ADMIN' || user.id === 1) && tr.id !== user.id &&
                 <>
                   {!tr.isBlocked && <Button variant="danger" onClick={() => changeStatus(tr.id, true)}>Заблокировать</Button>}
                   {tr.isBlocked && <Button variant="success" onClick={() => changeStatus(tr.id, false)}>Разблокировать</Button>}
