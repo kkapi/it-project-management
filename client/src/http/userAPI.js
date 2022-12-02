@@ -28,8 +28,8 @@ export const resetPassword = async (link, password) => {
     return data
 }
 
-export const getOneUser = async () => {
-    const {data} = await $authHost.get('api/user')
+export const getOneUser = async (id) => {
+    const {data} = await $authHost.get('api/user/one/' + id)
     return data
 }
 
@@ -55,4 +55,5 @@ export const changeUserStatus = async (id, isBlocked) => {
 
 export const changeUserRole = async (id, role) => {
     const {data} = await $authHost.post('api/user/changerole', {id, role})
+    return data
 }

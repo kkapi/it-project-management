@@ -27,6 +27,7 @@ const Auth = observer(() => {
           user.setUser(user)
           user.setIsAuth(true)
           user.setRole(data.role)
+          user.setId(data.id)
           navigate(SHOP_ROUTE)
       } else {
           setNotification(null)

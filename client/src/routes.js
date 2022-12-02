@@ -12,7 +12,7 @@ import { ADMIN_ROUTE, BASKET_ROUTE, FOOD_ROUTE, FORGOT_PASS_ROUT, LOGIN_ROUTE, M
 
 export const authRoutes = [ 
     {
-        path: PROFILE_ROUTE,
+        path: PROFILE_ROUTE + '/:id',
         Component: Profile
     },
     {
