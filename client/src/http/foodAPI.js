@@ -53,6 +53,11 @@ export const deleteBasketFood = async (bfId) => {
     return data
 }
 
+export const changeAmount = async (bfId, amount) => {
+    const {data} = await $authHost.post('api/food/basket/amount', {bfId, amount})
+    return data
+}
+
 export const getBasket = async () => {
     const {data} = await $authHost.get('api/food/basket')
     return data

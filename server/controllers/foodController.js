@@ -89,7 +89,19 @@ class FoodController {
         } catch (e) {
             return res.json(e)
         }
-        
+    }
+
+    async changeAmount(req, res, next) {
+        const {bfId, amount} = req.body
+        try {
+            const basketFood = await BasketFood.findOne({where: {id: bfId}})
+            basketFood.amount = amount
+            basketFood.save()
+
+            return res.json(amount)
+        } catch (e) {
+            return res.json(e)
+        }
     }
 
     

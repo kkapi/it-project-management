@@ -1,7 +1,9 @@
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
 import { Button, ButtonGroup, Container, Image } from 'react-bootstrap'
-import { deleteBasketFood, getBasket } from '../http/foodAPI'
+import { useNavigate } from 'react-router-dom'
+import { changeAmount, deleteBasketFood, getBasket } from '../http/foodAPI'
+import { SHOP_ROUTE } from '../utils/consts'
 
 const Basket = observer(() => {
 
@@ -12,6 +14,8 @@ const Basket = observer(() => {
   const [amount, setAmount] = useState(1)
   const [basketFoodId, setBasketFoodId] = useState([])
   const [update, setUpdate] = useState(false)
+
+  const navigate = useNavigate()
   
   useEffect(() => {
     getBasket().then(data => {
@@ -52,12 +56,27 @@ const Basket = observer(() => {
     setTimeout(() => {  setUpdate(!update) }, 100);   
   }
 
+  const reduceAmount = (bfId, amount) => {
+    if (amount >= 2) {
+      changeAmount(bfId, amount - 1)      
+      setTimeout(() => {  setUpdate(!update) }, 100);
+    } else {
+      deleteBasketFood(bfId)
+      setTimeout(() => {  setUpdate(!update) }, 100);
+    }    
+  }
+
+  const addAmount = (bfId, amount) => {
+    changeAmount(bfId, amount + 1)      
+    setTimeout(() => {  setUpdate(!update) }, 100);
+  }
+
   return (
     <Container className='pt-4'>
       <h1 className="mb-4 mt-0">Корзина</h1>
       {name.map((item, index) =>
         <div key={item}>
-          <div className="d-flex align-items-center pt-2">
+          <div className="d-flex align-items-center pt-2 pb-2">
             <div style={{width: 90}}>
               <Image width={70} height={70} src={process.env.REACT_APP_API_URL + img[index]} className="rounded"/>
             </div>
@@ -65,12 +84,11 @@ const Basket = observer(() => {
             <h5 style={{width: 120}} className='ms-5'>{price[index]} руб</h5>
             <div style={{width: 180}}>
             <ButtonGroup className='ms-5'>
-              <Button variant="outline-dark" className='border-end-0'>-</Button>
+              <Button variant="outline-dark" className='border-end-0' onClick={() => reduceAmount(basketFoodId[index], amount[index])}>-</Button>
               <div className='d-flex align-items-center border-top border-bottom border-dark text-dark px-2'>{amount[index]}</div>
-              <Button variant="outline-dark" className='border-start-0'>+</Button>
+              <Button variant="outline-dark" className='border-start-0' onClick={() => addAmount(basketFoodId[index], amount[index])}>+</Button>
             </ButtonGroup>       
-            </div>
-            {/* <h5> {basketFoodId[index]}</h5> */}
+            </div>            
             <Button variant={"outline-danger"} onClick={() => deleteFood(basketFoodId[index])} className='ms-5'>Убрать</Button>           
           </div>
           <hr/>
@@ -78,7 +96,12 @@ const Basket = observer(() => {
       )}
       <div className='d-flex align-items-center pt-3'>
         <h3 className='pt-1'>Итоговая цена: {finalPrice} руб</h3>
-        <Button style={{height: 38}} variant={"outline-success"} className="ms-5">Оформить заказ</Button>
+        {finalPrice >= 1000 ?
+          <Button style={{height: 38}} variant={"outline-success"} className="ms-5">Оформить заказ</Button>
+         :
+          <Button style={{height: 38}} variant={"outline-success"} className="ms-5" onClick={() => navigate(SHOP_ROUTE)}>Добавить товары на {1000-finalPrice} руб</Button>
+        }
+        
       </div>
       
     </Container>
