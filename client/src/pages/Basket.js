@@ -94,12 +94,13 @@ const Basket = observer(() => {
           <hr/>
         </div>   
       )}
+      {finalPrice < 1000 && <p className='fs-5 pt-3'>Минимальная сумма на доставку - 1000 руб</p>}
       <div className='d-flex align-items-center pt-3'>
-        <h3 className='pt-1'>Итоговая цена: {finalPrice} руб</h3>
+        <h3>Итоговая цена: {finalPrice} руб</h3>
         {finalPrice >= 1000 ?
           <Button style={{height: 38}} variant={"outline-success"} className="ms-5">Оформить заказ</Button>
          :
-          <Button style={{height: 38}} variant={"outline-success"} className="ms-5" onClick={() => navigate(SHOP_ROUTE)}>Добавить товары на {1000-finalPrice} руб</Button>
+          <Button style={{height: 38}} variant={"outline-success"} className="ms-5" onClick={() => navigate(SHOP_ROUTE)}>Добавить товары на {1000-finalPrice} руб</Button>          
         }
         
       </div>
