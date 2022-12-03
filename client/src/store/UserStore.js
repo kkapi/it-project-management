@@ -47,6 +47,18 @@ export default class UserStore {
         this._role = role
     }
 
+    setName(name) {
+        this._name = name
+    }
+
+    setPhone(phone) {
+        this._phone = phone
+    }
+
+    setAddress(address) {
+        this._address = address
+    }
+
     get id() {
         return this._id
     }

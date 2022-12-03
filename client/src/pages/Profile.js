@@ -31,9 +31,9 @@ const Profile = observer(() => {
         setEmail(data.email)
         setRole(data.role)  
         setIsBlocked(data.isBlocked)
-        setPlaceholderName(data.name || 'name')
-        setPlaceholderAddress(data.address || 'address')
-        setPlaceholderPhone(data.phone || 'phone')
+        setPlaceholderName(data.name || 'Укажите имя')
+        setPlaceholderAddress(data.address || 'Укажите адрес')
+        setPlaceholderPhone(data.phone || 'Укажите телефон')
         setCurrentId(data.id)
       })
        
@@ -91,10 +91,10 @@ const Profile = observer(() => {
   const changeAdress = async () => {
     setDataError('')
     if (address) {  
-      console.log('changing address')    
       changeInfo('', '', address, id).then(data => { 
         setPlaceholderAddress(address)
-        setAddress('')
+        user.setAddress(address)
+        setAddress('')        
       })
     }
   }
@@ -104,6 +104,7 @@ const Profile = observer(() => {
     if (name) {      
       changeInfo(name, '', '', id).then(data => {
         setPlaceholderName(name)
+        user.setName(name)
         setName('')}
         )      
    
@@ -116,6 +117,7 @@ const Profile = observer(() => {
       if (validatePhone(phone)) {   
       changeInfo('', phone, '', id).then(data => {
         setPlaceholderPhone(phone)
+        user.setPhone(phone)
         setDataError('')
         setPhone('')
       })

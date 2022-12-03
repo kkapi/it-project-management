@@ -20,6 +20,14 @@ const App = observer (() => {
       user.setRole(data.role)
       user.setId(data.id)
     }).finally(() => setLoading(false))
+
+    setTimeout(() => {  getOneUser(user.id).then(data => {      
+      user.setName(data.name)
+      user.setAddress(data.address)
+      user.setPhone(data.phone)
+      
+    }) }, 300);
+    
   },[])
 
   if (loading) {

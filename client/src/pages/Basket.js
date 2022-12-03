@@ -1,9 +1,10 @@
 import { observer } from 'mobx-react-lite'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, ButtonGroup, Container, Image } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useRouteError } from 'react-router-dom'
 import { changeAmount, deleteBasketFood, getBasket } from '../http/foodAPI'
 import { SHOP_ROUTE } from '../utils/consts'
+import { Context } from "..";
 
 const Basket = observer(() => {
 
@@ -16,6 +17,8 @@ const Basket = observer(() => {
   const [update, setUpdate] = useState(false)
 
   const navigate = useNavigate()
+
+  const {user} = useContext(Context)
   
   useEffect(() => {
     getBasket().then(data => {
@@ -26,8 +29,6 @@ const Basket = observer(() => {
       let food_img = []
       let food_amount = []
       let basket_food_id = []
-
-      console.log(data)
 
       const info = data.basket_foods
 
@@ -71,6 +72,14 @@ const Basket = observer(() => {
     setTimeout(() => {  setUpdate(!update) }, 100);
   }
 
+  const orderRegistration = () => {
+    if (!user.name || !user.address || !user.phone) {
+      console.log("Укажите данные")
+    } else {
+      console.log("Оформление заказа!")
+    }
+  }
+
   return (
     <Container className='pt-4'>
       <h1 className="mb-4 mt-0">Корзина</h1>
@@ -98,7 +107,7 @@ const Basket = observer(() => {
       <div className='d-flex align-items-center pt-3'>
         <h3>Итоговая цена: {finalPrice} руб</h3>
         {finalPrice >= 1000 ?
-          <Button style={{height: 38}} variant={"outline-success"} className="ms-5">Оформить заказ</Button>
+          <Button style={{height: 38}} variant={"outline-success"} className="ms-5" onClick={() => orderRegistration()}>Перейти к оформлению</Button>
          :
           <Button style={{height: 38}} variant={"outline-success"} className="ms-5" onClick={() => navigate(SHOP_ROUTE)}>Добавить товары на {1000-finalPrice} руб</Button>          
         }
