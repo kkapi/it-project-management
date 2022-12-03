@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
-import { Button, Container } from 'react-bootstrap'
+import { Button, ButtonGroup, Container, Image } from 'react-bootstrap'
 import { deleteBasketFood, getBasket } from '../http/foodAPI'
 
 const Basket = observer(() => {
@@ -53,19 +53,34 @@ const Basket = observer(() => {
   }
 
   return (
-    <Container className='pt-5'>
+    <Container className='pt-4'>
+      <h1 className="mb-4 mt-0">Корзина</h1>
       {name.map((item, index) =>
         <div key={item}>
-          <div> name: {item}</div>
-          <div> price: {price[index]} руб</div>
-          <div> amount: {amount[index]}</div>
-          <div> img: {img[index]}</div>
-          <div> bfId: {basketFoodId[index]}</div>
-          <Button variant={"outline-danger"} onClick={() => deleteFood(basketFoodId[index])}>Убрать</Button>
-          <hr/>             
-        </div>        
+          <div className="d-flex align-items-center pt-2">
+            <div style={{width: 90}}>
+              <Image width={70} height={70} src={process.env.REACT_APP_API_URL + img[index]} className="rounded"/>
+            </div>
+            <h5 style={{width: 150}} className='ms-5'>{item}</h5>
+            <h5 style={{width: 120}} className='ms-5'>{price[index]} руб</h5>
+            <div style={{width: 180}}>
+            <ButtonGroup className='ms-5'>
+              <Button variant="outline-dark" className='border-end-0'>-</Button>
+              <div className='d-flex align-items-center border-top border-bottom border-dark text-dark px-2'>{amount[index]}</div>
+              <Button variant="outline-dark" className='border-start-0'>+</Button>
+            </ButtonGroup>       
+            </div>
+            {/* <h5> {basketFoodId[index]}</h5> */}
+            <Button variant={"outline-danger"} onClick={() => deleteFood(basketFoodId[index])} className='ms-5'>Убрать</Button>           
+          </div>
+          <hr/>
+        </div>   
       )}
-      <div className='pb-5'>Итоговая цена: {finalPrice} руб</div>
+      <div className='d-flex align-items-center pt-3'>
+        <h3 className='pt-1'>Итоговая цена: {finalPrice} руб</h3>
+        <Button style={{height: 38}} variant={"outline-success"} className="ms-5">Оформить заказ</Button>
+      </div>
+      
     </Container>
   )
 })

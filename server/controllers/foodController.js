@@ -82,9 +82,14 @@ class FoodController {
     async deleteBasketFood(req, res, next) {
         const {bfId} = req.body
         
-        const data = await BasketFood.destroy({where: {id: bfId}})
+        try {
+            const data = await BasketFood.destroy({where: {id: bfId}})
 
-        return res.json(data)
+            return res.json(data)
+        } catch (e) {
+            return res.json(e)
+        }
+        
     }
 
     
