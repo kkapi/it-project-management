@@ -76,7 +76,12 @@ class FoodController {
 
         if (!item) {
             basket_food = await BasketFood.create({foodId, basketId})
-        }        
+            basket_food.amount = 1
+        } else {
+            basket_food = await BasketFood.findOne({where: {foodId, basketId}})
+            basket_food.amount = basket_food.amount + 1
+            basket_food.save()
+        }       
 
         return res.json(basket_food)        
     }
