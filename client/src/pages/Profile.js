@@ -119,8 +119,9 @@ const Profile = observer(() => {
         setDataError('')
         setPhone('')
       })
-    }
+    } else {
       setDataError('Некорректный номер')
+    }      
       setPhone('')
     }
   }
