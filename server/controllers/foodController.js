@@ -1,7 +1,7 @@
 const { json } = require('sequelize')
 const ApiError = require('../error/ApiError')
 const foodService = require('../service/foodService')
-const { Basket, BasketFood } = require('../models/models')
+const { Basket, BasketFood, Food } = require('../models/models')
 
 
 class FoodController {
@@ -48,14 +48,13 @@ class FoodController {
         return res.json(food)
     }
 
-    async getBasket(req, res, next) {
+    async getBasket(req, res) {
+        
         const {id} = req.user
-
-        const basket = await Basket.findOne({where: {userId: id, isActive: true}, include: BasketFood})
-
-        console.log(id)
+        const basket = await Basket.findOne({where: {userId: id, isActive: true}, include: [{model: BasketFood, include: [Food]}]})        
 
         return res.json(basket)
+
     }
 
     async addBasketFood(req, res, next) {

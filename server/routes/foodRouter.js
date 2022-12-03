@@ -8,8 +8,9 @@ router.post('/', checkRole('MODERATOR'), foodController.create)
 router.post('/delete', checkRole('MODERATOR'), foodController.delete)
 router.get('/list/all', authMiddleware, foodController.getAll)
 router.get('/page', authMiddleware, foodController.getFoodPage)
-router.get('/:id', authMiddleware, foodController.getOne)
-router.post('/basket', authMiddleware, foodController.getBasket)
-router.post('/basket/food', authMiddleware, foodController.addBasketFood)
+router.get('/one/:id', authMiddleware, foodController.getOne)
+router.get('/basket', authMiddleware, foodController.getBasket)
+router.post('/basket', authMiddleware, foodController.addBasketFood) //basketfood
+
 
 module.exports = router

@@ -12,8 +12,11 @@ const FoodPage = () => {
   const {id} = useParams()
 
   useEffect(() => {
+    console.log("bops")
     fetchOneFood(id).then(data => {
+      console.log(data)
       setFood(data)
+      console.log(food)
     })    
   },[])
 

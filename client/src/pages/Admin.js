@@ -26,7 +26,9 @@ const Admin = observer(() => {
 
   useEffect(() => {
     getAllUser().then((data) => {
+      console.log(data)
       user.setUsers(data);
+      console.log(user.users);
       setInfo2(user.users);
     });
   }, [update]);

@@ -39,17 +39,17 @@ export const fetchFood = async (typeId, page, limit = 12) => {
 }
 
 export const fetchOneFood = async (id) => {
-    const {data} = await $authHost.get('api/food/' + id)
+    const {data} = await $authHost.get('api/food/one/' + id)
     return data
 }
 
 export const addBasketFood = async (food_id) => {
     console.log(food_id)
-    const {data} = await $authHost.post('api/food/basket/food', {food_id})
+    const {data} = await $authHost.post('api/food/basket', {food_id})
     return data
 }
 
 export const getBasket = async () => {
-    const {data} = await $authHost.post('api/food/basket')
+    const {data} = await $authHost.get('api/food/basket')
     return data
 }

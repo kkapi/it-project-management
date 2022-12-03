@@ -5,37 +5,48 @@ import { getBasket } from '../http/foodAPI'
 
 const Basket = observer(() => {
 
-  let food = []
-
-  let [info, setInfo] = useState([])
-
+  const [name, setName] = useState([])
+  const [price, setPrice] = useState([])
+  const [img, setImg] = useState([])
+  const [finalPrice, setFinalPrice] = useState(0)
+  
   useEffect(() => {
     getBasket().then(data => {
-    
-      console.log(data)
-      const test = data.basket_foods
-      console.log(test)
-      test.map(item => {
-        food.push(item.id)
-        console.log(item.id)
+      let final_price = 0;
+
+      let food_name = []
+      let food_price = []
+      let food_img = []
+
+      const info = data.basket_foods
+
+      info.map(item => {
+        food_name.push(item.food.name)
+        food_price.push(item.food.price)
+        food_img.push(item.food.img)
+
+        final_price += Number(item.food.price);
       })
 
-      setInfo(food)
-      
-      console.log('---------------')
-      console.log(food)  
-      console.log(info)  
-      
-      console.log('---------------')
+      setName(food_name)
+      setPrice(food_price)
+      setImg(food_img)
+
+      setFinalPrice(final_price)
     })
   },[])
 
   return (
-    <Container className='mt-4'>
-      <h1 className='mb-2 mt-0'>Корзина</h1>
-      {info.map(item =>
-        <div key={item}> food id: {item}</div>
+    <Container className='pt-5'>
+      {name.map((item, index) =>
+        <div key={item}>
+          <div> name: {item}</div>
+          <div> price: {price[index]}</div>
+          <div> img: {img[index]}</div> 
+          <hr/>             
+        </div>        
       )}
+      <div>Итоговая цена: {finalPrice}</div>
     </Container>
   )
 })
