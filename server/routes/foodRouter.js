@@ -10,7 +10,8 @@ router.get('/list/all', authMiddleware, foodController.getAll)
 router.get('/page', authMiddleware, foodController.getFoodPage)
 router.get('/one/:id', authMiddleware, foodController.getOne)
 router.get('/basket', authMiddleware, foodController.getBasket)
-router.post('/basket', authMiddleware, foodController.addBasketFood) //basketfood
+router.post('/basket', authMiddleware, foodController.addBasketFood)
+router.post('/basket/delete', authMiddleware, foodController.deleteBasketFood)
 
 
 module.exports = router

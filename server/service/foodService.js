@@ -44,7 +44,7 @@ class FoodService {
                 console.log(e)
             }                     
 
-            const data = Food.destroy({
+            const data = await Food.destroy({
                 where: {
                     name
                 }

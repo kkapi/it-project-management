@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
-import { Container } from 'react-bootstrap'
-import { getBasket } from '../http/foodAPI'
+import { Button, Container } from 'react-bootstrap'
+import { deleteBasketFood, getBasket } from '../http/foodAPI'
 
 const Basket = observer(() => {
 
@@ -11,6 +11,7 @@ const Basket = observer(() => {
   const [finalPrice, setFinalPrice] = useState(0)
   const [amount, setAmount] = useState(1)
   const [basketFoodId, setBasketFoodId] = useState([])
+  const [update, setUpdate] = useState(false)
   
   useEffect(() => {
     getBasket().then(data => {
@@ -44,7 +45,12 @@ const Basket = observer(() => {
 
       setFinalPrice(final_price)
     })
-  },[])
+  },[update])
+
+  const deleteFood = (bfId) => {
+    deleteBasketFood(bfId)
+    setTimeout(() => {  setUpdate(!update) }, 100);   
+  }
 
   return (
     <Container className='pt-5'>
@@ -55,10 +61,11 @@ const Basket = observer(() => {
           <div> amount: {amount[index]}</div>
           <div> img: {img[index]}</div>
           <div> bfId: {basketFoodId[index]}</div>
+          <Button variant={"outline-danger"} onClick={() => deleteFood(basketFoodId[index])}>Убрать</Button>
           <hr/>             
         </div>        
       )}
-      <div>Итоговая цена: {finalPrice} руб</div>
+      <div className='pb-5'>Итоговая цена: {finalPrice} руб</div>
     </Container>
   )
 })

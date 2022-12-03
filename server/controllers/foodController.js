@@ -60,30 +60,31 @@ class FoodController {
     async addBasketFood(req, res, next) {
         const {id} = req.user
         const {food_id} = req.body
-
-        console.log(req.body)
-        console.log(id)
-
-        const foodId = food_id
         
         const basket = await Basket.findOne({where: {userId: id, isActive: true}})
 
-        const basketId = basket.id
-
-        const item = await BasketFood.findOne({where: {foodId, basketId}})
+        const item = await BasketFood.findOne({where: {foodId: food_id, basketId: basket.id}})
 
         let basket_food = ''
 
         if (!item) {
-            basket_food = await BasketFood.create({foodId, basketId})
-            basket_food.amount = 1
+            basket_food = await BasketFood.create({foodId: food_id, basketId: basket.id, amount: 1})          
+
         } else {
-            basket_food = await BasketFood.findOne({where: {foodId, basketId}})
+            basket_food = await BasketFood.findOne({where: {foodId: food_id, basketId: basket.id}})
             basket_food.amount = basket_food.amount + 1
             basket_food.save()
         }       
 
         return res.json(basket_food)        
+    }
+
+    async deleteBasketFood(req, res, next) {
+        const {bfId} = req.body
+        
+        const data = await BasketFood.destroy({where: {id: bfId}})
+
+        return res.json(data)
     }
 
     
