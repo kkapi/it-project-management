@@ -51,6 +51,13 @@ const Profile = observer(() => {
     )
   }
 
+  const validatePhone = (number) => {
+    return String(number)
+      .match(
+        /^((\+7|7|8)+([0-9]){10})$/
+      )
+  }
+
   const changePass = async () => {
     try {            
         if (!password && !confirmPassword) {
@@ -82,6 +89,7 @@ const Profile = observer(() => {
     }
 }
   const changeAdress = async () => {
+    setDataError('')
     if (address) {  
       console.log('changing address')    
       changeInfo('', '', address, id).then(data => { 
@@ -92,6 +100,7 @@ const Profile = observer(() => {
   }
 
   const changeName = async () => {
+    setDataError('')
     if (name) {      
       changeInfo(name, '', '', id).then(data => {
         setPlaceholderName(name)
@@ -102,11 +111,17 @@ const Profile = observer(() => {
   }
 
   const changePhone = async () => {
-    if (phone) {      
+    setDataError('')
+    if (phone) {
+      if (validatePhone(phone)) {   
       changeInfo('', phone, '', id).then(data => {
         setPlaceholderPhone(phone)
+        setDataError('')
         setPhone('')
-      })      
+      })
+    }
+      setDataError('Некорректный номер')
+      setPhone('')
     }
   }
 
@@ -114,8 +129,7 @@ const Profile = observer(() => {
     (user.id === currentId || user.role === 'ADMIN') &&
     <Container 
     className="d-flex justify-content-center align-items-center flex-column pt-5"
-    
-  >
+    >
     <Card style={{width: 900}} className="p-3 text-center mb-5">
       <h2 className='pb-3' >Профиль</h2>
       <Form className='d-flex justify-content-around mb-3'>
@@ -131,11 +145,11 @@ const Profile = observer(() => {
           Статус: {!isBlocked ? <span className='text-success fw-bold'>Активен</span> : <span className='text-danger fw-bold'>Заблокирован</span>}
         </Form>
       </Form>        
-      <hr/>
-      <div className='d-flex justify-content-center' style={{width: 800}}>
-      <Form className='d-flex flex-column align-items-start pb-4'>
-        { dataError && <div className="alert alert-danger m-0 text-center py-2 mb-4" role="alert" style={{width: 270}}>{dataError}</div>}
-        <Form style={{width: 550, height: 38}} className=' d-flex align-items-center mt-4'>
+      <hr className={dataError ? "mb-0" : "mb-4"}/>
+      <div className='d-flex justify-content-center mt-3' style={{width: 800}}>      
+      <Form className='d-flex flex-column align-items-center pb-4'>
+      { dataError && <div className="alert alert-danger ms-5 d-flex align-items-center" role="alert" style={{width: 200, height: 50}}>{dataError}</div>}           
+        <Form style={{width: 550, height: 38}} className=' d-flex align-items-center'>
           <span style={{width: 300}}>ФИО</span>            
             <Form.Control
               className="mx-3"
