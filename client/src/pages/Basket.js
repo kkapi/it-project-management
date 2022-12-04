@@ -54,16 +54,16 @@ const Basket = observer(() => {
 
   const deleteFood = (bfId) => {
     deleteBasketFood(bfId)
-    setTimeout(() => {  setUpdate(!update) }, 100);   
+    setTimeout(() => { setUpdate(!update) }, 100);   
   }
 
   const reduceAmount = (bfId, amount) => {
     if (amount >= 2) {
       changeAmount(bfId, amount - 1)      
-      setTimeout(() => {  setUpdate(!update) }, 100);
+      setTimeout(() => { setUpdate(!update) }, 100);
     } else {
       deleteBasketFood(bfId)
-      setTimeout(() => {  setUpdate(!update) }, 100);
+      setTimeout(() => { setUpdate(!update) }, 100);
     }    
   }
 
@@ -85,7 +85,7 @@ const Basket = observer(() => {
     <Container className='pt-4'>
       <h1 className="mb-4 mt-0">Корзина</h1>
       {name.map((item, index) =>
-        <div key={item}>
+        <div key={index}>
           <div className="d-flex align-items-center pt-2 pb-2">
             <div style={{width: 90}}>
               <Image width={70} height={70} src={process.env.REACT_APP_API_URL + img[index]} className="rounded"/>
@@ -105,7 +105,7 @@ const Basket = observer(() => {
         </div>   
       )}
       {finalPrice < 1000 && <p className='fs-5 pt-3'>Минимальная сумма на доставку - 1000 руб</p>}
-      <div className='d-flex align-items-center pt-3'>
+      <div className='d-flex align-items-center pt-3 pb-4'>
         <h3>Итоговая цена: {finalPrice} руб</h3>
         {finalPrice >= 1000 ?
           <Button style={{height: 38}} variant={"outline-success"} className="ms-5" onClick={() => orderRegistration()}>Перейти к оформлению</Button>

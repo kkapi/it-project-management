@@ -51,7 +51,7 @@ class FoodController {
     async getBasket(req, res) {
         
         const {id} = req.user
-        const basket = await Basket.findOne({where: {userId: id, isActive: true}, include: [{model: BasketFood, include: [Food]}]})        
+        const basket = await Basket.findOne({where: {userId: id, isActive: true}, include: [{model: BasketFood, include: [Food]}], order: [[BasketFood, 'foodId', 'ASC']]})        
 
         return res.json(basket)
 
