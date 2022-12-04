@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Button, ButtonGroup, Container, Image } from 'react-bootstrap'
 import { useNavigate, useRouteError } from 'react-router-dom'
 import { changeAmount, deleteBasketFood, getBasket } from '../http/foodAPI'
-import { SHOP_ROUTE } from '../utils/consts'
+import { NEW_ORDER_ROUTE, SHOP_ROUTE } from '../utils/consts'
 import { Context } from "..";
 
 const Basket = observer(() => {
@@ -77,6 +77,7 @@ const Basket = observer(() => {
       console.log("Укажите данные")
     } else {
       console.log("Оформление заказа!")
+      navigate(NEW_ORDER_ROUTE)
     }
   }
 
