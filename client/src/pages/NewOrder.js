@@ -3,9 +3,9 @@ import React, { useState, useContext, useEffect } from 'react'
 import { Button, Card, Container, Form } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { getOneUser } from '../http/userAPI'
-import { BASKET_ROUTE, PROFILE_ROUTE } from '../utils/consts'
+import { BASKET_ROUTE, ORDER_ROUTE, PROFILE_ROUTE } from '../utils/consts'
 import { Context } from '..'
-import { getBasket } from '../http/foodAPI'
+import { createOrder, getBasket } from '../http/foodAPI'
 
 const NewOrder = observer(() => {
 
@@ -60,6 +60,12 @@ const NewOrder = observer(() => {
       })
     },[])
 
+  const newOrder = async (comment, method, final_price) => {
+    const {order} = await createOrder(comment, method, final_price)
+    console.log(order.id)
+    navigate(ORDER_ROUTE + '/' + order.id)
+  }
+
   return (
     <Container className='pt-4'>
         <h1 className="mb-4 mt-0">Заказ на доставку</h1>
@@ -90,7 +96,7 @@ const NewOrder = observer(() => {
           <h2>Комментарий к заказу</h2>
           <Form>          
             <Form.Control
-              className="mt-3"
+              className="mt-3 mb-3"
               placeholder="Комментарий к заказу..."
               value={comment}
               onChange={e => setComment(e.target.value)}
@@ -107,7 +113,7 @@ const NewOrder = observer(() => {
         </Card>
         <div className='mt-4 pb-5 d-flex' style={{width: 725}}>
           <Button variant='outline-dark' onClick={() => navigate(BASKET_ROUTE)}>Назад в корзину</Button>
-          <Button variant='outline-success' className='ms-auto' >Оформить заказ на: {finalPrice} руб</Button>
+          <Button variant='outline-success' className='ms-auto' onClick={() => newOrder(comment, method, finalPrice)}>Оформить заказ на: {finalPrice} руб</Button>
         </div>  
     </Container>
   )

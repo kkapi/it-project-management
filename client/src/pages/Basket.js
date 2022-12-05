@@ -111,8 +111,7 @@ const Basket = observer(() => {
           <Button style={{height: 38}} variant={"outline-success"} className="ms-5" onClick={() => orderRegistration()}>Перейти к оформлению</Button>
          :
           <Button style={{height: 38}} variant={"outline-success"} className="ms-5" onClick={() => navigate(SHOP_ROUTE)}>Добавить товары на {1000-finalPrice} руб</Button>          
-        }
-        
+        } 
       </div>
       
     </Container>

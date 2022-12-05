@@ -105,10 +105,21 @@ class FoodController {
     }
 
     async createOrder(req, res, next) {
-        const {basketId} = req.body
+        const {id} = req.user
+        const {method, comment, final_price} = req.body
         try {
-            const order = await Order.create({basketId})
-            return res.json(order)
+            console.log(method)
+            console.log(comment)
+            const basket = await Basket.findOne({where: {userId: id, isActive: true}})
+            const basketId = basket.id
+            basket.final_price = final_price
+            basket.save()
+            const order = await Order.create({basketId, pay_method: method, wishes: comment, status: 'Принят'})
+            basket.isActive = false
+            basket.save()
+            const newBasket = await Basket.create({userId: id})
+
+            return res.json({order})
         } catch (e) {
             return res.json(e)
         }
