@@ -26,7 +26,7 @@ const App = observer (() => {
       user.setAddress(data.address)
       user.setPhone(data.phone)
       
-    }) }, 300);
+    }) }, 50);
     
   },[])
 
