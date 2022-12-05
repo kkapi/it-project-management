@@ -1,4 +1,4 @@
-const { json } = require('sequelize')
+const { sequelize, json } = require('sequelize')
 const ApiError = require('../error/ApiError')
 const foodService = require('../service/foodService')
 const { Basket, BasketFood, Food, Order } = require('../models/models')
@@ -139,6 +139,22 @@ class FoodController {
         }
     }
     
+    async getUserOrdres(req, res, next) {
+        const {id} = req.user
+        try {
+            const basketsId = await Basket.findAll({attributes: ['id'], where: {userId: id}})
+            let bsId = []
+            basketsId.map(item => {
+                bsId.push(item.id)
+            })
+            const userOrders = await Order.findAll({where: {basketId: bsId}})
+
+            console.log(bsId)
+            return res.json(userOrders)
+        } catch (e) {
+            return res.json(e)
+        }
+    }
 }
 
 module.exports = new FoodController()

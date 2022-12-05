@@ -15,5 +15,6 @@ router.post('/basket/delete', authMiddleware, foodController.deleteBasketFood)
 router.post('/basket/amount', authMiddleware, foodController.changeAmount)
 router.post('/order/create', authMiddleware, foodController.createOrder)
 router.get('/order/one/:id', authMiddleware, foodController.getOneOrder)
+router.get('/userorders', authMiddleware, foodController.getUserOrdres)
 
 module.exports = router

@@ -22,6 +22,9 @@ const Basket = observer(() => {
   
   useEffect(() => {
     getBasket().then(data => {
+
+      console.log(data)
+      
       let final_price = 0;
 
       let food_name = []
