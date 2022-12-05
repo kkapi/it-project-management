@@ -131,8 +131,10 @@ class FoodController {
         try {
             const order = await Order.findOne({where: {id}})
             const foods = await BasketFood.findAll({where: {basketId: order.basketId}, include: [Food]})
+            const basket = await Basket.findOne({where: {id: order.basketId}})
+            const price = basket.final_price
             console.log(order)
-            return res.json({order, foods})
+            return res.json({order, foods, price})
 
         } catch (e) {
             return res.json(e)

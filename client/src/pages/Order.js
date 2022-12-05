@@ -12,6 +12,7 @@ const [method, setMethod] = useState()
 const [comment, setComment] = useState()
 const [status, setStatus] = useState()
 const [date, setDate] = useState()
+const [price, setPrice] = useState()
 const [foods, setFoods] = useState([])
 
 useEffect(() => {
@@ -24,10 +25,12 @@ useEffect(() => {
         const data = await getOrder(id)
         setMethod(data.order.pay_method)
         setStatus(data.order.status)
-        setComment(data.order.wishes)
+        setComment(data.order.wishes)        
+        // const dateTest = new Date(data.order.createdAt.replace(' ', 'T'))
+        // console.log(dateTest.getDate())
         setDate(data.order.createdAt)
-        console.log(data)
         setFoods(data.foods)
+        setPrice(data.price)
     }
 
     return (
@@ -59,7 +62,7 @@ useEffect(() => {
                         </div>   
                     )
                 }
-                <h2>Сумма: </h2>
+                <h2>Сумма: {price} руб</h2>
             </div>
         </Container>
     )
