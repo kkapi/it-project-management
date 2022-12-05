@@ -1,7 +1,7 @@
 const { json } = require('sequelize')
 const ApiError = require('../error/ApiError')
 const foodService = require('../service/foodService')
-const { Basket, BasketFood, Food } = require('../models/models')
+const { Basket, BasketFood, Food, Order } = require('../models/models')
 
 
 class FoodController {
@@ -104,6 +104,15 @@ class FoodController {
         }
     }
 
+    async createOrder(req, res, next) {
+        const {basketId} = req.body
+        try {
+            const order = await Order.create({basketId})
+            return res.json(order)
+        } catch (e) {
+            return res.json(e)
+        }
+    }
     
 }
 

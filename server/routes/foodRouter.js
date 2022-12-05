@@ -13,5 +13,6 @@ router.get('/basket', authMiddleware, foodController.getBasket)
 router.post('/basket', authMiddleware, foodController.addBasketFood)
 router.post('/basket/delete', authMiddleware, foodController.deleteBasketFood)
 router.post('/basket/amount', authMiddleware, foodController.changeAmount)
+router.post('/order/create', authMiddleware, foodController.createOrder)
 
 module.exports = router
