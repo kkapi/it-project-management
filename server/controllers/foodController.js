@@ -124,6 +124,20 @@ class FoodController {
             return res.json(e)
         }
     }
+
+    async getOneOrder(req, res, next) {
+        const {id} = req.params
+        console.log(id)
+        try {
+            const order = await Order.findOne({where: {id}})
+            const foods = await BasketFood.findAll({where: {basketId: order.basketId}, include: [Food]})
+            console.log(order)
+            return res.json({order, foods})
+
+        } catch (e) {
+            return res.json(e)
+        }
+    }
     
 }
 
