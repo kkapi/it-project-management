@@ -54,6 +54,10 @@ const Order = sequelize.define('order', {
     date: {type: DataTypes.DATE}, 
     registration_time: {type: DataTypes.TIME},  
     status: {type: DataTypes.STRING},
+    wish_time: {type: DataTypes.STRING},
+    name: {type: DataTypes.STRING},
+    address: {type: DataTypes.STRING},
+    phone: {type: DataTypes.STRING},
     pay_method: {type: DataTypes.STRING},
     wishes: {type: DataTypes.STRING},
 })

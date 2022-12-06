@@ -1,7 +1,7 @@
 const { sequelize, json } = require('sequelize')
 const ApiError = require('../error/ApiError')
 const foodService = require('../service/foodService')
-const { Basket, BasketFood, Food, Order } = require('../models/models')
+const { Basket, BasketFood, Food, Order, User, UserInfo } = require('../models/models')
 
 
 class FoodController {
@@ -110,11 +110,12 @@ class FoodController {
         try {
             console.log(method)
             console.log(comment)
+            const userInfo = await UserInfo.findOne({where: {userId: id}})
             const basket = await Basket.findOne({where: {userId: id, isActive: true}})
             const basketId = basket.id
             basket.final_price = final_price
             basket.save()
-            const order = await Order.create({basketId, pay_method: method, wishes: comment, status: 'Принят'})
+            const order = await Order.create({basketId, pay_method: method, wishes: comment, status: 'Принят', name: userInfo.name, phone: userInfo.phone, address: userInfo.address})
             basket.isActive = false
             basket.save()
             const newBasket = await Basket.create({userId: id})

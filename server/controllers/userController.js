@@ -269,7 +269,7 @@ class UserController {
         const {name, phone, address, user_id} = req.body
         const {id, role} = req.user
 
-        if (!(role === 'ADMIN' || user_id === id)) {
+        if (!(role === 'ADMIN' || user_id == id)) {
             return next(ApiError.badRequest("Нет доступа"))
         }
 

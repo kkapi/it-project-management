@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
-import { Container, Image } from 'react-bootstrap'
+import { Card, Container, Image } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import { getOrder } from '../http/foodAPI'
 
@@ -14,6 +14,9 @@ const [status, setStatus] = useState()
 const [date, setDate] = useState()
 const [price, setPrice] = useState()
 const [foods, setFoods] = useState([])
+const [name, setName] = useState()
+const [phone, setPhone] = useState()
+const [address, setAddress] = useState()
 
 useEffect(() => {
     
@@ -23,23 +26,39 @@ useEffect(() => {
 
     const getOneOrder = async () => {
         const data = await getOrder(id)
+        console.log(data)
         setMethod(data.order.pay_method)
         setStatus(data.order.status)
         setComment(data.order.wishes)        
-        // const dateTest = new Date(data.order.createdAt.replace(' ', 'T'))
-        // console.log(dateTest.getDate())
-        setDate(data.order.createdAt)
+        const dateTest = new Date(data.order.createdAt.replace(' ', 'T'))
+        console.log()
+        setDate(dateTest.toLocaleString())
         setFoods(data.foods)
         setPrice(data.price)
+
+        setName(data.order.name)
+        setPhone(data.order.phone)
+        setAddress(data.order.address)
     }
 
     return (
         <Container className='pt-4'>
-            <h1>Заказ {id}</h1>
-            <div>Метод оплаты: {method}</div>
-            <div>Статус заказа: {status}</div>
-            <div>Комментарий к заказу: {comment || 'Без комментария'}</div>
-            <div>Дата и время: {date}</div>
+            <h1>Заказ #{id}</h1>
+            <div className='d-flex'>
+                <Card className='p-3 my-4' style={{width: 500}}>
+                    <div>Метод оплаты: {method}</div>
+                    <div>Статус заказа: {status}</div>
+                    <div>Комментарий к заказу: {comment || 'Без комментария'}</div>
+                    <div>Дата и время: {date}</div>
+                </Card>
+                <Card className='p-3 my-4 ms-4' style={{width: 500}}>
+                    <div>ФИО: {name}</div>
+                    <div>Телефон: {phone}</div>
+                    <div>Адрес доставки: {address}</div>
+                </Card>
+            </div>            
+            
+            <h2 className='pb-2'>Состав</h2>
             <div>
                 {
                     foods.map(food =>
@@ -62,7 +81,7 @@ useEffect(() => {
                         </div>   
                     )
                 }
-                <h2>Сумма: {price} руб</h2>
+                <h2 className='pb-4 pt-2'>Сумма: {price} руб</h2>
             </div>
         </Container>
     )
