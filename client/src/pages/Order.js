@@ -31,7 +31,6 @@ useEffect(() => {
         setStatus(data.order.status)
         setComment(data.order.wishes)        
         const dateTest = new Date(data.order.createdAt.replace(' ', 'T'))
-        console.log()
         setDate(dateTest.toLocaleString())
         setFoods(data.foods)
         setPrice(data.price)

@@ -115,7 +115,7 @@ class FoodController {
             const basketId = basket.id
             basket.final_price = final_price
             basket.save()
-            const order = await Order.create({basketId, pay_method: method, wishes: comment, status: 'Принят', name: userInfo.name, phone: userInfo.phone, address: userInfo.address})
+            const order = await Order.create({basketId, pay_method: method, wishes: comment, status: 'Принят', name: userInfo.name, phone: userInfo.phone, address: userInfo.address, sum: final_price})
             basket.isActive = false
             basket.save()
             const newBasket = await Basket.create({userId: id})

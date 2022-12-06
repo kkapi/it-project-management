@@ -60,6 +60,7 @@ const Order = sequelize.define('order', {
     phone: {type: DataTypes.STRING},
     pay_method: {type: DataTypes.STRING},
     wishes: {type: DataTypes.STRING},
+    sum: {type: DataTypes.INTEGER},
 })
 
 User.hasOne(UserInfo)
