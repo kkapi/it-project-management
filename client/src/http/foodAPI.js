@@ -77,3 +77,8 @@ export const getUserOrders = async () => {
     const {data} = await $authHost.get('api/food/userorders')
     return data
 }
+
+export const getAllOrders = async () => {
+    const {data} = await $authHost.get('api/food/order/all')
+    return data
+}
