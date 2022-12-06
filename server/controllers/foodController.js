@@ -163,6 +163,15 @@ class FoodController {
         }
     }
 
+    async test(req, res, next) {
+        try {
+            const {test} = req.body
+            return res.json(test)
+        } catch (e) {
+            return res.json('error')
+        }
+    }
+
     async getAllOrders(req, res, next) {
         try {
             const orders = await Order.findAll({order: [

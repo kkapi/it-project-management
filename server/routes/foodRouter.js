@@ -19,4 +19,6 @@ router.get('/userorders', authMiddleware, foodController.getUserOrdres)
 router.get('/order/all', checkRole('ADMIN'), foodController.getAllOrders)
 router.put('/order/status', checkRole('ADMIN'), foodController.setOrderStatus)
 
+router.get('/test', foodController.test)
+
 module.exports = router

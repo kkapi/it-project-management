@@ -82,3 +82,8 @@ export const getAllOrders = async () => {
     const {data} = await $authHost.get('api/food/order/all')
     return data
 }
+
+export const setNewStatus = async (id, status) => {
+    const {data} = await $authHost.put('api/food/order/status', {id, status})
+    return data
+}

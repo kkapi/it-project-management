@@ -1,12 +1,15 @@
 import { observer } from 'mobx-react-lite'
-import React, { useEffect, useState } from 'react'
-import { Card, Container, Image } from 'react-bootstrap'
+import React, { useContext, useEffect, useState } from 'react'
+import { Card, Container, Dropdown, Image } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
-import { getOrder } from '../http/foodAPI'
+import { getOrder, setNewStatus } from '../http/foodAPI'
+import { Context } from "..";
 
 const Order = observer(() => {
 
 const {id} = useParams()
+
+const {user} = useContext(Context)
 
 const [method, setMethod] = useState()
 const [comment, setComment] = useState()
@@ -17,6 +20,14 @@ const [foods, setFoods] = useState([])
 const [name, setName] = useState()
 const [phone, setPhone] = useState()
 const [address, setAddress] = useState()
+
+const statuses = [
+    'Принят',
+    'Готовится',
+    'Доставка',
+    'Завершен',
+    'Отменен'
+]
 
 useEffect(() => {
     
@@ -40,9 +51,28 @@ useEffect(() => {
         setAddress(data.order.address)
     }
 
+    const newStatus = (status) => {
+        setNewStatus(id, status)
+        setStatus(status)
+    }
+
+
     return (
         <Container className='pt-4'>
             <h1>Заказ #{id}</h1>
+            {user.role === 'ADMIN' && 
+                <div>
+                    <h2 className='py-2'>Изменение статуса</h2>
+                    <Dropdown>
+                        <Dropdown.Toggle>{status}</Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            {statuses.map(status =>
+                                <Dropdown.Item onClick={() => newStatus(status)} key={status}>{status}</Dropdown.Item>
+                            )}
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </div>
+            }
             <div className='d-flex'>
                 <Card className='p-3 my-4' style={{width: 500}}>
                     <div>Метод оплаты: {method}</div>
@@ -67,14 +97,8 @@ useEffect(() => {
                                 <Image width={70} height={70} src={process.env.REACT_APP_API_URL + food.food.img} className="rounded"/>
                                 </div>
                                 <h5 style={{width: 160}} className='ms-5'>{food.food.name}</h5>
-                                <h5 className='ms-5' style={{width: 110}}>
-                                
-                                <div>{food.amount} шт</div>
-                                     
-                                </h5> 
-                                <h5 style={{width: 120}} className='ms-5'>{food.food.price} руб</h5>
-                                           
-                                           
+                                <h5 className='ms-5' style={{width: 110}}>{food.amount} шт</h5> 
+                                <h5 style={{width: 120}} className='ms-5'>{food.food.price} руб</h5>           
                             </div>
                             <hr/>
                         </div>   

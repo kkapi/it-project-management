@@ -38,11 +38,7 @@ const Profile = observer(() => {
       })
        
     
-  },[email, dataError])
-
-  useEffect(() => {
-
-  },[name, phone, address])
+  },[dataError])
 
   const validatePassword = (password) => {
     return String(password)
