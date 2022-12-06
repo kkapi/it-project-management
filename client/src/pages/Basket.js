@@ -21,6 +21,7 @@ const Basket = observer(() => {
   const {user} = useContext(Context)
   
   useEffect(() => {
+    console.log(user.name, user.address, user.phone)
     getBasket().then(data => {
 
       console.log(data)

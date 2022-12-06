@@ -1,4 +1,6 @@
 import Admin from "./pages/Admin"
+import AdminOrders from "./pages/AdminOrders"
+import AdminUsers from "./pages/AdminUsers"
 import Auth from "./pages/Auth"
 import Basket from "./pages/Basket"
 import FoodPage from "./pages/FoodPage"
@@ -10,7 +12,7 @@ import Orders from "./pages/Orders"
 import Profile from "./pages/Profile"
 import RecoveryPassword from "./pages/RecoveryPassword"
 import Shop from './pages/Shop'
-import { ADMIN_ROUTE, BASKET_ROUTE, FOOD_ROUTE, FORGOT_PASS_ROUT, LOGIN_ROUTE, MODERATOR_ROUTE, NEW_ORDER_ROUTE, ORDERS_ROUTE, ORDER_ROUTE, PROFILE_ROUTE, RECOVERY_PASS_ROUT, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/consts"
+import { ADMIN_ORDERS_ROUTE, ADMIN_ROUTE, ADMIN_USERS_ROUTE, BASKET_ROUTE, FOOD_ROUTE, FORGOT_PASS_ROUT, LOGIN_ROUTE, MODERATOR_ROUTE, NEW_ORDER_ROUTE, ORDERS_ROUTE, ORDER_ROUTE, PROFILE_ROUTE, RECOVERY_PASS_ROUT, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/consts"
 
 export const authRoutes = [ 
     {
@@ -73,5 +75,13 @@ export const adminRoutes = [
     {
         path: ADMIN_ROUTE,
         Component: Admin
+    },
+    {
+        path: ADMIN_ORDERS_ROUTE,
+        Component: AdminOrders
+    },
+    {
+        path: ADMIN_USERS_ROUTE,
+        Component: AdminUsers
     }
 ]
