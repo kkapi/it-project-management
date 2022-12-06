@@ -116,12 +116,21 @@ class FoodController {
             basket.final_price = final_price
             basket.save()
             const order = await Order.create({basketId, pay_method: method, wishes: comment, status: 'Принят', name: userInfo.name, phone: userInfo.phone, address: userInfo.address, sum: final_price})
+            
+            const dateTime = new Date(order.createdAt)
+            const date = dateTime.toLocaleDateString()
+            const time = dateTime.toLocaleTimeString()
+            order.date = date
+            order.registration_time = time
+            order.save()
             basket.isActive = false
             basket.save()
             const newBasket = await Basket.create({userId: id})
 
             return res.json({order})
         } catch (e) {
+            console.log('---------!!!!!!!!!!!!!---------')
+            console.log(e)
             return res.json(e)
         }
     }

@@ -47,8 +47,8 @@ useEffect(() => {
                         <td>{order.name}</td>
                         <td>{order.phone}</td>
                         <td>{order.address}</td>
-                        <td>{order.createdAt}</td>
-                        <td>{order.createdAt}</td>
+                        <td>{order.date}</td>
+                        <td>{order.registration_time}</td>
                         <td>{order.sum} руб</td>
                     </tr>
                 )}

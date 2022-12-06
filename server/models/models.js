@@ -51,7 +51,7 @@ const FoodInfo = sequelize.define('food_info', {
 
 const Order = sequelize.define('order', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    date: {type: DataTypes.DATE}, 
+    date: {type: DataTypes.STRING}, 
     registration_time: {type: DataTypes.TIME},  
     status: {type: DataTypes.STRING},
     wish_time: {type: DataTypes.STRING},
