@@ -16,5 +16,6 @@ router.post('/basket/amount', authMiddleware, foodController.changeAmount)
 router.post('/order/create', authMiddleware, foodController.createOrder)
 router.get('/order/one/:id', authMiddleware, foodController.getOneOrder)
 router.get('/userorders', authMiddleware, foodController.getUserOrdres)
+router.get('/order/all', checkRole('ADMIN'), foodController.getAllOrders)
 
 module.exports = router

@@ -141,6 +141,18 @@ class FoodController {
             return res.json(e)
         }
     }
+
+    async getAllOrders(req, res, next) {
+        try {
+            const orders = await Order.findAll({order: [
+                ['id', 'DESC'],                
+            ]})
+            return res.json(orders)
+
+        } catch (e) {
+            console.log(e)
+        }
+    }
     
     async getUserOrdres(req, res, next) {
         const {id} = req.user
