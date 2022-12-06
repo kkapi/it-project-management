@@ -151,6 +151,18 @@ class FoodController {
         }
     }
 
+    async setOrderStatus(req, res, next) {
+        const {id, status} = req.body
+        try {
+            const order = await Order.findOne({where: {id}})
+            order.status = status
+            order.save()
+            return res.json(order.status)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     async getAllOrders(req, res, next) {
         try {
             const orders = await Order.findAll({order: [
