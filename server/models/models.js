@@ -63,6 +63,18 @@ const Order = sequelize.define('order', {
     sum: {type: DataTypes.INTEGER},
 })
 
+const Card = sequelize.define('card', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    number: {type: DataTypes.STRING},
+    period: {type: DataTypes.STRING},
+    CVC: {type: DataTypes.STRING},
+    name: {type: DataTypes.STRING},
+    balance: {type: DataTypes.INTEGER}   
+})
+
+User.hasMany(Card)
+Card.belongsTo(User)
+
 User.hasOne(UserInfo)
 UserInfo.belongsTo(User)
 
@@ -92,5 +104,6 @@ module.exports = {
     Food,
     Type,
     FoodInfo,
-    Order
+    Order,
+    Card
 }
