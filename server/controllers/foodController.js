@@ -106,7 +106,7 @@ class FoodController {
 
     async createOrder(req, res, next) {
         const {id} = req.user
-        const {method, comment, final_price} = req.body
+        const {method, comment, final_price, wish_time} = req.body
         try {
             console.log(method)
             console.log(comment)
@@ -115,11 +115,15 @@ class FoodController {
             const basketId = basket.id
             basket.final_price = final_price
             basket.save()
-            const order = await Order.create({basketId, pay_method: method, wishes: comment, status: 'Принят', name: userInfo.name, phone: userInfo.phone, address: userInfo.address, sum: final_price})
+            const order = await Order.create({basketId, pay_method: method, wishes: comment, status: 'Принят', name: userInfo.name, phone: userInfo.phone, address: userInfo.address, sum: final_price, wish_time})
             
             const dateTime = new Date(order.createdAt)
             const date = dateTime.toLocaleDateString()
-            const time = dateTime.toLocaleTimeString()
+            let time = dateTime.toLocaleTimeString()
+
+            let testTime = time.split(':')
+            time = testTime[0] + ':' + testTime[1]
+            
             order.date = date
             order.registration_time = time
             order.save()

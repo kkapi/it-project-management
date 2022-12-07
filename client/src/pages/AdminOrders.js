@@ -36,6 +36,7 @@ useEffect(() => {
                     <th>Адрес доставки</th>
                     <th>Дата</th>
                     <th>Время</th>
+                    <th>Доставка к</th>
                     <th>Сумма</th>
                 </tr>
             </thead>
@@ -49,6 +50,7 @@ useEffect(() => {
                         <td>{order.address}</td>
                         <td>{order.date}</td>
                         <td>{order.registration_time}</td>
+                        <td>{order.wish_time}</td>
                         <td>{order.sum} руб</td>
                     </tr>
                 )}

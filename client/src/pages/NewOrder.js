@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useState, useContext, useEffect } from 'react'
-import { Button, Card, Container, Form } from 'react-bootstrap'
+import { Button, Card, Container, Dropdown, Form } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { getOneUser } from '../http/userAPI'
 import { BASKET_ROUTE, ORDER_ROUTE, PROFILE_ROUTE } from '../utils/consts'
@@ -20,10 +20,11 @@ const NewOrder = observer(() => {
     const [phone, setPhone] = useState('')
     const [address, setAddress] = useState('')
     const [comment, setComment] = useState('')
-
+    const [orderHours, setOrderHours] = useState([])
+    const [curDeliveryTime, setCurDeliveryTime] = useState('Как можно раньше')
 
     const navigate = useNavigate()
-    
+
     useEffect(() => {
       getOneUser(user.id).then(data => {        
         setUserName(data.name)
@@ -58,10 +59,47 @@ const NewOrder = observer(() => {
   
         setFinalPrice(final_price)
       })
+      
+     const hours = getHours()
+     setOrderHours(hours)
+     console.log(hours)
+
     },[])
 
-  const newOrder = async (comment, method, final_price) => {
-    const {order} = await createOrder(comment, method, final_price)
+  const getHours = () => {
+    const date = new Date()     
+
+    console.log(date.toLocaleTimeString())
+    
+    date.setHours(date.getHours() + 2)
+
+    console.log(date.toLocaleTimeString())
+    
+    const curH = date.toLocaleTimeString().split(':')[0]
+    console.log(curH)
+
+    let hours = ['Как можно раньше']
+
+    for (let hour = curH; hour < 24; hour++) {
+      console.log(hour)
+      hours.push('Доставить к ' + String(hour) + ':00')
+    }
+
+    return hours
+  }
+
+  const newOrder = async (comment, method, final_price, wish_time) => {
+    if (wish_time === 'Как можно раньше') {
+      const date = new Date() 
+      date.setHours(date.getHours() + 1)
+      const time = date.toLocaleTimeString().split(':')
+      wish_time = time[0] + ':' + time[1]
+    } else {
+      wish_time = wish_time.split(' ')[2]
+    }
+   
+    console.log(wish_time)
+    const {order} = await createOrder(comment, method, final_price, wish_time)
     console.log(order.id)
     navigate(ORDER_ROUTE + '/' + order.id)
   }
@@ -76,7 +114,17 @@ const NewOrder = observer(() => {
             <div className='mb-2'>Телефон: {phone}</div>
             <div className='mb-2'>Адрес: {address}</div>
             <Button className='my-2' variant='outline-dark' onClick={() => navigate(PROFILE_ROUTE + '/' + user.id)}>Изменить данные</Button>
-            <div className='mb-2'>Время: Побыстрее</div>
+            <div className='my-2 d-flex align-items-center'>
+              <div className='pe-2'>Время:</div>
+              <Dropdown>
+                <Dropdown.Toggle>{curDeliveryTime}</Dropdown.Toggle>
+                <Dropdown.Menu>                   
+                  {orderHours.map(hour =>
+                    <Dropdown.Item onClick={() => setCurDeliveryTime(hour)} key={hour}>{hour}</Dropdown.Item>
+                  )}                 
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
            </Card>
            <Card className='p-4 d-flex flex-column' style={{width: 350}}>
              <h2>Состав</h2>
@@ -110,10 +158,11 @@ const NewOrder = observer(() => {
             <Form.Check label="Картой курьеру" type="radio" checked={method === 'Картой курьеру'} onChange={() => setMethod('Картой курьеру')}/>
             <Form.Check label="Наличными" type="radio" checked={method === 'Наличными'} onChange={() => setMethod('Наличными')}/>
           </Form.Group>
+          {method === 'По карте' && <div>Формочка для оплаты</div>}
         </Card>
         <div className='mt-4 pb-5 d-flex' style={{width: 725}}>
           <Button variant='outline-dark' onClick={() => navigate(BASKET_ROUTE)}>Назад в корзину</Button>
-          <Button variant='outline-success' className='ms-auto' onClick={() => newOrder(comment, method, finalPrice)}>Оформить заказ на: {finalPrice} руб</Button>
+          <Button variant='outline-success' className='ms-auto' onClick={() => newOrder(comment, method, finalPrice, curDeliveryTime)}>Оформить заказ на: {finalPrice} руб</Button>
         </div>  
     </Container>
   )

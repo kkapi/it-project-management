@@ -63,8 +63,8 @@ export const getBasket = async () => {
     return data
 }
 
-export const createOrder = async (comment, method, final_price) => {
-    const {data} = await $authHost.post('api/food/order/create', {comment, method, final_price})
+export const createOrder = async (comment, method, final_price, wish_time) => {
+    const {data} = await $authHost.post('api/food/order/create', {comment, method, final_price, wish_time})
     return data
 }
 
