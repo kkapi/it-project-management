@@ -77,6 +77,7 @@ const Basket = observer(() => {
   }
 
   const orderRegistration = () => {
+    console.log(user.name, user.address, user.phone)
     if (!user.name || !user.address || !user.phone) {
       console.log("Укажите данные")
     } else {

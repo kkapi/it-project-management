@@ -18,6 +18,9 @@ const NavBar = observer(() => {
         user.setUser({})
         user.setIsAuth(false)
         user.setRole({})
+        user.setName({})
+        user.setAddress({})
+        user.setPhone({})
         localStorage.removeItem("token");
     }
 

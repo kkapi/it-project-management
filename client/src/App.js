@@ -25,8 +25,6 @@ const App = observer (() => {
       user.setName(data.name)
       user.setAddress(data.address)
       user.setPhone(data.phone)
-
-      console.log(user.name)
       
     }) }, 50);
     

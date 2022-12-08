@@ -68,27 +68,19 @@ const NewOrder = observer(() => {
       
      const hours = getHours()
      setOrderHours(hours)
-     console.log(hours)
 
     },[])
 
   const getHours = () => {
     const date = new Date()
-    console.log(date)   
-
-    console.log(date.toLocaleTimeString())
     
     date.setHours(date.getHours() + 2)
-
-    console.log(date.toLocaleTimeString())
     
     const curH = date.toLocaleTimeString().split(':')[0]
-    console.log(curH)
 
     let hours = ['Как можно раньше']
 
     for (let hour = curH; hour < 24; hour++) {
-      console.log(hour)
       hours.push('Доставить к ' + String(hour) + ':00')
     }
 
@@ -114,7 +106,6 @@ const NewOrder = observer(() => {
           console.log(result)
           if (result === 'success') {
             const {order} = await createOrder(comment, method, final_price, wish_time)
-            console.log(order.id)
             navigate(ORDER_ROUTE + '/' + order.id)
           }
         } catch (e) {
@@ -123,9 +114,7 @@ const NewOrder = observer(() => {
       }      
 
     } else {
-      console.log(wish_time)
       const {order} = await createOrder(comment, method, final_price, wish_time)
-      console.log(order.id)
       navigate(ORDER_ROUTE + '/' + order.id)
     }  
    
