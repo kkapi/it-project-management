@@ -15,13 +15,17 @@ const NewOrder = observer(() => {
     const [price, setPrice] = useState([])
     const [finalPrice, setFinalPrice] = useState(0)
     const [amount, setAmount] = useState(1)
-    const [method, setMethod] = useState('Наличными')
+    const [method, setMethod] = useState('По карте')
     const [userName, setUserName] = useState('')
     const [phone, setPhone] = useState('')
     const [address, setAddress] = useState('')
     const [comment, setComment] = useState('')
     const [orderHours, setOrderHours] = useState([])
     const [curDeliveryTime, setCurDeliveryTime] = useState('Как можно раньше')
+    const [cardNumber, setCardNumber] = useState()
+    const [CVC, setCVC] = useState()
+    const [cardPeriod, setCardPeriod] = useState()
+    const [cardName, setCardName] = useState()
 
     const navigate = useNavigate()
 
@@ -158,7 +162,43 @@ const NewOrder = observer(() => {
             <Form.Check label="Картой курьеру" type="radio" checked={method === 'Картой курьеру'} onChange={() => setMethod('Картой курьеру')}/>
             <Form.Check label="Наличными" type="radio" checked={method === 'Наличными'} onChange={() => setMethod('Наличными')}/>
           </Form.Group>
-          {method === 'По карте' && <div>Формочка для оплаты</div>}
+          {method === 'По карте' && 
+            <div>
+              <hr/>
+              <div className='d-flex justify-content-center'>
+              <Form style={{width: 400}}>              
+                <Form.Control
+                  className="mt-2"
+                  placeholder="Номер карты"
+                  value={cardNumber}
+                  onChange={e => setCardNumber(e.target.value)}
+                />
+                <div className='d-flex'>
+                  <Form.Control
+                    className="mt-3"
+                    placeholder="Срок действия"
+                    value={cardPeriod}
+                    onChange={e => setCardPeriod(e.target.value)}
+                  />
+                  <Form.Control
+                    className="mt-3 ms-3"
+                    placeholder="CVC"
+                    value={CVC}
+                    onChange={e => setCVC(e.target.value)}
+                  />
+                </div>
+                
+                <Form.Control
+                  className="mt-3"
+                  placeholder="Имя на карте"
+                  value={cardName}
+                  onChange={e => setCardName(e.target.value)}
+                />
+              </Form>
+              </div>
+            </div>
+            
+          }
         </Card>
         <div className='mt-4 pb-5 d-flex' style={{width: 725}}>
           <Button variant='outline-dark' onClick={() => navigate(BASKET_ROUTE)}>Назад в корзину</Button>
