@@ -163,7 +163,7 @@ class FoodController {
                 return next(ApiError.badRequest('Карта не найдена'))
             }
             console.log(card.balance - Number(sum))
-            
+
             if (card.balance - Number(sum) < 0) {
                 return next(ApiError.badRequest('Недостаточно средств'))
             } else {
@@ -186,15 +186,6 @@ class FoodController {
             return res.json(order.status)
         } catch (e) {
             console.log(e)
-        }
-    }
-
-    async test(req, res, next) {
-        try {
-            const {test} = req.body
-            return res.json(test)
-        } catch (e) {
-            return res.json('error')
         }
     }
 

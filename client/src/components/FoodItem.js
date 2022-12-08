@@ -9,8 +9,6 @@ const FoodItem = ({food}) => {
 
   const navigate = useNavigate()
 
-  const {user} = useContext(Context)
-
   return (    
     <Col md={2} className="mt-3" >
         <Card style={{width: 180}} border={"light"}>
@@ -32,9 +30,7 @@ const FoodItem = ({food}) => {
                     title="Добавить в корзину"
                     onClick={() => addBasketFood(food.id)}
                     variant={"outline-dark"}
-                  >+</Button>
-
-                  
+                  >+</Button>                  
                 </div>
             </div>         
         </Card>

@@ -20,6 +20,4 @@ router.get('/order/all', checkRole('ADMIN'), foodController.getAllOrders)
 router.put('/order/status', checkRole('ADMIN'), foodController.setOrderStatus)
 router.put('/order/payment', foodController.payOrder)
 
-router.get('/test', foodController.test)
-
 module.exports = router
