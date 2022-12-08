@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { getOneUser } from '../http/userAPI'
 import { BASKET_ROUTE, ORDER_ROUTE, PROFILE_ROUTE } from '../utils/consts'
 import { Context } from '..'
-import { createOrder, getBasket } from '../http/foodAPI'
+import { createOrder, getBasket, payOrder } from '../http/foodAPI'
 
 const NewOrder = observer(() => {
 
@@ -22,14 +22,15 @@ const NewOrder = observer(() => {
     const [comment, setComment] = useState('')
     const [orderHours, setOrderHours] = useState([])
     const [curDeliveryTime, setCurDeliveryTime] = useState('Как можно раньше')
-    const [cardNumber, setCardNumber] = useState()
-    const [cvc, setCVC] = useState()
-    const [cardPeriod, setCardPeriod] = useState()
-    const [cardName, setCardName] = useState()
+    const [cardNumber, setCardNumber] = useState('')
+    const [cvc, setCvc] = useState('')
+    const [cardPeriod, setCardPeriod] = useState('')
+    const [cardName, setCardName] = useState('')
 
     const navigate = useNavigate()
 
     useEffect(() => {
+
       getOneUser(user.id).then(data => {        
         setUserName(data.name)
         setAddress(data.address)
@@ -71,7 +72,8 @@ const NewOrder = observer(() => {
     },[])
 
   const getHours = () => {
-    const date = new Date()     
+    const date = new Date()
+    console.log(date)   
 
     console.log(date.toLocaleTimeString())
     
@@ -101,11 +103,27 @@ const NewOrder = observer(() => {
     } else {
       wish_time = wish_time.split(' ')[2]
     }
+
+    if (method === 'По карте') {
+      try {
+        const {result} = await payOrder(cardNumber, cardPeriod, cvc, cardName, final_price)
+        console.log(result)
+        if (result === 'success') {
+          const {order} = await createOrder(comment, method, final_price, wish_time)
+          console.log(order.id)
+          navigate(ORDER_ROUTE + '/' + order.id)
+        }
+      } catch (e) {
+        console.log(e.response.data.message)
+      }
+
+    } else {
+      console.log(wish_time)
+      const {order} = await createOrder(comment, method, final_price, wish_time)
+      console.log(order.id)
+      navigate(ORDER_ROUTE + '/' + order.id)
+    }  
    
-    console.log(wish_time)
-    const {order} = await createOrder(comment, method, final_price, wish_time)
-    console.log(order.id)
-    navigate(ORDER_ROUTE + '/' + order.id)
   }
 
   return (

@@ -156,12 +156,22 @@ class FoodController {
     }
 
     async payOrder(req, res, next) {
-        const {number, period, CVC, name, sum} = req.body
+        const {number, period, cvc, name, sum} = req.body
         try {
-            const card = Card.findOne({where: {number, period, CVC, name}})
+            const card = await Card.findOne({where: {number, period, cvc, name}})
             if (!card) {
                 return next(ApiError.badRequest('Карта не найдена'))
             }
+            console.log(card.balance - Number(sum))
+            
+            if (card.balance - Number(sum) < 0) {
+                return next(ApiError.badRequest('Недостаточно средств'))
+            } else {
+                card.balance = card.balance - Number(sum)
+                card.save()
+            }
+
+            return res.json({result: "success"})
         } catch(e) {
             next(ApiError.badRequest(e.message))
         }
