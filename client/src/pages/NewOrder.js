@@ -23,7 +23,7 @@ const NewOrder = observer(() => {
     const [orderHours, setOrderHours] = useState([])
     const [curDeliveryTime, setCurDeliveryTime] = useState('Как можно раньше')
     const [cardNumber, setCardNumber] = useState()
-    const [CVC, setCVC] = useState()
+    const [cvc, setCVC] = useState()
     const [cardPeriod, setCardPeriod] = useState()
     const [cardName, setCardName] = useState()
 
@@ -183,8 +183,8 @@ const NewOrder = observer(() => {
                   <Form.Control
                     className="mt-3 ms-3"
                     placeholder="CVC"
-                    value={CVC}
-                    onChange={e => setCVC(e.target.value)}
+                    value={cvc}
+                    onChange={e => setCvc(e.target.value)}
                   />
                 </div>
                 

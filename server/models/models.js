@@ -67,7 +67,7 @@ const Card = sequelize.define('card', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     number: {type: DataTypes.STRING},
     period: {type: DataTypes.STRING},
-    CVC: {type: DataTypes.STRING},
+    cvc: {type: DataTypes.STRING},
     name: {type: DataTypes.STRING},
     balance: {type: DataTypes.INTEGER}   
 })

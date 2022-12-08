@@ -1,7 +1,7 @@
 const { sequelize, json } = require('sequelize')
 const ApiError = require('../error/ApiError')
 const foodService = require('../service/foodService')
-const { Basket, BasketFood, Food, Order, User, UserInfo } = require('../models/models')
+const { Basket, BasketFood, Food, Order, User, UserInfo, Card } = require('../models/models')
 
 
 class FoodController {
@@ -152,6 +152,18 @@ class FoodController {
 
         } catch (e) {
             return res.json(e)
+        }
+    }
+
+    async payOrder(req, res, next) {
+        const {number, period, CVC, name, sum} = req.body
+        try {
+            const card = Card.findOne({where: {number, period, CVC, name}})
+            if (!card) {
+                return next(ApiError.badRequest('Карта не найдена'))
+            }
+        } catch(e) {
+            next(ApiError.badRequest(e.message))
         }
     }
 

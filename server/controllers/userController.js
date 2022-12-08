@@ -47,6 +47,7 @@ class UserController {
         try {
             const user = await userService.createUser(email, password, role)
         } catch (e) {
+            console.log(e)
             return next(ApiError.internal('Не удалось создать пользователя'))
         }
         
