@@ -26,6 +26,7 @@ const NewOrder = observer(() => {
     const [cvc, setCvc] = useState('')
     const [cardPeriod, setCardPeriod] = useState('')
     const [cardName, setCardName] = useState('')
+    const [error, setError] = useState(null)
 
     const navigate = useNavigate()
 
@@ -105,17 +106,21 @@ const NewOrder = observer(() => {
     }
 
     if (method === 'По карте') {
-      try {
-        const {result} = await payOrder(cardNumber, cardPeriod, cvc, cardName, final_price)
-        console.log(result)
-        if (result === 'success') {
-          const {order} = await createOrder(comment, method, final_price, wish_time)
-          console.log(order.id)
-          navigate(ORDER_ROUTE + '/' + order.id)
+      if (!cardNumber || !cardPeriod || !cvc || !cardName) {
+        setError('Заполните данные карты')
+      } else {
+        try {
+          const {result} = await payOrder(cardNumber, cardPeriod, cvc, cardName, final_price)
+          console.log(result)
+          if (result === 'success') {
+            const {order} = await createOrder(comment, method, final_price, wish_time)
+            console.log(order.id)
+            navigate(ORDER_ROUTE + '/' + order.id)
+          }
+        } catch (e) {
+          setError(e.response.data.message)
         }
-      } catch (e) {
-        console.log(e.response.data.message)
-      }
+      }      
 
     } else {
       console.log(wish_time)
@@ -182,9 +187,10 @@ const NewOrder = observer(() => {
           </Form.Group>
           {method === 'По карте' && 
             <div>
-              <hr/>
+              <hr/>              
               <div className='d-flex justify-content-center'>
-              <Form style={{width: 400}}>              
+              <Form style={{width: 400}}> 
+              { error && <div className="alert alert-danger text-center py-2" role="alert" style={{width: 400}}>{error}</div>}             
                 <Form.Control
                   className="mt-2"
                   placeholder="Номер карты"
