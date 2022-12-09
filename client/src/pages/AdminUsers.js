@@ -12,6 +12,8 @@ const AdminUsers = observer(() => {
 
   const [info2, setInfo2] = useState([])
   const [update, setUpdate] = useState(false)
+  const [users, setUsers] = useState([])
+
   const navigate = useNavigate()
 
   const changeStatus = (id, isBlocked) => {
@@ -25,13 +27,20 @@ const AdminUsers = observer(() => {
   }
 
   useEffect(() => {
-    getAllUser().then((data) => {
-      console.log(data)
-      user.setUsers(data);
-      console.log(user.users);
-      setInfo2(user.users);
-    });
+    getUsers()
+    // getAllUser().then((data) => {
+    //   console.log(data)
+    //   user.setUsers(data);
+    //   console.log(user.users);
+    //   setInfo2(user.users);
+    // });
   }, [update]);
+
+  const getUsers = async () => {
+    const data = await getAllUser()
+    console.log(data)
+    setUsers(data)
+  }
 
   return (
     <Container className="mt-4" style={{width: 1500}}>
@@ -51,7 +60,7 @@ const AdminUsers = observer(() => {
       </thead>
       <tbody>
         {
-          info2.map(tr => 
+          users.map(tr => 
             <tr key={tr.id}>
               <td style={{cursor:'pointer'}} onClick={() => navigate(PROFILE_ROUTE + '/' + tr.id)}>{tr.id}</td>
               <td style={{cursor:'pointer'}} onClick={() => navigate(PROFILE_ROUTE + '/' + tr.id)}>{tr.user_info.name || "Не заполнено"}</td>
@@ -95,8 +104,8 @@ const AdminUsers = observer(() => {
               <td className="d-flex justify-content-center align-items-center" style={{height: 55}}>
                 { (tr.role !== 'ADMIN' || user.id === 1) && tr.id !== user.id &&
                 <>
-                  {!tr.isBlocked && <Button variant="danger" onClick={() => changeStatus(tr.id, true)}>Заблокировать</Button>}
-                  {tr.isBlocked && <Button variant="success" onClick={() => changeStatus(tr.id, false)}>Разблокировать</Button>}
+                  {!tr.isBlocked && <Button variant="outline-danger" onClick={() => changeStatus(tr.id, true)}>Заблокировать</Button>}
+                  {tr.isBlocked && <Button variant="outline-success" onClick={() => changeStatus(tr.id, false)}>Разблокировать</Button>}
                 </>
                 }                   
               </td>
