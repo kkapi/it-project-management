@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Button, Card, Container, Form, Image } from 'react-bootstrap'
 import {useParams} from 'react-router-dom'
 import { Context } from '..'
-import { addBasketFood, fetchOneFood } from '../http/foodAPI'
+import { addBasketFood, changeFoodInfo, fetchOneFood } from '../http/foodAPI'
 
 const FoodPage = () => {
   const {user} = useContext(Context)
@@ -13,6 +13,7 @@ const FoodPage = () => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
+  const [update, setUpdate] = useState(false)
 
   const {id} = useParams()
 
@@ -23,7 +24,16 @@ const FoodPage = () => {
       setFood(data)
       console.log(food)
     })    
-  },[])
+  },[update])
+
+  const changeInfo = (id, name, description, price) => {
+    console.log(id, name, description, price)
+    changeFoodInfo(id, name, description, price)
+    setName('')
+    setDescription('')
+    setPrice('')
+    setUpdate(!update)
+  }
 
   return (
     <Container className='d-flex justify-content-center align-items-start mt-5 pt-5' style={{height: window.innerHeight - 150}}>
@@ -41,6 +51,7 @@ const FoodPage = () => {
                 variant="outline-dark" 
                 style={{height: 38}} 
                 className="ms-3"
+                onClick={() => changeInfo(id, '', '', Number(price))}
               >
                 Изменить
               </Button>
@@ -66,12 +77,13 @@ const FoodPage = () => {
           <Form.Control              
               placeholder="Введите новое название"
               value={name}
-              onChange={(e) => setName(e.target.value)}            
+              onChange={(e) => setName(e.target.value)}   
             />
             <Button 
               variant="outline-dark" 
               style={{height: 38}} 
               className="ms-3"
+              onClick={() => changeInfo(id, name, '', '')}  
             >
               Изменить
             </Button>
@@ -88,6 +100,7 @@ const FoodPage = () => {
               variant="outline-dark" 
               style={{height: 38}} 
               className="ms-3"
+              onClick={() => changeInfo(id, '', description, '')}
             >
               Изменить
             </Button>

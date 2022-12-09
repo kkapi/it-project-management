@@ -89,6 +89,11 @@ export const setNewStatus = async (id, status) => {
 }
 
 export const payOrder = async (number, period, cvc, name, sum) => {
-    const {data} = await $host.put('api/food/order/payment', {number, period, cvc, name, sum})
+    const {data} = await $authHost.put('api/food/order/payment', {number, period, cvc, name, sum})
+    return data
+}
+
+export const changeFoodInfo = async (id, name, description, price) => {
+    const {data} = await $authHost.put('api/food/changeinfo', {id, name, description, price})
     return data
 }

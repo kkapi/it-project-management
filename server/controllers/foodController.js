@@ -200,6 +200,33 @@ class FoodController {
             console.log(e)
         }
     }
+
+    async changeInfo(req, res, next) {
+        const {id, name, description, price} = req.body
+        try {
+            const food = await Food.findOne({where: {id}})
+
+            console.log(req.body)
+
+            if (name) {
+                food.name = name
+            }
+
+            if (description) {
+                food.description = description
+            }
+
+            if (price) {
+                food.price = price
+            }
+
+            food.save()
+
+            return res.json(food)
+        } catch (e) {
+            console.log(e)
+        }
+    }
     
     async getUserOrdres(req, res, next) {
         const {id} = req.user
