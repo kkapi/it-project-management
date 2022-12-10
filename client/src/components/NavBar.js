@@ -37,7 +37,8 @@ const NavBar = observer(() => {
             </Nav>                  
           }      
               
-          <Nav className="ml-auto">            
+          <Nav className="ml-auto">
+            <Nav.Link className='me-2' onClick={() => navigate(PROFILE_ROUTE + '/' + user.id)}>{user.user.email}</Nav.Link>           
             {user.role === 'MODERATOR' && <Button variant="outline-light" onClick={() => navigate(MODERATOR_ROUTE)}>Панель модератора</Button>}
             {user.role === 'ADMIN' && <Button variant="outline-light" onClick={() => navigate(ADMIN_ROUTE)}>Админ панель</Button>}
             {user.isAuth && <Button variant="outline-light" className="ms-3" onClick={() => logOut()}>Выйти</Button>}         
