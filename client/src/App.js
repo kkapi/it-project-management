@@ -20,6 +20,7 @@ const App = observer (() => {
       user.setIsBlocked(data.isBlocked)
       user.setRole(data.role)
       user.setId(data.id)
+      user.setEmail(data.email)
     }).finally(() => setLoading(false))
 
     setTimeout(() => {  getOneUser(user.id).then(data => {      

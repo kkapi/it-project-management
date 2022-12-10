@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom"
 
 const NavBar = observer(() => {
     const {user} = useContext(Context)
-    const navigate = useNavigate()  
+    const navigate = useNavigate()
 
     const logOut = () => {
         user.setUser({})
@@ -33,11 +33,17 @@ const NavBar = observer(() => {
             <Nav className="fs-6 me-auto">          
               <Nav.Link className='ms-5' onClick={() => navigate(PROFILE_ROUTE + '/' + user.id)}>Профиль</Nav.Link>
               <Nav.Link className='ms-5' onClick={() => navigate(BASKET_ROUTE)}>Корзина</Nav.Link>  
-              <Nav.Link className='ms-5' onClick={() => navigate(ORDERS_ROUTE)}>Заказы</Nav.Link>  
-            </Nav>                  
-          }      
+              <Nav.Link className='ms-5' onClick={() => navigate(ORDERS_ROUTE)}>Заказы</Nav.Link>
+                             
+            </Nav>                            
+          }           
               
-          <Nav className="ml-auto">                       
+          <Nav className="ml-auto">
+            {user.isAuth && <Nav.Link className='me-2' onClick={() => navigate(PROFILE_ROUTE + '/' + user.id)}>{user.email} 
+              {user.role === 'USER' && <span> (Пользователь)</span>}
+              {user.role === 'MODERATOR' && <span> (Модератор)</span>}
+              {user.role === 'ADMIN' && <span> (Администратор)</span>}
+            </Nav.Link>}                    
             {user.role === 'MODERATOR' && <Button variant="outline-light" onClick={() => navigate(MODERATOR_ROUTE)}>Панель модератора</Button>}
             {user.role === 'ADMIN' && <Button variant="outline-light" onClick={() => navigate(ADMIN_ROUTE)}>Админ панель</Button>}
             {user.isAuth && <Button variant="outline-light" className="ms-3" onClick={() => logOut()}>Выйти</Button>}         

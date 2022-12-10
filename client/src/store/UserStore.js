@@ -10,19 +10,17 @@ export default class UserStore {
         this._address = {}
         this._phone = {}
         this._isBlocked = false
-        
-
-        this._users = []
+        this._email = {}
 
         makeAutoObservable(this)
     }
 
-    setId(id) {
-        this._id = id
+    setEmail(email) {
+        this._email = email
     }
 
-    setUsers(users) {
-        this._users = users
+    setId(id) {
+        this._id = id
     }
 
     setInfo(data) {
@@ -57,6 +55,10 @@ export default class UserStore {
 
     setAddress(address) {
         this._address = address
+    }
+
+    get email() {
+        return this._email
     }
 
     get id() {
