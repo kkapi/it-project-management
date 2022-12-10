@@ -10,7 +10,6 @@ import { PROFILE_ROUTE } from "../utils/consts";
 const AdminUsers = observer(() => {
   const { user } = useContext(Context)
 
-  const [info2, setInfo2] = useState([])
   const [update, setUpdate] = useState(false)
   const [users, setUsers] = useState([])
 
@@ -28,12 +27,6 @@ const AdminUsers = observer(() => {
 
   useEffect(() => {
     getUsers()
-    // getAllUser().then((data) => {
-    //   console.log(data)
-    //   user.setUsers(data);
-    //   console.log(user.users);
-    //   setInfo2(user.users);
-    // });
   }, [update]);
 
   const getUsers = async () => {
@@ -68,7 +61,7 @@ const AdminUsers = observer(() => {
               <td style={{cursor:'pointer'}} onClick={() => navigate(PROFILE_ROUTE + '/' + tr.id)}>{tr.user_info.phone || "Не заполнено"}</td>
               <td style={{cursor:'pointer'}} onClick={() => navigate(PROFILE_ROUTE + '/' + tr.id)}>{tr.user_info.address || "Не заполнено"}</td>
               <td>
-                { (tr.role !== 'ADMIN' || user.id === 1) && tr.id !== user.id ?
+                { tr.id !== user.id ?
                 <div className="d-flex justify-content-center px-2">
                   <Card 
                     className="px-3"
@@ -83,8 +76,7 @@ const AdminUsers = observer(() => {
                     text={tr.role === "MODERATOR" ? 'primary' : 'dark'}
                     style={{cursor:'pointer'}}
                     onClick={() => changeRole(tr.id, tr.role, 'MODERATOR')}
-                  >М</Card>
-                  { user.id === 1 &&
+                  >М</Card>                  
                   <Card
                     className="px-3 ms-3"
                     border={tr.role === "ADMIN" ? 'primary' : 'dark'}
@@ -92,17 +84,17 @@ const AdminUsers = observer(() => {
                     style={{cursor:'pointer'}} 
                     onClick={() => changeRole(tr.id, tr.role, 'ADMIN')}
                   >А</Card>
-                  }
+                  
                 </div>
                   :
-                  <>Администратор</>
+                  <div className="text-center">Администратор</div>
                 }              
                 
               </td>
               
               <td>{!tr.isBlocked ? <span className='text-success fw-bold'>Активен</span> : <span className='text-danger fw-bold'>Заблокирован</span>}</td>
               <td className="d-flex justify-content-center align-items-center" style={{height: 55}}>
-                { (tr.role !== 'ADMIN' || user.id === 1) && tr.id !== user.id &&
+                { tr.id !== user.id &&
                 <>
                   {!tr.isBlocked && <Button variant="outline-danger" onClick={() => changeStatus(tr.id, true)}>Заблокировать</Button>}
                   {tr.isBlocked && <Button variant="outline-success" onClick={() => changeStatus(tr.id, false)}>Разблокировать</Button>}

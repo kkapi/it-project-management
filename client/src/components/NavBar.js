@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '..'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom"
 
 const NavBar = observer(() => {
     const {user} = useContext(Context)
-    const navigate = useNavigate()
+    const navigate = useNavigate()  
 
     const logOut = () => {
         user.setUser({})
@@ -37,8 +37,7 @@ const NavBar = observer(() => {
             </Nav>                  
           }      
               
-          <Nav className="ml-auto">
-            <Nav.Link className='me-2' onClick={() => navigate(PROFILE_ROUTE + '/' + user.id)}>{user.user.email}</Nav.Link>           
+          <Nav className="ml-auto">                       
             {user.role === 'MODERATOR' && <Button variant="outline-light" onClick={() => navigate(MODERATOR_ROUTE)}>Панель модератора</Button>}
             {user.role === 'ADMIN' && <Button variant="outline-light" onClick={() => navigate(ADMIN_ROUTE)}>Админ панель</Button>}
             {user.isAuth && <Button variant="outline-light" className="ms-3" onClick={() => logOut()}>Выйти</Button>}         
