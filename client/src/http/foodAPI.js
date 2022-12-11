@@ -97,3 +97,8 @@ export const changeFoodInfo = async (id, name, description, price) => {
     const {data} = await $authHost.put('api/food/changeinfo', {id, name, description, price})
     return data
 }
+
+export const repeatOrder = async (userId, bId) => {
+    const {data} = await $authHost.post('api/food/repeat', {userId, bId})
+    return data
+}

@@ -1,15 +1,18 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { Button, Card, Container, Dropdown, Image } from 'react-bootstrap'
-import { useParams } from 'react-router-dom'
-import { getOrder, setNewStatus } from '../http/foodAPI'
+import { useNavigate, useParams } from 'react-router-dom'
+import { getOrder, repeatOrder, setNewStatus } from '../http/foodAPI'
 import { Context } from "..";
+import { NEW_ORDER_ROUTE } from '../utils/consts'
 
 const Order = observer(() => {
 
 const {id} = useParams()
 
 const {user} = useContext(Context)
+
+const navigate = useNavigate()
 
 const [method, setMethod] = useState()
 const [comment, setComment] = useState()
@@ -20,6 +23,7 @@ const [foods, setFoods] = useState([])
 const [name, setName] = useState()
 const [phone, setPhone] = useState()
 const [address, setAddress] = useState()
+const [bId, setBId] = useState()
 
 const statuses = [
     'Принят',
@@ -45,6 +49,7 @@ useEffect(() => {
         setDate(dateTest.toLocaleString())
         setFoods(data.foods)
         setPrice(data.price)
+        setBId(data.order.basketId)
 
         setName(data.order.name)
         setPhone(data.order.phone)
@@ -54,6 +59,13 @@ useEffect(() => {
     const newStatus = (status) => {
         setNewStatus(id, status)
         setStatus(status)
+    }
+
+    const repOrder = async (userId, basketId) => {
+        console.log('userId: ' + userId)
+        console.log('basketId: ' + basketId)
+        const data = await repeatOrder(userId, basketId)
+        navigate(NEW_ORDER_ROUTE)
     }
 
 
@@ -106,7 +118,10 @@ useEffect(() => {
                 }
                 <div className='d-flex'>
                     <h2 className='pb-4 pt-2 pe-5'>Сумма: {price} руб</h2>
-                    <Button style={{width: 150, height: 50}} className='mt-1'>Повторить заказ</Button>
+                    <Button
+                        style={{width: 150, height: 50}} className='mt-1'
+                        onClick={() => repOrder(user.id, bId)}
+                    >Повторить заказ</Button>
                 </div>
                 
             </div>
