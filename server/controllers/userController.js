@@ -135,7 +135,7 @@ class UserController {
     }
 
     async getAll(req, res, nex) {
-        const users = await User.findAll({order: [['id', 'ASC']], include: UserInfo})
+        const users = await User.findAll({where: {isActivated: true}, order: [['id', 'ASC']], include: UserInfo})
         
         return res.json(users)
     }
