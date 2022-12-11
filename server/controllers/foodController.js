@@ -259,7 +259,7 @@ class FoodController {
             basketsId.map(item => {
                 bsId.push(item.id)
             })
-            const userOrders = await Order.findAll({where: {basketId: bsId}})
+            const userOrders = await Order.findAll({where: {basketId: bsId}, order: [['id', 'DESC'],]})
 
             console.log(bsId)
             return res.json(userOrders)
