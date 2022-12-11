@@ -19,6 +19,7 @@ router.get('/userorders', authMiddleware, foodController.getUserOrdres)
 router.get('/order/all', checkRole('ADMIN'), foodController.getAllOrders)
 router.put('/order/status', checkRole('ADMIN'), foodController.setOrderStatus)
 router.put('/order/payment', authMiddleware, foodController.payOrder)
-router.put('/changeinfo', foodController.changeInfo)
+router.put('/changeinfo', authMiddleware, foodController.changeInfo)
+router.post('/repeat', foodController.repeat)
 
 module.exports = router

@@ -79,6 +79,29 @@ class FoodController {
         return res.json(basket_food)        
     }
 
+    async repeat(req, res, next) {
+        const {bId, userId} = req.body
+        try {
+            const basket = await Basket.findOne({where: {isActive: true, userId}})
+            await BasketFood.destroy({where: {basketId: basket.id}})
+
+            const food = await BasketFood.findAll({where: {basketId: bId}})
+           
+            food.map(item => {
+                BasketFood.create({foodId: item.foodId, basketId: basket.id, amount: item.amount})
+                console.log('----------')
+                console.log(item.id)
+                console.log(item.amount)
+                console.log(bId)
+                console.log('----------')
+            })
+
+            return res.json(food)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     async deleteBasketFood(req, res, next) {
         const {bfId} = req.body
         

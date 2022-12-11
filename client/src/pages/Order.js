@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { Card, Container, Dropdown, Image } from 'react-bootstrap'
+import { Button, Card, Container, Dropdown, Image } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import { getOrder, setNewStatus } from '../http/foodAPI'
 import { Context } from "..";
@@ -104,7 +104,11 @@ useEffect(() => {
                         </div>   
                     )
                 }
-                <h2 className='pb-4 pt-2'>Сумма: {price} руб</h2>
+                <div className='d-flex'>
+                    <h2 className='pb-4 pt-2 pe-5'>Сумма: {price} руб</h2>
+                    <Button style={{width: 150, height: 50}} className='mt-1'>Повторить заказ</Button>
+                </div>
+                
             </div>
         </Container>
     )
