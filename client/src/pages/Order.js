@@ -68,7 +68,6 @@ useEffect(() => {
         navigate(NEW_ORDER_ROUTE)
     }
 
-
     return (
         <Container className='pt-4'>
             <h1>Заказ #{id}</h1>

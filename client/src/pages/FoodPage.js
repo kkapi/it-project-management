@@ -24,7 +24,7 @@ const FoodPage = () => {
       setFood(data)
       console.log(food)
     })    
-  },[update])
+  },[update, redaction])
 
   const changeInfo = (id, name, description, price) => {
     console.log(id, name, description, price)
