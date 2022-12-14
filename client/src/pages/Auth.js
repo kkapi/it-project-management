@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react'
 import { Button, Card, Container, Form } from 'react-bootstrap'
 import { NavLink, useLocation } from 'react-router-dom'
 import { Context } from '..'
-import { login, registration } from '../http/userAPI'
+import { getOneUser, login, registration } from '../http/userAPI'
 import { FORGOT_PASS_ROUT, LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from '../utils/consts'
 import { useNavigate } from "react-router-dom"
 
@@ -29,6 +29,9 @@ const Auth = observer(() => {
           user.setRole(data.role)
           user.setId(data.id)
           user.setEmail(data.email)
+          await getOneUser(data.id).then(data => {
+            user.setName(data.name)
+          })
           navigate(SHOP_ROUTE)
       } else {
           setNotification(null)
