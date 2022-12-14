@@ -24,17 +24,18 @@ const NavBar = observer(() => {
         localStorage.removeItem("token");
     }
 
+
+
     return (      
       <Navbar bg="dark" variant="dark" className='py-3'>
         <Container>
-          <NavLink style={{color: 'white'}} to={SHOP_ROUTE} className="text-decoration-none fs-5">EtuFood</NavLink>
+          <NavLink style={{color: 'white'}} to={SHOP_ROUTE} className="text-decoration-none fs-5 me-3">EtuFood</NavLink>
           
           {user.isAuth &&
             <Nav className="fs-6 me-auto">          
-              <Nav.Link className='ms-5' onClick={() => navigate(PROFILE_ROUTE + '/' + user.id)}>Профиль</Nav.Link>
+              {/* <Nav.Link className='ms-5' onClick={() => navigate(PROFILE_ROUTE + '/' + user.id)}>Профиль</Nav.Link> */}
               <Nav.Link className='ms-5' onClick={() => navigate(BASKET_ROUTE)}>Корзина</Nav.Link>  
-              <Nav.Link className='ms-5' onClick={() => navigate(ORDERS_ROUTE)}>Заказы</Nav.Link>
-                             
+              <Nav.Link className='ms-5' onClick={() => navigate(ORDERS_ROUTE)}>Заказы</Nav.Link>         
             </Nav>                            
           }           
               
