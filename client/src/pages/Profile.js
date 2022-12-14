@@ -89,7 +89,7 @@ const Profile = observer(() => {
     if (address) {  
       changeInfo('', '', address, id).then(data => { 
         setPlaceholderAddress(address)
-        user.setAddress(address)
+        if (user.id === id) {user.setAddress(address)}
         setAddress('')        
       })
     }
@@ -100,7 +100,7 @@ const Profile = observer(() => {
     if (name) {      
       changeInfo(name, '', '', id).then(data => {
         setPlaceholderName(name)
-        user.setName(name)
+        if (user.id === id) {user.setName(name)}
         setName('')}
         )      
    
@@ -113,7 +113,7 @@ const Profile = observer(() => {
       if (validatePhone(phone)) {   
       changeInfo('', phone, '', id).then(data => {
         setPlaceholderPhone(phone)
-        user.setPhone(phone)
+        if (user.id === id) {user.setPhone(phone)}
         setDataError('')
         setPhone('')
       })
