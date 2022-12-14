@@ -6,7 +6,7 @@ export default class UserStore {
         this._user = {}
         this._role = {}
         this._id = {}
-        this._name = {}
+        this._name = ''
         this._address = {}
         this._phone = {}
         this._isBlocked = false
