@@ -18,13 +18,11 @@ const NavBar = observer(() => {
         user.setUser({})
         user.setIsAuth(false)
         user.setRole({})
-        user.setName({})
+        user.setName('')
         user.setAddress({})
         user.setPhone({})
         localStorage.removeItem("token");
     }
-
-
 
     return (      
       <Navbar bg="dark" variant="dark" className='py-3'>
@@ -40,7 +38,7 @@ const NavBar = observer(() => {
           }           
               
           <Nav className="ml-auto">
-            {user.isAuth && <Nav.Link className='me-2' onClick={() => navigate(PROFILE_ROUTE + '/' + user.id)}>{user.email} 
+            {user.isAuth && <Nav.Link className='me-2' onClick={() => navigate(PROFILE_ROUTE + '/' + user.id)}>{user.name || user.email} 
               {user.role === 'USER' && <span> (Пользователь)</span>}
               {user.role === 'MODERATOR' && <span> (Модератор)</span>}
               {user.role === 'ADMIN' && <span> (Администратор)</span>}
