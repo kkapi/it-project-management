@@ -103,8 +103,7 @@ const Profile = observer(() => {
         
         if (user.id === Number(id)) {user.setName(name)}
         setName('')}
-        )      
-   
+        )
     }
   }
 

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Button, Card, Container, Form, Image } from 'react-bootstrap'
 import {useParams} from 'react-router-dom'
 import { Context } from '..'
-import { addBasketFood, changeFoodInfo, fetchOneFood } from '../http/foodAPI'
+import { addBasketFood, changeFoodInfo, fetchOneFood, changeImage } from '../http/foodAPI'
 
 const FoodPage = () => {
   const {user} = useContext(Context)
@@ -13,6 +13,8 @@ const FoodPage = () => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
+  const [file, setFile] = useState(null) 
+
   const [update, setUpdate] = useState(false)
 
   const {id} = useParams()
@@ -35,11 +37,44 @@ const FoodPage = () => {
     setUpdate(!update)
   }
 
+  const selectFile = e => {
+    setFile(e.target.files[0])
+  }
+
+  const changeImg = () => {
+    if (file && file.type === 'image/jpeg') {
+      const formData = new FormData()
+      formData.append('img', file)
+      formData.append('id', id)
+      changeImage(formData)
+      console.log('img')
+      setFile(null)
+    }
+    
+  }
+
   return (
     <Container className='d-flex justify-content-center align-items-start mt-5 pt-5' style={{height: window.innerHeight - 150}}>
       <>
       <div className='d-flex flex-column pb-4'>        
-          <Image width={300} height={300} src={process.env.REACT_APP_API_URL + food.img} className="rounded"/>
+          {!redaction ? <Image width={300} height={300} src={process.env.REACT_APP_API_URL + food.img} className="rounded"/> : 
+            <div>
+              <h2>Изображение</h2>
+              <Form.Control
+                className="mt-3"
+                type="file"                 
+                onChange={selectFile}
+              />
+              <Button 
+                variant="outline-dark" 
+                style={{height: 38}} 
+                className="mt-3"
+                onClick={() => changeImg()}
+              >
+                Изменить изображение
+              </Button>
+            </div>}
+            
           {redaction ?
             <div className='d-flex pt-4' style={{width: 300}}>
             <Form.Control              
@@ -72,8 +107,10 @@ const FoodPage = () => {
       </div>
       <div className='d-flex flex-column align-items-center' style={{width: 700}}>
         
-        {redaction ? 
-        <div className='d-flex'>
+        {redaction ?
+        <div>
+        <h2 className='text-center'>Название</h2>
+        <div className='d-flex mb-5'>
           <Form.Control              
               placeholder="Введите новое название"
               value={name}
@@ -87,7 +124,7 @@ const FoodPage = () => {
             >
               Изменить
             </Button>
-        </div> : <h1>{food.name}</h1>}
+        </div></div> : <h1>{food.name}</h1>}
         <h2 className="mt-1">Описание</h2>
         {redaction ? 
           <div className='d-flex'>

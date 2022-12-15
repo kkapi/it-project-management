@@ -2,7 +2,9 @@ const { sequelize, json } = require('sequelize')
 const ApiError = require('../error/ApiError')
 const foodService = require('../service/foodService')
 const { Basket, BasketFood, Food, Order, User, UserInfo, Card } = require('../models/models')
-
+const uuid = require('uuid')
+const path = require('path')
+const fs = require('fs')
 
 class FoodController {
     async create(req, res, next) {
@@ -13,6 +15,34 @@ class FoodController {
             const food = await foodService.create(name, description, price, typeId, img, info)
 
             return res.json(food)
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
+    }
+
+    async changeImg(req, res, next) {
+        try {
+            const {id} = req.body
+            const {img} = req.files
+            let fileName = uuid.v4() + ".jpg"
+            img.mv(path.resolve(__dirname, '..', 'static', fileName))
+
+            const food = await Food.findOne({where: {id}})
+
+            try {
+                fs.unlink(path.resolve(__dirname, '..', 'static', food.img), (err) => {
+                    if (err) throw err;                  
+                    console.log('Deleted');
+                });  
+            } catch(e) {
+                console.log(e)
+            }
+
+            food.img = fileName
+            food.save()
+
+            return res.json('ok')
+
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }

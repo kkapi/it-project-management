@@ -79,7 +79,7 @@ const Basket = observer(() => {
   const orderRegistration = () => {
     console.log(user.name, user.address, user.phone)
     if (!user.name || !user.address || !user.phone) {
-      console.log("Укажите данные")
+      alert("Укажите все личные данные в профиле")
     } else {
       console.log("Оформление заказа!")
       navigate(NEW_ORDER_ROUTE)
