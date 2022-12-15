@@ -109,7 +109,7 @@ useEffect(() => {
                                 </div>
                                 <h5 style={{width: 160}} className='ms-5'>{food.food.name}</h5>
                                 <h5 className='ms-5' style={{width: 110}}>{food.amount} шт</h5> 
-                                <h5 style={{width: 120}} className='ms-5'>{food.food.price} руб</h5>           
+                                <h5 style={{width: 120}} className='ms-5'>{Number(food.food.price) * Number(food.amount)} руб</h5>           
                             </div>
                             <hr/>
                         </div>   

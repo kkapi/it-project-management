@@ -57,6 +57,7 @@ class MailService {
             })
             return 'sucess'
         } catch (e) {
+            console.log(e)
             throw(ApiError.internal("Ошибка отправки email"))
         }       
     }  
