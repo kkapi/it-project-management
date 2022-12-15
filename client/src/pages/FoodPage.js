@@ -106,7 +106,7 @@ const FoodPage = () => {
             </Button>
         </div>
         : <Card className="mt-1 p-3" style={{width: 500}}>{food.description}</Card>}
-        <h2 className='mt-2'>Свойства</h2>
+        {food.info.length !== 0 && <h2 className='mt-2'>Свойства</h2>}
         <div className="d-flex flex-column" style={{width: 500}}>
           {food.info.map(info =>
             <div key={info.id}>

@@ -7,7 +7,7 @@ class TypeService {
     }
 
     async getAll() {
-        const types = await Type.findAll()
+        const types = await Type.findAll({order: [['id', 'DESC']]})
         return types
     }
 

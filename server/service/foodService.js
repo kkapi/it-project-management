@@ -57,7 +57,7 @@ class FoodService {
     }
 
     async getAll() {
-        const foods = await Food.findAll()
+        const foods = await Food.findAll({order: [['id', 'DESC']]}) 
         return foods
     }
 
